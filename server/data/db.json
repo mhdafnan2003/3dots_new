@@ -1,0 +1,880 @@
+{
+  "settings": {
+    "hero_bg": "/images/hero-bg.png"
+  },
+  "products": [
+    {
+      "_id": "prod_9ex5ef4dm",
+      "title": "dgfdh",
+      "titleLine2": "fdh",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779537950/3dotsadv_products/cqdxfiflf6s4nh3ogkie.avif",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779537950/3dotsadv_products/cqdxfiflf6s4nh3ogkie.avif",
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779537964/3dotsadv_products/aiguouoldfq2j3wshhp1.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Business Cards",
+      "year": "2026",
+      "client": "VIP Client Dubai",
+      "description": "",
+      "specMaterial": "",
+      "specFinishing": "",
+      "specProduction": "",
+      "specFacility": "",
+      "specs": [],
+      "features": [],
+      "createdAt": "2026-05-23T12:06:15.738Z"
+    },
+    {
+      "_id": "prod_rxb6v495p",
+      "title": "product tittle ",
+      "titleLine2": "demo ",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779533088/3dotsadv_products/ttndrhfpnydgai4bmba8.avif",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779533088/3dotsadv_products/ttndrhfpnydgai4bmba8.avif"
+      ],
+      "category": "printing",
+      "subcategory": "Business Cards",
+      "year": "2026",
+      "client": "VIP Client Dubai",
+      "description": "Designing a premium business card for a high-profile client in Dubai required balancing elegance with strong brand visibility. The challenge was to create a visually striking yet minimal design that reflects professionalism while standing out in a competitive marke",
+      "specMaterial": "",
+      "specFinishing": "",
+      "specProduction": "",
+      "specFacility": "",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "400 GSM Premium Ivory Card"
+        },
+        {
+          "label": "Finish",
+          "value": "Matte Lamination (Anti-scratch)"
+        },
+        {
+          "label": "Printing",
+          "value": "High-resolution Offset Printing (CMYK)"
+        },
+        {
+          "label": "Special Effect",
+          "value": "Gold Foil Stamping on Logo"
+        }
+      ],
+      "features": [
+        "Elegant and minimal luxury design",
+        "High durability with premium material quality",
+        "Strong brand visibility with foil highlight",
+        "Smooth matte texture for a premium feel"
+      ],
+      "createdAt": "2026-05-23T10:47:24.681Z"
+    },
+    {
+      "_id": "prod_1",
+      "title": "Satin Premium Business Cards",
+      "titleLine2": "Spot UV & Gold Foil",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534915/3dotsadv_products/dgitkdcmk9kwubvdw6ut.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534915/3dotsadv_products/dgitkdcmk9kwubvdw6ut.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Business Cards",
+      "year": "2026",
+      "client": "Emaar Properties PJSC",
+      "description": "Superb spot UV and gold foil stamped business cards presenting a smooth satin touch and crisp precision vector printing.",
+      "specMaterial": "450 GSM Premium Velvet Cardstock",
+      "specFinishing": "Matte Lamination & Spot UV & Hot Gold Foil",
+      "specProduction": "Heidelberg Offset Printing",
+      "specFacility": "Dubai Production Hub",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "450 GSM Velvet Stock"
+        },
+        {
+          "label": "Finishing",
+          "value": "Spot UV & Gold Foil"
+        },
+        {
+          "label": "Facility",
+          "value": "Dubai Hub"
+        }
+      ],
+      "features": [
+        "Unmatched luxury texture and sensory feel",
+        "Deep metallic shine from high-quality hot gold foil",
+        "Extra-thick professional heft with velvet laminating"
+      ],
+      "createdAt": "2026-05-23T10:01:00.000Z"
+    },
+    {
+      "_id": "prod_2",
+      "title": "Al Futtaim Annual Report",
+      "titleLine2": "Perfect Bound Brochure",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534761/3dotsadv_products/bif2tnvkcii8kxbcjrje.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534761/3dotsadv_products/bif2tnvkcii8kxbcjrje.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Flyers & Brochures",
+      "year": "2026",
+      "client": "Al Futtaim Group",
+      "description": "Sleek perfect-bound brochures designed with thick textured covers, rich inner spreads, and custom matte coating.",
+      "specMaterial": "Cover: 300 GSM Textured; Inner: 150 GSM Matte",
+      "specFinishing": "Perfect Spine Binding & Matte Coated Cover",
+      "specProduction": "Digital Offset Press",
+      "specFacility": "Al Qouz Offset Plant",
+      "specs": [
+        {
+          "label": "Cover Stock",
+          "value": "300 GSM Art Card"
+        },
+        {
+          "label": "Binding",
+          "value": "Perfect Bound Spine"
+        },
+        {
+          "label": "Page Count",
+          "value": "64 Full-Color Pages"
+        }
+      ],
+      "features": [
+        "Seamless perfect bound spine for executive feel",
+        "Vibrant, accurate brand color consistency",
+        "Ultra-crisp typography rendering"
+      ],
+      "createdAt": "2026-05-23T10:02:00.000Z"
+    },
+    {
+      "_id": "prod_3",
+      "title": "The Ritz-Carlton Dining Menu",
+      "titleLine2": "Leather-Bound Fine Print",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534916/3dotsadv_products/mvql0lsk5mc5ougos1pf.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534916/3dotsadv_products/mvql0lsk5mc5ougos1pf.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Menu Printing",
+      "year": "2026",
+      "client": "The Ritz-Carlton JBR",
+      "description": "Water-resistant luxury menu booklets featuring premium leather stitching, warm debossed accents, and gold metal corners.",
+      "specMaterial": "Premium Faux Leather Wrap & 250 GSM Synthetic Inner",
+      "specFinishing": "Hand-stitched Edges & Gold Metal Corners",
+      "specProduction": "High-Definition Digital Press",
+      "specFacility": "Fine Press Atelier Dubai",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Genuine Premium Faux Leather"
+        },
+        {
+          "label": "Edges",
+          "value": "Stitched Borders & Gold Guards"
+        },
+        {
+          "label": "Protection",
+          "value": "Waterproof Clear-Coat Overlays"
+        }
+      ],
+      "features": [
+        "Water and stain resistant pages for dining longevity",
+        "Tactile leather texture that exudes luxurious hospitality",
+        "Easily swappable internal screw-post mechanism"
+      ],
+      "createdAt": "2026-05-23T10:03:00.000Z"
+    },
+    {
+      "_id": "prod_4",
+      "title": "Holographic Brand Label Suite",
+      "titleLine2": "Die-Cut Vinyl Stickers",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534917/3dotsadv_products/wx2dmvvpzd0lrnqk0yh2.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534917/3dotsadv_products/wx2dmvvpzd0lrnqk0yh2.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Sticker Printing",
+      "year": "2026",
+      "client": "Natura Cosmetics UAE",
+      "description": "Waterproof vinyl labels with eye-catching holographic reflection patterns, precise custom die-cutting, and permanent adhesive backing.",
+      "specMaterial": "Premium Holographic Pet Vinyl",
+      "specFinishing": "Anti-UV Gloss Lamination & Precise Custom Die-cut",
+      "specProduction": "UV Inkjet Rotary Printing",
+      "specFacility": "Label Craft Dubai",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "120 Micron Holographic Vinyl"
+        },
+        {
+          "label": "Adhesive",
+          "value": "Permanent Ultra-Tack Acrylic"
+        },
+        {
+          "label": "Lamination",
+          "value": "Outdoor Rated Gloss UV Guard"
+        }
+      ],
+      "features": [
+        "Rainbow holographic sheen shifting under sunlight",
+        "Water, chemical, and scratch proof execution",
+        "Precision laser die-cutting matches custom contours"
+      ],
+      "createdAt": "2026-05-23T10:04:00.000Z"
+    },
+    {
+      "_id": "prod_5",
+      "title": "Premium Branded Cotton Wear",
+      "titleLine2": "Water-Based Screen Print",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534762/3dotsadv_products/z4edkwxcohbenybwoi6z.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534762/3dotsadv_products/z4edkwxcohbenybwoi6z.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "T-Shirt Printing",
+      "year": "2025",
+      "client": "Nike Middle East Office",
+      "description": "Premium combed-cotton shirts featuring soft-hand water-based ink print that breathes perfectly and stands up to hundreds of washes.",
+      "specMaterial": "100% Organic Combed Cotton 220 GSM",
+      "specFinishing": "Pre-shrunk, Silicone Washed Soft Finish",
+      "specProduction": "Manual Carousel Screen Printing",
+      "specFacility": "Apparel Factory Sharjah",
+      "specs": [
+        {
+          "label": "Fabric Weight",
+          "value": "220 GSM Premium Cotton"
+        },
+        {
+          "label": "Ink Type",
+          "value": "Eco-Friendly Water-Based Ink"
+        },
+        {
+          "label": "Wash Durability",
+          "value": "Tested up to 100 industrial washes"
+        }
+      ],
+      "features": [
+        "Ultra soft ink integration (zero plastic feel)",
+        "Premium heavy combed cotton providing retail drape",
+        "Certified organic fabric with non-toxic color pigments"
+      ],
+      "createdAt": "2026-05-23T10:05:00.000Z"
+    },
+    {
+      "_id": "prod_6",
+      "title": "Luxury Perfume Box Suite",
+      "titleLine2": "Debossed Cardboard Box",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534763/3dotsadv_products/sghe5prot7fta10xho4t.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534763/3dotsadv_products/sghe5prot7fta10xho4t.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Packaging Printing",
+      "year": "2026",
+      "client": "Oud & Musk Perfumeries",
+      "description": "Bespoke high-rigidity cosmetic gift packaging showing deep debossed floral lettering, elegant magnetic closures, and velvet lining.",
+      "specMaterial": "1200 GSM Heavy Greyboard & 150 GSM Linen Face Paper",
+      "specFinishing": "Deep Debossing & Matte Metallic Foil Stamping",
+      "specProduction": "Semi-Automatic Packaging Line",
+      "specFacility": "Luxury Pack Sharjah",
+      "specs": [
+        {
+          "label": "Core Material",
+          "value": "1200 GSM Premium Rigid Greyboard"
+        },
+        {
+          "label": "Lining",
+          "value": "Black High-Density Velvet Insert"
+        },
+        {
+          "label": "Lock System",
+          "value": "Dual Hidden Neodymium Magnets"
+        }
+      ],
+      "features": [
+        "Heavyweight, structural feel built for luxury products",
+        "Deep tactile debossing creates custom visual depth",
+        "Precise laser-cut foam insert holds bottles securely"
+      ],
+      "createdAt": "2026-05-23T10:06:00.000Z"
+    },
+    {
+      "_id": "prod_7",
+      "title": "Matte-Finished Fashion Digest",
+      "titleLine2": "High-Volume Catalog Print",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534764/3dotsadv_products/t4mqjztlmm7zy7ojon0p.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534764/3dotsadv_products/t4mqjztlmm7zy7ojon0p.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Magazine Printing",
+      "year": "2026",
+      "client": "Vogue Arabia Agency",
+      "description": "High-grade offset catalog featuring vibrant high-fidelity color matching, premium matte coated paper stock, and durable spine bindings.",
+      "specMaterial": "170 GSM Matte-Coated Internal Pages & 350 GSM Cover",
+      "specFinishing": "Anti-glare Matte Coating & Soft Touch Cover",
+      "specProduction": "Speedmaster Offset Press",
+      "specFacility": "Dubai Media City Press",
+      "specs": [
+        {
+          "label": "Paper Class",
+          "value": "Premium Triple-Coated Matte Art Paper"
+        },
+        {
+          "label": "Ink Tech",
+          "value": "Offset Litho CMYK + Spot Pantone"
+        },
+        {
+          "label": "Binding",
+          "value": "Durable PUR Adhesive Bound"
+        }
+      ],
+      "features": [
+        "Flawless color matching representing real fabrics",
+        "Silky anti-glare finish allows premium readability",
+        "Very high-volume capacity with extreme quality assurance"
+      ],
+      "createdAt": "2026-05-23T10:07:00.000Z"
+    },
+    {
+      "_id": "prod_8",
+      "title": "Textured Corporate Envelopes",
+      "titleLine2": "Premium Hot Stamp Envelope",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534917/3dotsadv_products/h2wg1p888mcmamrgqfzg.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534917/3dotsadv_products/h2wg1p888mcmamrgqfzg.jpg"
+      ],
+      "category": "printing",
+      "subcategory": "Envelope Printing",
+      "year": "2026",
+      "client": "Dubai Islamic Bank",
+      "description": "Fine linen textured executive envelopes decorated with elegant silver-foil stamped logos, window cut-outs, and peel-and-seal strips.",
+      "specMaterial": "120 GSM Pure Linen Fine Paper Stock",
+      "specFinishing": "Metallic Silver Foil Stamp & Crystal-Clear Window",
+      "specProduction": "Envelope Converting Machinery",
+      "specFacility": "Classic Mail Dubai",
+      "specs": [
+        {
+          "label": "Paper Type",
+          "value": "120 GSM Linen-Textured Off-White"
+        },
+        {
+          "label": "Foil Mark",
+          "value": "Silver Foil Thermal Press"
+        },
+        {
+          "label": "Seal Type",
+          "value": "Premium Peel & Seal Tape"
+        }
+      ],
+      "features": [
+        "Rich hand-feel texture conveying high prestige",
+        "High opacity stock hides confidential content",
+        "Standard DL size matches professional letterheads"
+      ],
+      "createdAt": "2026-05-23T10:08:00.000Z"
+    },
+    {
+      "_id": "prod_9",
+      "title": "Edge-Lit Acrylic Logo Panel",
+      "titleLine2": "Laser Cut & Engraved LED",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534765/3dotsadv_products/ov3aueqct46wza4ia4mw.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534765/3dotsadv_products/ov3aueqct46wza4ia4mw.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "LED Acrylic Signs",
+      "year": "2026",
+      "client": "Nakheel Mall Recess",
+      "description": "A futuristic custom-shaped edge-lit sign combining precision CNC laser etching with high-efficiency RGB LED controllers for vibrant mood lighting.",
+      "specMaterial": "10mm Optically Pure Cast Acrylic Panel & Walnut Wood Base",
+      "specFinishing": "Diamond Polished Edges & Fine Line Engraving",
+      "specProduction": "Precision CO2 Laser Cutting & CNC Etch",
+      "specFacility": "3Dots Signage Labs",
+      "specs": [
+        {
+          "label": "Acrylic Type",
+          "value": "10mm Grade-A Cast PMMA"
+        },
+        {
+          "label": "Illumination",
+          "value": "Edge-Lit OSRAM RGB LEDs"
+        },
+        {
+          "label": "Controller",
+          "value": "Smart WiFi App Integration"
+        }
+      ],
+      "features": [
+        "Engraved vectors glow brilliantly while panel stays clear",
+        "Solid timber base provides stability and modern design",
+        "Energy efficient low-voltage power supply"
+      ],
+      "createdAt": "2026-05-23T10:09:00.000Z"
+    },
+    {
+      "_id": "prod_10",
+      "title": "Premium Retail Acrylic Podiums",
+      "titleLine2": "Diamond Polished Finish",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534766/3dotsadv_products/ga9zfxnmpspgdo3fxg1i.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534766/3dotsadv_products/ga9zfxnmpspgdo3fxg1i.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "Acrylic Display Stands",
+      "year": "2026",
+      "client": "Samsung Flagship Store",
+      "description": "Highly durable showcase pillars hand-polished to diamond clarity, perfectly balanced to exhibit luxury electronics and accessories.",
+      "specMaterial": "15mm & 20mm High-Strength Clear Acrylic Boards",
+      "specFinishing": "Diamond Buffing & Solvent Weld Jointing",
+      "specProduction": "Heavy CNC Router Cutting & Manual Polishing",
+      "specFacility": "Acrylic Fab Atelier Dubai",
+      "specs": [
+        {
+          "label": "Material Thickness",
+          "value": "20mm Structural Acrylic Plates"
+        },
+        {
+          "label": "Joint Tech",
+          "value": "Zero-Bubble UV Adhesives"
+        },
+        {
+          "label": "Base Detail",
+          "value": "Heavyweighted Satin Black Acrylic Plinth"
+        }
+      ],
+      "features": [
+        "Unbelievable crystal clarity mimicking glass without the weight",
+        "Virtually indestructible chemical welding seams",
+        "Includes internal cable routing slots for display electronics"
+      ],
+      "createdAt": "2026-05-23T10:10:00.000Z"
+    },
+    {
+      "_id": "prod_11",
+      "title": "Engraved Wooden Corporate Award",
+      "titleLine2": "Laser Burn & Brass Accent",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534918/3dotsadv_products/xaipjmax215ovi63g5de.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534918/3dotsadv_products/xaipjmax215ovi63g5de.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "Trophy & Award Works",
+      "year": "2026",
+      "client": "Gulf Business Awards",
+      "description": "Luxury solid walnut base paired with custom cut brass plaque, showcasing precision micro-engraving and smooth oil finishing.",
+      "specMaterial": "American Walnut Wood & Satin Gold Brass Shield",
+      "specFinishing": "Organic Wax Oil Rubbing & Laser Metal Etching",
+      "specProduction": "Laser Marking & Artisan Wood Working",
+      "specFacility": "3Dots Gift Refinery",
+      "specs": [
+        {
+          "label": "Wood Base",
+          "value": "Solid Aged American Walnut"
+        },
+        {
+          "label": "Metal Shield",
+          "value": "0.8mm Brushed Brass Plate"
+        },
+        {
+          "label": "Detailing",
+          "value": "Ultra-Fine 1000 DPI Laser Mark"
+        }
+      ],
+      "features": [
+        "Heavy solid wood base with beautiful natural graining",
+        "High-contrast permanent laser marking",
+        "Individually hand-sanded and polished for a custom premium touch"
+      ],
+      "createdAt": "2026-05-23T10:11:00.000Z"
+    },
+    {
+      "_id": "prod_12",
+      "title": "Museum-Grade Acrylic Cases",
+      "titleLine2": "UV-Resistant Protective Box",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534767/3dotsadv_products/ig12ixwedfxzylnszgnb.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534767/3dotsadv_products/ig12ixwedfxzylnszgnb.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "Acrylic Boxes",
+      "year": "2026",
+      "client": "Louvre Abu Dhabi Exhibitions",
+      "description": "Optically clear, shatter-resistant acrylic showcase boxes, bonded seamlessly with custom solvent welding to ensure absolute dust-proofing.",
+      "specMaterial": "6mm Plexiglas® Gallery UV-Block Acrylic",
+      "specFinishing": "Mitered Jointing & Beveled Clear Seams",
+      "specProduction": "Precision Table-Saw & Hand-Fused Chemistry",
+      "specFacility": "Exhibit Specialties Dubai",
+      "specs": [
+        {
+          "label": "Acrylic Brand",
+          "value": "Evonik Plexiglas® UV99"
+        },
+        {
+          "label": "Joint Method",
+          "value": "45-Degree Mitered Solvent Bonding"
+        },
+        {
+          "label": "Base Seal",
+          "value": "Silicone Gasket Dust Protection"
+        }
+      ],
+      "features": [
+        "Blocks 99% of harmful UV rays to protect delicate artifacts",
+        "Perfect 90-degree corner joints with zero visible glue run",
+        "Includes reinforced structure for high-traffic environments"
+      ],
+      "createdAt": "2026-05-23T10:12:00.000Z"
+    },
+    {
+      "_id": "prod_13",
+      "title": "3D Steel Channel Signage",
+      "titleLine2": "Emirates NBD Building Facade",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534768/3dotsadv_products/ecl6ys29uixjjvryjepg.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534768/3dotsadv_products/ecl6ys29uixjjvryjepg.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "3D Sign Boards",
+      "year": "2025",
+      "client": "Emirates NBD HQ",
+      "description": "Massive outdoor architectural building letters manufactured from weather-proof marine steel, backlit with energy-efficient modules.",
+      "specMaterial": "316 Marine Grade Stainless Steel & Acrylic Face Diffusers",
+      "specFinishing": "Electroplated Gold Titanium Finish & Backlit LED Glow",
+      "specProduction": "Laser Sheet Cutting & Manual Channel Weld",
+      "specFacility": "Large Signs Heavy Fab",
+      "specs": [
+        {
+          "label": "Steel Class",
+          "value": "316 Outdoor Anti-Corrosive Stainless Steel"
+        },
+        {
+          "label": "Illumination",
+          "value": "Samsung IP68 Waterproof LED Modules"
+        },
+        {
+          "label": "Mounting",
+          "value": "Heavy-Duty Expansion Anchor Bolts"
+        }
+      ],
+      "features": [
+        "Engineered to withstand extreme Gulf summer temperatures",
+        "Titanium electroplating ensures no fading for 10+ years",
+        "Stunning ambient rear-halo illumination effect"
+      ],
+      "createdAt": "2026-05-23T10:13:00.000Z"
+    },
+    {
+      "_id": "prod_14",
+      "title": "Wayfinding Glass Signage",
+      "titleLine2": "Dubai City Walk Center",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534768/3dotsadv_products/jhwxj5qnmmdacsct8yho.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534768/3dotsadv_products/jhwxj5qnmmdacsct8yho.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "Wayfinding Signs",
+      "year": "2025",
+      "client": "Dubai City Walk Hub",
+      "description": "Frosted-glass directional panels paired with sleek minimalist aluminum fixtures, ensuring intuitive and elegant guest navigation.",
+      "specMaterial": "12mm Tempered Safety Glass & Anodized Aluminum Fixings",
+      "specFinishing": "Satin Acid Etching & Ceramic Color Screen Print",
+      "specProduction": "Glass Tempering & Precision Hardware Milling",
+      "specFacility": "Interior Signs Dubai",
+      "specs": [
+        {
+          "label": "Glass Grade",
+          "value": "12mm High-Iron Toughened Glass"
+        },
+        {
+          "label": "Text Tech",
+          "value": "Scratch-Proof Fused Glass Ceramic Inks"
+        },
+        {
+          "label": "Clamps",
+          "value": "Brushed Silver Anodized Aluminum Pegs"
+        }
+      ],
+      "features": [
+        "Clean, elegant transparency that integrates with modern lobbies",
+        "Tempered safety glass provides high impact resistance",
+        "Extremely easy to clean and sanitize without wear"
+      ],
+      "createdAt": "2026-05-23T10:14:00.000Z"
+    },
+    {
+      "_id": "prod_15",
+      "title": "Large-Format Building Banner",
+      "titleLine2": "Heavy-Duty Vinyl Backdrop",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534769/3dotsadv_products/peyvlwz2rdqs1hrl4ytp.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534769/3dotsadv_products/peyvlwz2rdqs1hrl4ytp.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "Flex Banners",
+      "year": "2026",
+      "client": "Expo City Dubai Events",
+      "description": "UV-resistant windproof blockout flex banner featuring vivid high-density outdoor inks and heavy brass eyelets for large-scale outdoor displays.",
+      "specMaterial": "680 GSM Premium Mesh Blockout Flex Vinyl",
+      "specFinishing": "Double Welded Hems & Reinforced Corner Patches",
+      "specProduction": "5-Meter Superwide Solvent Printer",
+      "specFacility": "Expo Print Station Dubai",
+      "specs": [
+        {
+          "label": "Weight class",
+          "value": "680 GSM Ultra-Tough Scrim Vinyl"
+        },
+        {
+          "label": "Ink System",
+          "value": "UV-Curable Pigments (Fade Resistant)"
+        },
+        {
+          "label": "Grommets",
+          "value": "Nickel-plated Solid Brass Eyelets every 50cm"
+        }
+      ],
+      "features": [
+        "100% blockout center layer prevents background light bleedthrough",
+        "Woven fabric core provides extreme wind load tear resistance",
+        "Gigantic seamless width options available up to 5 meters"
+      ],
+      "createdAt": "2026-05-23T10:15:00.000Z"
+    },
+    {
+      "_id": "prod_16",
+      "title": "Sleek Exhibition Roll-Up Stand",
+      "titleLine2": "Anodized Aluminum Cassette",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534770/3dotsadv_products/p1hauwdlopswtf0b1wyo.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534770/3dotsadv_products/p1hauwdlopswtf0b1wyo.jpg"
+      ],
+      "category": "signage",
+      "subcategory": "Roll-Up Stands",
+      "year": "2026",
+      "client": "GITEX Technology Pavilion",
+      "description": "Premium teardrop-base retractor banners showing matte scratch-free graphics, self-tensioning springs, and custom canvas transport covers.",
+      "specMaterial": "Heavy Chrome-plated Teardrop Base & 200 Micron Matte PET film",
+      "specFinishing": "Anti-Curl Lamination & Silver Metallic Sides",
+      "specProduction": "1440 DPI Eco-Solvent Fine Art Print",
+      "specFacility": "Digital Expo Hub Dubai",
+      "specs": [
+        {
+          "label": "Base Material",
+          "value": "Cast Anodized Aluminum with Chrome End-caps"
+        },
+        {
+          "label": "Media Film",
+          "value": "200 Micron No-curl Anti-glare Polyester"
+        },
+        {
+          "label": "Transport Bag",
+          "value": "Dual-Layer Padded Oxford Carry Case"
+        }
+      ],
+      "features": [
+        "Luxurious teardrop design without protruding swing-out feet",
+        "Perfect flat-lay material avoids curling at visual boundaries",
+        "Durable internal spring ensures tight, smooth rollups every time"
+      ],
+      "createdAt": "2026-05-23T10:16:00.000Z"
+    },
+    {
+      "_id": "prod_17",
+      "title": "Luxury Executive Welcome Set",
+      "titleLine2": "Debossed Leather Set",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534771/3dotsadv_products/yxmsu5kobe0svb5x0rzo.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534771/3dotsadv_products/yxmsu5kobe0svb5x0rzo.jpg"
+      ],
+      "category": "branding",
+      "subcategory": "Corporate Gift Sets",
+      "year": "2026",
+      "client": "Jumeirah Luxury Resorts",
+      "description": "Exquisite client onboarding chests containing genuine textured leather organizers, steel thermo-flasks, and custom engraved rollerballs.",
+      "specMaterial": "Saffiano Genuine Leather & Premium Double-Wall Steel",
+      "specFinishing": "Gold Foil Hot Debossing & Satin Inner Lining",
+      "specProduction": "Handcrafted Box Construction & Laser Engraving",
+      "specFacility": "3Dots Gift Refinery",
+      "specs": [
+        {
+          "label": "Box Core",
+          "value": "Custom Rigid Board with Leatherette Cover"
+        },
+        {
+          "label": "Flask Tech",
+          "value": "500ml Vacuum Insulated Copper Core Steel"
+        },
+        {
+          "label": "Organizer",
+          "value": "A5 Saffiano Leather Refillable Notebook"
+        }
+      ],
+      "features": [
+        "Beautifully color-coordinated luxury components",
+        "Custom hot stamp foil debossing creates elegant relief mark",
+        "Prestige gift packaging raises corporate brand value"
+      ],
+      "createdAt": "2026-05-23T10:17:00.000Z"
+    },
+    {
+      "_id": "prod_18",
+      "title": "Matte Ceramic Laser Mugs",
+      "titleLine2": "Dual-Tone Insulated Cup",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534771/3dotsadv_products/gfco9tqzj5p1khiculi8.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534771/3dotsadv_products/gfco9tqzj5p1khiculi8.jpg"
+      ],
+      "category": "branding",
+      "subcategory": "Customized Mugs",
+      "year": "2026",
+      "client": "Starbucks Partner UAE",
+      "description": "Double-walled ceramic travel tumblers featuring matte black powder coating, splash-resistant lids, and subtle silver laser-engraved logos.",
+      "specMaterial": "Fine Stoneware Ceramic & Recycled Polycarbonate Lids",
+      "specFinishing": "Matte Satin Baked Glaze & Laser Coating Ablation",
+      "specProduction": "Rotary YAG Laser Marking",
+      "specFacility": "3Dots Gift Refinery",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "High-fired Stoneware Ceramic"
+        },
+        {
+          "label": "Exterior",
+          "value": "Velvet-Touch Matte Black Coating"
+        },
+        {
+          "label": "Capacity",
+          "value": "380 ml Comfort Grip size"
+        }
+      ],
+      "features": [
+        "Double walls protect hands from hot tea or coffee",
+        "Laser ablation creates extremely fine, metallic silver detail",
+        "Dishwasher-safe and scratch-resistant industrial glaze"
+      ],
+      "createdAt": "2026-05-23T10:18:00.000Z"
+    },
+    {
+      "_id": "prod_19",
+      "title": "Matte Black Engraved Pen",
+      "titleLine2": "Precision Laser Mark",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534772/3dotsadv_products/yw1p5mfo187brvtihjqo.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534772/3dotsadv_products/yw1p5mfo187brvtihjqo.jpg"
+      ],
+      "category": "branding",
+      "subcategory": "Pen Printing",
+      "year": "2026",
+      "client": "Majid Al Futtaim Group",
+      "description": "Ergonomically weighted brass writing instruments adorned with gold-plated accents and high-contrast precision fiber laser engraving.",
+      "specMaterial": "Weighted Solid Brass Body & Gold-Plated Trim",
+      "specFinishing": "Electroplated Matte Black Shell & Gold Laser Mark",
+      "specProduction": "High-Speed Fiber Laser Etching",
+      "specFacility": "Fine Pen Workshop Dubai",
+      "specs": [
+        {
+          "label": "Pen Weight",
+          "value": "32g Balanced Professional Hand"
+        },
+        {
+          "label": "Ink Cartridge",
+          "value": "Schmidt Liquid Ink Ballpoint (Germany)"
+        },
+        {
+          "label": "Marking Type",
+          "value": "Under-surface Brass Exposure Gold Glow"
+        }
+      ],
+      "features": [
+        "Unbelievable precision laser lines that never fade or rub off",
+        "Perfect ergonomic balance avoids hand strain during contracts",
+        "Delivered in custom magnetic black gift sheath"
+      ],
+      "createdAt": "2026-05-23T10:19:00.000Z"
+    },
+    {
+      "_id": "prod_20",
+      "title": "Swivel Wooden USB Presentation",
+      "titleLine2": "Maple wood with Engraving",
+      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534773/3dotsadv_products/z8swqjgshgwnhhwrria5.jpg",
+      "images": [
+        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534773/3dotsadv_products/z8swqjgshgwnhhwrria5.jpg"
+      ],
+      "category": "branding",
+      "subcategory": "USB Gift Items",
+      "year": "2026",
+      "client": "Dubai Opera Media Suite",
+      "description": "Bespoke polished maple timber USB flash memories nestled in matching magnetic wood cases, perfect for executive multimedia sharing.",
+      "specMaterial": "Sustainable Harvested Soft Maple Wood",
+      "specFinishing": "Smooth Sanding & Tung Oil Treatment",
+      "specProduction": "CNC Wood Shaping & Precision Fiber Laser Burn",
+      "specFacility": "Artisan Wood Lab Sharjah",
+      "specs": [
+        {
+          "label": "Wood Species",
+          "value": "100% Sustainably Sourced Maple Wood"
+        },
+        {
+          "label": "Storage Chip",
+          "value": "64GB High-Speed USB 3.0 Samsung Flash"
+        },
+        {
+          "label": "Closure",
+          "value": "Hidden Micro-magnets on Cap and Box"
+        }
+      ],
+      "features": [
+        "Organic woody aroma and sensory appeal",
+        "High-speed reading/writing suitable for corporate files and videos",
+        "Matching solid wood storage boxes printed with executive branding"
+      ],
+      "createdAt": "2026-05-23T10:20:00.000Z"
+    }
+  ],
+  "portfolio": [
+    {
+      "_id": "port_1",
+      "title": "Corporate Brochure offset",
+      "category": "Printing",
+      "client": "Al Futtaim Group",
+      "year": "2026",
+      "image": "/images/Image (Corporate Brochure Suite — Offset).png"
+    },
+    {
+      "_id": "port_2",
+      "title": "Outdoor signage Block",
+      "category": "Signage",
+      "client": "GITEX Technology Week",
+      "year": "2025",
+      "image": "/images/outdoor.png"
+    },
+    {
+      "_id": "port_3",
+      "title": "Indoor signage Block",
+      "category": "Signage",
+      "client": "Expo City Dubai",
+      "year": "2025",
+      "image": "/images/indoor.png"
+    },
+    {
+      "_id": "port_4",
+      "title": "Promotional merchandise",
+      "category": "Promotional",
+      "client": "Majid Al Futtaim",
+      "year": "2025",
+      "image": "/images/promo.png"
+    }
+  ],
+  "categories": [
+    {
+      "id": "printing",
+      "name": "Print"
+    },
+    {
+      "id": "signage",
+      "name": "Signage"
+    },
+    {
+      "id": "branding",
+      "name": "Identity"
+    }
+  ]
+}

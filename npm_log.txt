@@ -1,0 +1,30 @@
+npm error code 1
+npm error path /Users/aman/Documents/3dotsadv/node_modules/esbuild
+npm error command failed
+npm error command sh -c node install.js
+npm error node:internal/child_process:1127
+npm error     result.error = new ErrnoException(result.error, 'spawnSync ' + options.file);
+npm error                    ^
+npm error
+npm error <ref *1> Error: spawnSync /Users/aman/Documents/3dotsadv/node_modules/esbuild/bin/esbuild Unknown system error -88
+npm error     at Object.spawnSync (node:internal/child_process:1127:20)
+npm error     at spawnSync (node:child_process:911:24)
+npm error     at Object.execFileSync (node:child_process:954:15)
+npm error     at validateBinaryVersion (/Users/aman/Documents/3dotsadv/node_modules/esbuild/install.js:102:28)
+npm error     at /Users/aman/Documents/3dotsadv/node_modules/esbuild/install.js:287:5 {
+npm error   errno: -88,
+npm error   code: 'Unknown system error -88',
+npm error   syscall: 'spawnSync /Users/aman/Documents/3dotsadv/node_modules/esbuild/bin/esbuild',
+npm error   path: '/Users/aman/Documents/3dotsadv/node_modules/esbuild/bin/esbuild',
+npm error   spawnargs: [ '--version' ],
+npm error   error: [Circular *1],
+npm error   status: null,
+npm error   signal: null,
+npm error   output: null,
+npm error   pid: 0,
+npm error   stdout: undefined,
+npm error   stderr: undefined
+npm error }
+npm error
+npm error Node.js v26.1.0
+npm error A complete log of this run can be found in: /Users/aman/.npm/_logs/2026-05-15T09_17_39_315Z-debug-0.log

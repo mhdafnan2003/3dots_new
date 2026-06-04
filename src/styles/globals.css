@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('../font/neue_regrade/Neue Regrade Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('../font/neue_regrade/Neue Regrade Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('../font/neue_regrade/Neue Regrade Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('../font/neue_regrade/Neue Regrade Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('../font/neue_regrade/Neue Regrade Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Regrade';
+  src: url('../font/neue_regrade/Neue Regrade Extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Neue Regrade', 'Inter', sans-serif !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Adjust page content container width on medium desktop screens (like MacBook Air 13" 2017) 
+   to provide a balanced margin similar to larger screens without altering layout structures. */
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .max-w-screen-2xl {
+    max-width: 1200px !important;
+  }
+}
