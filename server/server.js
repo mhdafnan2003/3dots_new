@@ -783,25 +783,8 @@ app.post('/api/upload', async (req, res) => {
     return res.status(400).json({ error: 'No image data provided.' });
   }
 
-  // 1. Try uploading to Cloudinary if enabled
-  if (cloudinaryEnabled) {
-    try {
-      const uploadResponse = await cloudinary.uploader.upload(image, {
-        folder: '3dotsadv_products',
-        resource_type: 'auto',
-      });
-      console.log('✅ File uploaded successfully to Cloudinary:', uploadResponse.secure_url);
-      return res.json({
-        success: true,
-        url: uploadResponse.secure_url
-      });
-    } catch (cloudinaryError) {
-      console.error('⚠️ Cloudinary upload failed, falling back to local file storage:', cloudinaryError);
-    }
-  }
-
-  // 2. Fallback to Local Storage
   try {
+    // 1. Save file locally first (serves as local fallback / staging file)
     const uploadsDir = path.join(__dirname, 'uploads');
     if (!fs.existsSync(uploadsDir)) {
       fs.mkdirSync(uploadsDir, { recursive: true });
@@ -819,14 +802,55 @@ app.post('/api/upload', async (req, res) => {
     const filepath = path.join(uploadsDir, filename);
 
     fs.writeFileSync(filepath, buffer);
-    
+
+    // 2. Try uploading to Cloudinary if enabled
+    if (cloudinaryEnabled) {
+      try {
+        const isVideo = mimeType.startsWith('video/');
+        let uploadResponse;
+
+        if (isVideo) {
+          console.log(`📤 Uploading large video to Cloudinary (${filename})...`);
+          uploadResponse = await cloudinary.uploader.upload_large(filepath, {
+            folder: '3dotsadv_products',
+            resource_type: 'video',
+            chunk_size: 6000000 // 6MB chunks
+          });
+        } else {
+          console.log(`📤 Uploading image to Cloudinary (${filename})...`);
+          uploadResponse = await cloudinary.uploader.upload(filepath, {
+            folder: '3dotsadv_products',
+            resource_type: 'auto',
+          });
+        }
+
+        console.log('✅ File uploaded successfully to Cloudinary:', uploadResponse.secure_url);
+
+        // Delete the local file since upload was successful
+        try {
+          fs.unlinkSync(filepath);
+        } catch (unlinkError) {
+          console.error('Error deleting temp file:', unlinkError);
+        }
+
+        return res.json({
+          success: true,
+          url: uploadResponse.secure_url
+        });
+      } catch (cloudinaryError) {
+        console.error('⚠️ Cloudinary upload failed, falling back to local file storage:', cloudinaryError);
+        // We do NOT delete the local file here, so it falls back to serving locally
+      }
+    }
+
+    // 3. Fallback to Local Storage
     res.json({
       success: true,
       url: `/uploads/${filename}`
     });
   } catch (e) {
     console.error('File upload error:', e);
-    res.status(500).json({ error: 'Failed to save local image file.' });
+    res.status(500).json({ error: 'Failed to process file upload.' });
   }
 });
 
