@@ -11,7 +11,7 @@ const isVideoUrl = (url: string) => {
     cleanUrl.endsWith(".webm") ||
     cleanUrl.endsWith(".ogg") ||
     cleanUrl.endsWith(".mov") ||
-    cleanUrl.includes("/video/upload/") ||
+    cleanUrl.includes("/video/") ||
     url.startsWith("data:video/")
   );
 };
@@ -43,6 +43,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         {isVideoUrl(heroBg) ? (
           <video
+            key={heroBg}
             src={heroBg}
             autoPlay
             loop

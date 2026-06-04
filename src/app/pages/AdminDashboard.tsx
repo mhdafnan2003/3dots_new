@@ -121,7 +121,7 @@ const isVideoUrl = (url: string) => {
     cleanUrl.endsWith(".webm") ||
     cleanUrl.endsWith(".ogg") ||
     cleanUrl.endsWith(".mov") ||
-    cleanUrl.includes("/video/upload/") ||
+    cleanUrl.includes("/video/") ||
     url.startsWith("data:video/")
   );
 };
@@ -966,6 +966,7 @@ export default function AdminDashboard() {
                 <div className="aspect-video relative rounded-2xl overflow-hidden border border-gray-200 bg-black shadow-inner flex items-center justify-center">
                   {isVideoUrl(heroBg) ? (
                     <video
+                      key={heroBg}
                       src={heroBg}
                       autoPlay
                       loop
