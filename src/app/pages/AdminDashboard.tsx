@@ -139,7 +139,13 @@ export default function AdminDashboard() {
   // Data States
   const [products, setProducts] = useState<Product[]>([]);
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
-  const [heroBg, setHeroBg] = useState("/images/hero-bg.png");
+  const [heroBg, setHeroBg] = useState(() => {
+    try {
+      return localStorage.getItem("3dots_hero_bg") || "/images/hero-bg.png";
+    } catch (e) {
+      return "/images/hero-bg.png";
+    }
+  });
 
   // Form States - Products
   const [prodTitle, setProdTitle] = useState("");
@@ -255,7 +261,12 @@ export default function AdminDashboard() {
       const res = await fetch("/api/settings");
       if (res.ok) {
         const data = await res.json();
-        if (data.hero_bg) setHeroBg(data.hero_bg);
+        if (data.hero_bg) {
+          setHeroBg(data.hero_bg);
+          try {
+            localStorage.setItem("3dots_hero_bg", data.hero_bg);
+          } catch (err) {}
+        }
       }
     } catch (e) {
       console.warn("Could not fetch settings from server, using demo fallbacks", e);
@@ -517,12 +528,18 @@ export default function AdminDashboard() {
       });
       if (res.ok) {
         toast.success("Hero background image updated in MongoDB!");
+        try {
+          localStorage.setItem("3dots_hero_bg", url);
+        } catch (err) {}
         fetchSettings();
       } else {
         toast.error("Failed to save setting to database.");
       }
     } catch (e) {
       setHeroBg(url);
+      try {
+        localStorage.setItem("3dots_hero_bg", url);
+      } catch (err) {}
       toast.success("Hero background updated (Local Mode).");
     }
   };
@@ -1431,18 +1448,6 @@ export default function AdminDashboard() {
                     value={portClient}
                     onChange={(e) => setPortClient(e.target.value)}
                     placeholder="Dubai World Trade Centre"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 text-xs focus:outline-none focus:border-[#3D7B89] focus:bg-white transition-all"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Year</label>
-                  <input 
-                    type="text"
-                    value={portYear}
-                    onChange={(e) => setPortYear(e.target.value)}
-                    placeholder="2025"
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 text-xs focus:outline-none focus:border-[#3D7B89] focus:bg-white transition-all"
                     required
                   />

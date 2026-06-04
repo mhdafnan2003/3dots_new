@@ -17,7 +17,13 @@ const isVideoUrl = (url: string) => {
 };
 
 export function Hero() {
-  const [heroBg, setHeroBg] = useState<string | null>(null);
+  const [heroBg, setHeroBg] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem("3dots_hero_bg") || "/images/hero-bg.png";
+    } catch (e) {
+      return "/images/hero-bg.png";
+    }
+  });
 
   useEffect(() => {
     fetch("/api/settings")
@@ -25,15 +31,23 @@ export function Hero() {
       .then(data => {
         if (data && data.hero_bg) {
           setHeroBg(data.hero_bg);
+          try {
+            localStorage.setItem("3dots_hero_bg", data.hero_bg);
+          } catch (e) {}
         } else {
           setHeroBg("/images/hero-bg.png");
+          try {
+            localStorage.removeItem("3dots_hero_bg");
+          } catch (e) {}
         }
       })
       .catch(err => {
         console.warn("Failed to fetch custom hero background from DB, using fallback", err);
-        setHeroBg("/images/hero-bg.png");
+        if (!heroBg) {
+          setHeroBg("/images/hero-bg.png");
+        }
       });
-  }, []);
+  }, [heroBg]);
 
   const socialIcons = [
     { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
@@ -55,6 +69,7 @@ export function Hero() {
               loop
               muted
               playsInline
+              preload="auto"
               className="w-full h-full object-cover animate-fade-in"
             />
           ) : (
