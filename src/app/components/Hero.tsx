@@ -17,7 +17,7 @@ const isVideoUrl = (url: string) => {
 };
 
 export function Hero() {
-  const [heroBg, setHeroBg] = useState("/images/hero-bg.png");
+  const [heroBg, setHeroBg] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/settings")
@@ -25,9 +25,14 @@ export function Hero() {
       .then(data => {
         if (data && data.hero_bg) {
           setHeroBg(data.hero_bg);
+        } else {
+          setHeroBg("/images/hero-bg.png");
         }
       })
-      .catch(err => console.warn("Failed to fetch custom hero background from DB, using fallback", err));
+      .catch(err => {
+        console.warn("Failed to fetch custom hero background from DB, using fallback", err);
+        setHeroBg("/images/hero-bg.png");
+      });
   }, []);
 
   const socialIcons = [
@@ -40,24 +45,26 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Media with Overlay */}
-      <div className="absolute inset-0 z-0">
-        {isVideoUrl(heroBg) ? (
-          <video
-            key={heroBg}
-            src={heroBg}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover animate-fade-in"
-          />
-        ) : (
-          <img
-            src={heroBg}
-            alt="Printing Press"
-            className="w-full h-full object-cover"
-            onError={(e) => { (e.target as HTMLImageElement).src = '/images/hero-bg.png'; }}
-          />
+      <div className="absolute inset-0 z-0 bg-black">
+        {heroBg && (
+          isVideoUrl(heroBg) ? (
+            <video
+              key={heroBg}
+              src={heroBg}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover animate-fade-in"
+            />
+          ) : (
+            <img
+              src={heroBg}
+              alt="Printing Press"
+              className="w-full h-full object-cover"
+              onError={(e) => { (e.target as HTMLImageElement).src = '/images/hero-bg.png'; }}
+            />
+          )
         )}
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
