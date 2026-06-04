@@ -1037,10 +1037,17 @@ export default function AdminDashboard() {
                   <div className="flex gap-4">
                     <button
                       onClick={() => handleSaveBg(heroBg)}
-                      className="bg-[#3D7B89] hover:bg-[#347689] text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                      disabled={uploading}
+                      className="bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
                     >
-                      <Plus size={14} />
-                      Save Background
+                      {uploading ? (
+                        "Uploading..."
+                      ) : (
+                        <>
+                          <Plus size={14} />
+                          Save Background
+                        </>
+                      )}
                     </button>
                     
                     <button
@@ -1348,10 +1355,17 @@ export default function AdminDashboard() {
 
                 <button 
                   type="submit"
-                  className="w-full bg-[#3D7B89] hover:bg-[#347689] text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4 md:col-span-2"
+                  disabled={uploading}
+                  className="w-full bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4 md:col-span-2"
                 >
-                  <Plus size={14} />
-                  {editingProductId ? "Update Product" : "Insert Product"}
+                  {uploading ? (
+                    "Processing Upload..."
+                  ) : (
+                    <>
+                      <Plus size={14} />
+                      {editingProductId ? "Update Product" : "Insert Product"}
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>
@@ -1469,10 +1483,17 @@ export default function AdminDashboard() {
 
                 <button 
                   type="submit"
-                  className="w-full bg-[#3D7B89] hover:bg-[#347689] text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4"
+                  disabled={uploading}
+                  className="w-full bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4"
                 >
-                  <Plus size={14} />
-                  Insert Gallery Image
+                  {uploading ? (
+                    "Uploading..."
+                  ) : (
+                    <>
+                      <Plus size={14} />
+                      Insert Gallery Image
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>
