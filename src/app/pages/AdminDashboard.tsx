@@ -456,7 +456,7 @@ export default function AdminDashboard() {
   // Add Portfolio item
   const handleAddPortfolio = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!portTitle || !portClient || !portImage) {
+    if (!portTitle || !portImage) {
       toast.error("Please fill in all portfolio fields.");
       return;
     }
@@ -464,7 +464,7 @@ export default function AdminDashboard() {
     const payload = { 
       title: portTitle, 
       category: portCategory, 
-      client: portClient, 
+      client: portClient || "VIP Client", 
       year: portYear, 
       image: portImage 
     };
@@ -1439,18 +1439,6 @@ export default function AdminDashboard() {
                     <option value="Outdoor & Indoor">Outdoor & Indoor</option>
                     <option value="Corporate Gifts">Corporate Gifts</option>
                   </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Client</label>
-                  <input 
-                    type="text"
-                    value={portClient}
-                    onChange={(e) => setPortClient(e.target.value)}
-                    placeholder="Dubai World Trade Centre"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 text-xs focus:outline-none focus:border-[#3D7B89] focus:bg-white transition-all"
-                    required
-                  />
                 </div>
 
                 <div className="space-y-3">
