@@ -12,7 +12,9 @@ import {
   Eye,
   FileText,
   Lock,
-  Edit2
+  Edit2,
+  Menu,
+  X
 } from "lucide-react";
 import { toast, Toaster } from "sonner";
 
@@ -132,6 +134,7 @@ export default function AdminDashboard() {
   
   // Navigation State
   const [activeTab, setActiveTab] = useState<"overview" | "products" | "portfolio" | "settings">("overview");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Data States
   const [products, setProducts] = useState<Product[]>([]);
@@ -603,29 +606,67 @@ export default function AdminDashboard() {
 
   // ================= RENDER ADMIN DASHBOARD LAYOUT =================
   return (
-    <div className="min-h-screen bg-gray-50 flex text-gray-900 font-sans overflow-x-hidden selection:bg-[#3D7B89] selection:text-white">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row text-gray-900 font-sans overflow-x-hidden selection:bg-[#3D7B89] selection:text-white">
       <Toaster position="top-right" richColors />
 
+      {/* Mobile Top Header */}
+      <header className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 px-6 py-4 shadow-sm select-none z-30">
+        <div className="flex items-center gap-3">
+          <img 
+            src="/images/3Dotfooter.png" 
+            alt="3Dots Advertising Logo" 
+            className="h-6 w-auto object-contain" 
+          />
+          <span className="text-[9px] text-[#3D7B89] uppercase tracking-[0.15em] font-black">Admin Panel</span>
+        </div>
+        <button 
+          onClick={() => setIsSidebarOpen(true)}
+          className="p-2.5 text-gray-600 hover:text-gray-950 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
+        >
+          <Menu size={18} />
+        </button>
+      </header>
+
+      {/* Mobile Sidebar Backdrop */}
+      {isSidebarOpen && (
+        <div 
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
+        ></div>
+      )}
+
       {/* 1. SIDEBAR PANEL */}
-      <aside className="w-80 shrink-0 border-r border-gray-200 bg-white p-8 flex flex-col justify-between select-none shadow-sm">
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 w-72 bg-white p-8 flex flex-col justify-between select-none shadow-xl border-r border-gray-200 transition-transform duration-300
+        md:static md:w-80 md:translate-x-0 md:shadow-sm
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+      `}>
         <div className="space-y-12">
           {/* Header */}
-          <div className="flex flex-col items-start gap-2">
-            <img 
-              src="/images/3Dotfooter.png" 
-              alt="3Dots Advertising Logo" 
-              className="h-7 w-auto object-contain brightness-100 mb-1" 
-            />
-            <div>
-              <h3 className="font-bold text-xs uppercase tracking-[0.15em] text-gray-900 leading-none">Admin Panel</h3>
-              <span className="text-[8px] text-[#3D7B89] uppercase tracking-[0.1em] font-bold mt-1 block">Live Database Console</span>
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col items-start gap-2">
+              <img 
+                src="/images/3Dotfooter.png" 
+                alt="3Dots Advertising Logo" 
+                className="h-7 w-auto object-contain brightness-100 mb-1" 
+              />
+              <div>
+                <h3 className="font-bold text-xs uppercase tracking-[0.15em] text-gray-900 leading-none">Admin Panel</h3>
+                <span className="text-[8px] text-[#3D7B89] uppercase tracking-[0.1em] font-bold mt-1 block">Live Database Console</span>
+              </div>
             </div>
+            <button 
+              onClick={() => setIsSidebarOpen(false)}
+              className="md:hidden p-2 text-gray-400 hover:text-gray-600 border border-gray-100 rounded-xl hover:bg-gray-50 transition-all cursor-pointer"
+            >
+              <X size={18} />
+            </button>
           </div>
 
           {/* Nav items */}
           <nav className="space-y-1.5">
             <button
-              onClick={() => setActiveTab("overview")}
+              onClick={() => { setActiveTab("overview"); setIsSidebarOpen(false); }}
               className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all cursor-pointer ${
                 activeTab === "overview" 
                   ? "bg-[#3D7B89]/10 text-[#3D7B89] border-l-2 border-[#3D7B89]" 
@@ -637,7 +678,7 @@ export default function AdminDashboard() {
             </button>
 
             <button
-              onClick={() => setActiveTab("products")}
+              onClick={() => { setActiveTab("products"); setIsSidebarOpen(false); }}
               className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all cursor-pointer ${
                 activeTab === "products" 
                   ? "bg-[#3D7B89]/10 text-[#3D7B89] border-l-2 border-[#3D7B89]" 
@@ -649,7 +690,7 @@ export default function AdminDashboard() {
             </button>
 
             <button
-              onClick={() => setActiveTab("portfolio")}
+              onClick={() => { setActiveTab("portfolio"); setIsSidebarOpen(false); }}
               className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all cursor-pointer ${
                 activeTab === "portfolio" 
                   ? "bg-[#3D7B89]/10 text-[#3D7B89] border-l-2 border-[#3D7B89]" 
@@ -661,7 +702,7 @@ export default function AdminDashboard() {
             </button>
 
             <button
-              onClick={() => setActiveTab("settings")}
+              onClick={() => { setActiveTab("settings"); setIsSidebarOpen(false); }}
               className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all cursor-pointer ${
                 activeTab === "settings" 
                   ? "bg-[#3D7B89]/10 text-[#3D7B89] border-l-2 border-[#3D7B89]" 
@@ -685,7 +726,7 @@ export default function AdminDashboard() {
           </div>
 
           <button
-            onClick={handleLogout}
+            onClick={() => { handleLogout(); setIsSidebarOpen(false); }}
             className="w-full flex items-center justify-center gap-2 border border-red-500/20 text-red-500 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] hover:bg-red-500/10 transition-colors cursor-pointer"
           >
             <LogOut size={14} />
@@ -695,18 +736,18 @@ export default function AdminDashboard() {
       </aside>
 
       {/* 2. MAIN DISPLAY WINDOW */}
-      <main className="flex-1 min-h-screen p-12 bg-gray-50/50 flex flex-col overflow-y-auto">
+      <main className="flex-1 min-h-screen p-6 md:p-12 bg-gray-50/50 flex flex-col overflow-y-auto">
         
         {/* Dynamic header title */}
-        <div className="flex justify-between items-center mb-12 pb-6 border-b border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-8 md:mb-12 pb-6 border-b border-gray-200">
           <div>
-            <h1 className="text-3xl font-bold uppercase tracking-[0.15em] text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-[0.15em] text-gray-900">
               {activeTab === "overview" && "Dashboard Overview"}
               {activeTab === "products" && "Product Manager"}
               {activeTab === "portfolio" && "Portfolio Manager"}
               {activeTab === "settings" && "Custom Settings"}
             </h1>
-            <p className="text-xs text-gray-500 mt-1 uppercase tracking-wider font-semibold">
+            <p className="text-[10px] md:text-xs text-gray-500 mt-1 uppercase tracking-wider font-semibold">
               {activeTab === "overview" && "System telemetry and database health"}
               {activeTab === "products" && "Manage items in project archive"}
               {activeTab === "portfolio" && "Manage visual gallery elements"}
@@ -717,7 +758,7 @@ export default function AdminDashboard() {
           <a
             href="/"
             target="_blank"
-            className="flex items-center gap-2 border border-gray-200 hover:border-gray-300 bg-white text-gray-600 hover:text-gray-900 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.15em] transition-all rounded-lg shadow-sm"
+            className="flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 bg-white text-gray-600 hover:text-gray-900 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.15em] transition-all rounded-lg shadow-sm w-full sm:w-auto"
           >
             <Globe size={14} />
             View Live Website
@@ -777,14 +818,14 @@ export default function AdminDashboard() {
                 className="w-full"
               >
                 <div className="bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-center sm:text-left">
                     <div>
                       <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Active Products List ({products.length})</h3>
                       <p className="text-[11px] text-gray-500 mt-1">Manage offset printing, signage and promotional campaign items displayed on the live website.</p>
                     </div>
                     <button 
                       onClick={() => { resetProductForm(); setIsProductModalOpen(true); }}
-                      className="bg-[#3D7B89] hover:bg-[#347689] text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                      className="bg-[#3D7B89] hover:bg-[#347689] text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#3D7B89]/10 w-full sm:w-auto"
                     >
                       <Plus size={14} />
                       Add Product
@@ -798,18 +839,18 @@ export default function AdminDashboard() {
                       products.map((p) => (
                         <div 
                           key={p._id || p.id}
-                          className="flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors"
+                          className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors gap-4"
                         >
                           <div className="flex items-center gap-4">
                             <img 
                               src={p.image} 
                               alt={p.title} 
-                              className="w-12 h-12 rounded-xl object-cover" 
+                              className="w-12 h-12 rounded-xl object-cover shrink-0" 
                               onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1580680849668-45d32df32e67?q=80&w=200'; }}
                             />
-                            <div>
-                              <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900">{p.title}</h4>
-                              <div className="flex gap-2.5 text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">
+                            <div className="min-w-0">
+                              <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900 truncate">{p.title}</h4>
+                              <div className="flex flex-wrap gap-2 text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">
                                 <span className="text-[#3D7B89]">{p.subcategory || p.category}</span>
                                 <span>&bull;</span>
                                 <span>{p.year || "2026"}</span>
@@ -817,7 +858,7 @@ export default function AdminDashboard() {
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 self-end sm:self-auto">
                             <button 
                               onClick={() => openEditModal(p)}
                               className="p-2.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 rounded-xl transition-all cursor-pointer"
@@ -851,14 +892,14 @@ export default function AdminDashboard() {
                 className="w-full"
               >
                 <div className="bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-center sm:text-left">
                     <div>
                       <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Active Gallery Items ({portfolio.length})</h3>
                       <p className="text-[11px] text-gray-500 mt-1">Manage banner, signage and promotional campaign images in the portfolio section.</p>
                     </div>
                     <button 
                       onClick={() => setIsPortfolioModalOpen(true)}
-                      className="bg-[#3D7B89] hover:bg-[#347689] text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                      className="bg-[#3D7B89] hover:bg-[#347689] text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#3D7B89]/10 w-full sm:w-auto"
                     >
                       <Plus size={14} />
                       Add Gallery Image
@@ -872,18 +913,18 @@ export default function AdminDashboard() {
                       portfolio.map((item) => (
                         <div 
                           key={item._id || item.id}
-                          className="flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors"
+                          className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors gap-4"
                         >
                           <div className="flex items-center gap-4">
                             <img 
                               src={item.image} 
                               alt={item.title} 
-                              className="w-12 h-12 rounded-xl object-cover"
+                              className="w-12 h-12 rounded-xl object-cover shrink-0"
                               onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1580680849668-45d32df32e67?q=80&w=200'; }}
                             />
-                            <div>
-                              <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900">{item.title}</h4>
-                              <div className="flex gap-2.5 text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">
+                            <div className="min-w-0">
+                              <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900 truncate">{item.title}</h4>
+                              <div className="flex flex-wrap gap-2 text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">
                                 <span className="text-[#3D7B89]">{item.category}</span>
                                 <span>&bull;</span>
                                 <span className="text-gray-600">{item.client}</span>
@@ -895,7 +936,7 @@ export default function AdminDashboard() {
 
                           <button 
                             onClick={() => handleDeletePortfolio(String(item._id || item.id))}
-                            className="p-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl transition-all cursor-pointer"
+                            className="p-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl transition-all cursor-pointer self-end sm:self-auto"
                             title="Delete Gallery Item"
                           >
                             <Trash2 size={14} />

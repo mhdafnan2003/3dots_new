@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const cloudinary = require('cloudinary').v2;
 
@@ -783,13 +784,8 @@ app.post('/api/upload', async (req, res) => {
     return res.status(400).json({ error: 'No image data provided.' });
   }
 
+  let tempFilepath = null;
   try {
-    // 1. Save file locally first (serves as local fallback / staging file)
-    const uploadsDir = path.join(__dirname, 'uploads');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-
     const parts = image.split(';base64,');
     if (parts.length !== 2) {
       return res.status(400).json({ error: 'Invalid Base64 format.' });
@@ -799,9 +795,11 @@ app.post('/api/upload', async (req, res) => {
     const ext = mimeType.split('/')[1]?.split(';')[0] || 'png';
     const buffer = Buffer.from(parts[1], 'base64');
     const filename = `upload_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${ext}`;
-    const filepath = path.join(uploadsDir, filename);
 
-    fs.writeFileSync(filepath, buffer);
+    // 1. Save file to OS temp directory first (always writable on both local and serverless/Vercel platforms)
+    const tempDir = os.tmpdir();
+    tempFilepath = path.join(tempDir, filename);
+    fs.writeFileSync(tempFilepath, buffer);
 
     // 2. Try uploading to Cloudinary if enabled
     if (cloudinaryEnabled) {
@@ -811,14 +809,19 @@ app.post('/api/upload', async (req, res) => {
 
         if (isVideo) {
           console.log(`📤 Uploading large video to Cloudinary (${filename})...`);
-          uploadResponse = await cloudinary.uploader.upload_large(filepath, {
-            folder: '3dotsadv_products',
-            resource_type: 'video',
-            chunk_size: 6000000 // 6MB chunks
+          uploadResponse = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_large(tempFilepath, {
+              folder: '3dotsadv_products',
+              resource_type: 'video',
+              chunk_size: 6000000 // 6MB chunks
+            }, (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            });
           });
         } else {
           console.log(`📤 Uploading image to Cloudinary (${filename})...`);
-          uploadResponse = await cloudinary.uploader.upload(filepath, {
+          uploadResponse = await cloudinary.uploader.upload(tempFilepath, {
             folder: '3dotsadv_products',
             resource_type: 'auto',
           });
@@ -826,9 +829,9 @@ app.post('/api/upload', async (req, res) => {
 
         console.log('✅ File uploaded successfully to Cloudinary:', uploadResponse.secure_url);
 
-        // Delete the local file since upload was successful
+        // Delete the temporary file
         try {
-          fs.unlinkSync(filepath);
+          fs.unlinkSync(tempFilepath);
         } catch (unlinkError) {
           console.error('Error deleting temp file:', unlinkError);
         }
@@ -838,18 +841,47 @@ app.post('/api/upload', async (req, res) => {
           url: uploadResponse.secure_url
         });
       } catch (cloudinaryError) {
-        console.error('⚠️ Cloudinary upload failed, falling back to local file storage:', cloudinaryError);
-        // We do NOT delete the local file here, so it falls back to serving locally
+        console.error('⚠️ Cloudinary upload failed, checking local storage fallback option:', cloudinaryError);
       }
     }
 
-    // 3. Fallback to Local Storage
-    res.json({
-      success: true,
-      url: `/uploads/${filename}`
-    });
+    // 3. Fallback to Local Storage (only works if filesystem is writable, i.e., local development)
+    try {
+      const uploadsDir = path.join(__dirname, 'uploads');
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+      const destFilepath = path.join(uploadsDir, filename);
+      fs.renameSync(tempFilepath, destFilepath);
+
+      res.json({
+        success: true,
+        url: `/uploads/${filename}`
+      });
+    } catch (localError) {
+      console.error('❌ Local fallback storage failed (read-only filesystem on serverless environment):', localError);
+      
+      // Cleanup the temp file in case of failure
+      if (tempFilepath) {
+        try {
+          fs.unlinkSync(tempFilepath);
+        } catch (e) {}
+      }
+
+      res.status(500).json({ 
+        error: 'Cloudinary upload failed, and local file storage is unavailable on this platform.' 
+      });
+    }
   } catch (e) {
     console.error('File upload error:', e);
+    
+    // Cleanup the temp file in case of failure
+    if (tempFilepath) {
+      try {
+        fs.unlinkSync(tempFilepath);
+      } catch (unlinkErr) {}
+    }
+
     res.status(500).json({ error: 'Failed to process file upload.' });
   }
 });
