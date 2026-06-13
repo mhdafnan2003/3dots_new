@@ -1120,7 +1120,13 @@ app.delete('/api/portfolio/:id', async (req, res) => {
 
 // ================= SETTINGS API =================
 app.get('/api/settings', async (req, res) => {
-  const defaultReels = ["DQey2odkuvN", "C_BBpyty3B6", "DWZJtnwCCYE", "DVf8obXkZpJ", "DBY4ciBMcls"];
+  const defaultReels = [
+    "C2kO2m0xCpF",
+    "DWZJtnwCCYE",
+    "DBY4ciBMcls",
+    "C_BBpyty3B6",
+    "C_a4D39s0Kh"
+  ];
   if (useLocalJSON) {
     const db = readLocalDB();
     return res.json({

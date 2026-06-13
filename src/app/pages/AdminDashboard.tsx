@@ -532,20 +532,12 @@ export default function AdminDashboard() {
   };
 
   const handleSaveReels = async () => {
-    const parsedReels = instagramReels.map(url => {
-      if (!url) return "";
-      const trimmed = url.trim();
-      if (!trimmed.includes("/") && !trimmed.includes(".")) {
-        return trimmed;
-      }
-      const regex = /\/(?:p|reel)\/([A-Za-z0-9_-]+)/;
-      const match = trimmed.match(regex);
-      return match && match[1] ? match[1] : trimmed;
+    const cleanedReels = Array.from({ length: 5 }, (_, i) => {
+      const val = instagramReels[i];
+      return val ? val.trim() : "";
     });
 
-    const cleanedReels = Array.from({ length: 5 }, (_, i) => parsedReels[i] || "");
-
-    const toastId = toast.loading("Saving Instagram feed settings...");
+    const toastId = toast.loading("Saving video showcase settings...");
     try {
       const res = await fetch("/api/settings", {
         method: "PUT",
@@ -553,14 +545,14 @@ export default function AdminDashboard() {
         body: JSON.stringify({ instagram_reels: cleanedReels })
       });
       if (res.ok) {
-        toast.success("Instagram reels feed updated successfully!", { id: toastId });
+        toast.success("Showcase video feed updated successfully!", { id: toastId });
         fetchSettings();
       } else {
         toast.error("Failed to save settings to server.", { id: toastId });
       }
     } catch (e) {
       setInstagramReels(cleanedReels);
-      toast.success("Instagram feed saved locally.", { id: toastId });
+      toast.success("Showcase video feed saved locally.", { id: toastId });
     }
   };
 
@@ -1103,38 +1095,54 @@ export default function AdminDashboard() {
                 className="max-w-3xl bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm mt-8"
               >
                 <div className="space-y-1">
-                  <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Instagram Feed Integration</h3>
-                  <p className="text-[11px] text-gray-500 font-medium">Configure up to 5 public Instagram Reels or posts to showcase on the homepage.</p>
+                  <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Video Showcase Configuration</h3>
+                  <p className="text-[11px] text-gray-500 font-medium">Configure up to 5 vertical videos to showcase in the homepage carousel and gallery drawer. Upload your own video files locally/to Cloudinary or paste direct MP4/video URLs.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {instagramReels.map((reel, index) => (
                     <div key={index} className="space-y-2">
                       <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">
-                        Showcase Item {index + 1} (URL or Shortcode)
+                        Showcase Video {index + 1}
                       </label>
-                      <input 
-                        type="text"
-                        value={reel}
-                        onChange={(e) => {
-                          const updated = [...instagramReels];
-                          updated[index] = e.target.value;
-                          setInstagramReels(updated);
-                        }}
-                        placeholder="e.g., https://www.instagram.com/reel/C-c3G2yO1gA/"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-xs font-semibold focus:outline-none focus:border-[#3D7B89] transition-colors"
-                      />
+                      
+                      <div className="flex gap-2">
+                        <input 
+                          type="text"
+                          value={reel}
+                          onChange={(e) => {
+                            const updated = [...instagramReels];
+                            updated[index] = e.target.value;
+                            setInstagramReels(updated);
+                          }}
+                          placeholder="e.g., https://res.cloudinary.com/.../video.mp4"
+                          className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-xs font-semibold focus:outline-none focus:border-[#3D7B89] transition-colors"
+                        />
+                        <div className="relative shrink-0">
+                          <input 
+                            type="file"
+                            accept="video/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                handleFileUpload(file, (url) => {
+                                  const updated = [...instagramReels];
+                                  updated[index] = url;
+                                  setInstagramReels(updated);
+                                });
+                              }
+                            }}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          />
+                          <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-gray-200">
+                            Upload
+                          </button>
+                        </div>
+                      </div>
                       {reel && (
-                        <p className="text-[9px] text-gray-400">
-                          Shortcode: <span className="font-bold font-mono text-[#3D7B89]">
-                            {(() => {
-                              const trimmed = reel.trim();
-                              if (!trimmed.includes("/") && !trimmed.includes(".")) return trimmed;
-                              const match = trimmed.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)/);
-                              return match && match[1] ? match[1] : "Extracting...";
-                            })()}
-                          </span>
-                        </p>
+                        <div className="text-[9px] text-gray-400 truncate max-w-[320px]">
+                          File: <span className="font-bold text-[#3D7B89]">{reel}</span>
+                        </div>
                       )}
                     </div>
                   ))}
@@ -1146,14 +1154,20 @@ export default function AdminDashboard() {
                     className="bg-[#3D7B89] hover:bg-[#347689] text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
                   >
                     <Plus size={14} />
-                    Save Instagram Feed
+                    Save Video Showcase
                   </button>
                   
                   <button
                     onClick={() => {
-                      const defaultReels = ["DQey2odkuvN", "C_BBpyty3B6", "DWZJtnwCCYE", "DVf8obXkZpJ", "DBY4ciBMcls"];
+                      const defaultReels = [
+                        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054ba274eb4de0d96dcd3703f290d23&profile_id=139&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/517602120.sd.mp4?s=d00cd2cf4b95f17109265f9a62efd1421f5fb3d0&profile_id=165&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/435674703.sd.mp4?s=6f477e08ad1abf07eb786a34cf81079d8544e392&profile_id=165&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/538568600.sd.mp4?s=ff0337c768997ff9f4b306b9b32e6761664cd1eb&profile_id=165&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/538571701.sd.mp4?s=0894e75d05e263d91cf05c5cf2547b7468bb1d8a&profile_id=165&oauth2_token_id=57447761"
+                      ];
                       setInstagramReels(defaultReels);
-                      const toastId = toast.loading("Resetting Instagram feed...");
+                      const toastId = toast.loading("Resetting showcase videos...");
                       fetch("/api/settings", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
@@ -1161,14 +1175,14 @@ export default function AdminDashboard() {
                       })
                       .then(res => {
                         if (res.ok) {
-                          toast.success("Instagram feed reset to defaults!", { id: toastId });
+                          toast.success("Showcase videos reset to defaults!", { id: toastId });
                           fetchSettings();
                         } else {
                           toast.error("Failed to reset settings.", { id: toastId });
                         }
                       })
                       .catch(() => {
-                        toast.success("Instagram feed reset locally.", { id: toastId });
+                        toast.success("Showcase videos reset locally.", { id: toastId });
                       });
                     }}
                     className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all cursor-pointer bg-white shadow-sm"
