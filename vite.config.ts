@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react'
 function figmaAssetResolver() {
   return {
     name: 'figma-asset-resolver',
-    resolveId(id) {
+    resolveId(id: string) {
       if (id.startsWith('figma:asset/')) {
         const filename = id.replace('figma:asset/', '')
         return path.resolve(__dirname, 'src/assets', filename)
@@ -37,12 +37,12 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false,
       },
       '/uploads': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false,
       }

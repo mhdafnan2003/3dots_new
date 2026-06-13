@@ -154,7 +154,9 @@ export default function About() {
 
             <h2 className="text-4xl md:text-5xl lg:text-[64px] font-medium leading-[1.1] tracking-tight">
               <span className="text-[#3D7B89]">Three dots.</span>{' '}
-              <span className="text-gray-400">One signal.</span>
+              <span className="text-gray-400">One</span>
+              <br />
+              <span className="text-gray-400">signal.</span>
             </h2>
 
             <div className="space-y-6 text-gray-500 text-[15px] leading-relaxed max-w-xl">

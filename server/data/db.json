@@ -1,6 +1,13 @@
 {
   "settings": {
-    "hero_bg": "/images/hero-bg.png"
+    "hero_bg": "/images/hero-bg.png",
+    "instagram_reels": [
+      "DQey2odkuvN",
+      "C_BBpyty3B6",
+      "DWZJtnwCCYE",
+      "DVf8obXkZpJ",
+      "DBY4ciBMcls"
+    ]
   },
   "products": [
     {

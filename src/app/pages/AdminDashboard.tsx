@@ -140,6 +140,7 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
   const [heroBg, setHeroBg] = useState("/images/hero-bg.png");
+  const [instagramReels, setInstagramReels] = useState<string[]>(["", "", "", "", ""]);
 
   // Form States - Products
   const [prodTitle, setProdTitle] = useState("");
@@ -256,6 +257,9 @@ export default function AdminDashboard() {
       if (res.ok) {
         const data = await res.json();
         if (data.hero_bg) setHeroBg(data.hero_bg);
+        if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
+          setInstagramReels(data.instagram_reels);
+        }
       }
     } catch (e) {
       console.warn("Could not fetch settings from server, using demo fallbacks", e);
@@ -524,6 +528,39 @@ export default function AdminDashboard() {
     } catch (e) {
       setHeroBg(url);
       toast.success("Hero background updated (Local Mode).");
+    }
+  };
+
+  const handleSaveReels = async () => {
+    const parsedReels = instagramReels.map(url => {
+      if (!url) return "";
+      const trimmed = url.trim();
+      if (!trimmed.includes("/") && !trimmed.includes(".")) {
+        return trimmed;
+      }
+      const regex = /\/(?:p|reel)\/([A-Za-z0-9_-]+)/;
+      const match = trimmed.match(regex);
+      return match && match[1] ? match[1] : trimmed;
+    });
+
+    const cleanedReels = Array.from({ length: 5 }, (_, i) => parsedReels[i] || "");
+
+    const toastId = toast.loading("Saving Instagram feed settings...");
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ instagram_reels: cleanedReels })
+      });
+      if (res.ok) {
+        toast.success("Instagram reels feed updated successfully!", { id: toastId });
+        fetchSettings();
+      } else {
+        toast.error("Failed to save settings to server.", { id: toastId });
+      }
+    } catch (e) {
+      setInstagramReels(cleanedReels);
+      toast.success("Instagram feed saved locally.", { id: toastId });
     }
   };
 
@@ -951,7 +988,8 @@ export default function AdminDashboard() {
 
             {/* SITE CUSTOMIZER & HERO BACKGROUND VIEW */}
             {activeTab === "settings" && (
-              <motion.div
+              <>
+                <motion.div
                 key="settings"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1056,7 +1094,91 @@ export default function AdminDashboard() {
                 </div>
 
               </motion.div>
-            )}
+
+              <motion.div
+                key="settings-instagram"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="max-w-3xl bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm mt-8"
+              >
+                <div className="space-y-1">
+                  <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Instagram Feed Integration</h3>
+                  <p className="text-[11px] text-gray-500 font-medium">Configure up to 5 public Instagram Reels or posts to showcase on the homepage.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {instagramReels.map((reel, index) => (
+                    <div key={index} className="space-y-2">
+                      <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">
+                        Showcase Item {index + 1} (URL or Shortcode)
+                      </label>
+                      <input 
+                        type="text"
+                        value={reel}
+                        onChange={(e) => {
+                          const updated = [...instagramReels];
+                          updated[index] = e.target.value;
+                          setInstagramReels(updated);
+                        }}
+                        placeholder="e.g., https://www.instagram.com/reel/C-c3G2yO1gA/"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-xs font-semibold focus:outline-none focus:border-[#3D7B89] transition-colors"
+                      />
+                      {reel && (
+                        <p className="text-[9px] text-gray-400">
+                          Shortcode: <span className="font-bold font-mono text-[#3D7B89]">
+                            {(() => {
+                              const trimmed = reel.trim();
+                              if (!trimmed.includes("/") && !trimmed.includes(".")) return trimmed;
+                              const match = trimmed.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)/);
+                              return match && match[1] ? match[1] : "Extracting...";
+                            })()}
+                          </span>
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 pt-2">
+                  <button
+                    onClick={handleSaveReels}
+                    className="bg-[#3D7B89] hover:bg-[#347689] text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                  >
+                    <Plus size={14} />
+                    Save Instagram Feed
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      const defaultReels = ["DQey2odkuvN", "C_BBpyty3B6", "DWZJtnwCCYE", "DVf8obXkZpJ", "DBY4ciBMcls"];
+                      setInstagramReels(defaultReels);
+                      const toastId = toast.loading("Resetting Instagram feed...");
+                      fetch("/api/settings", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ instagram_reels: defaultReels })
+                      })
+                      .then(res => {
+                        if (res.ok) {
+                          toast.success("Instagram feed reset to defaults!", { id: toastId });
+                          fetchSettings();
+                        } else {
+                          toast.error("Failed to reset settings.", { id: toastId });
+                        }
+                      })
+                      .catch(() => {
+                        toast.success("Instagram feed reset locally.", { id: toastId });
+                      });
+                    }}
+                    className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all cursor-pointer bg-white shadow-sm"
+                  >
+                    Reset to Default
+                  </button>
+                </div>
+              </motion.div>
+            </>
+          )}
           </AnimatePresence>
         </div>
 

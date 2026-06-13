@@ -4,7 +4,13 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const serverEnvPath = path.join(__dirname, '.env');
+const rootEnvPath = path.join(__dirname, '../.env');
+if (fs.existsSync(serverEnvPath)) {
+  require('dotenv').config({ path: serverEnvPath });
+} else {
+  require('dotenv').config({ path: rootEnvPath });
+}
 const cloudinary = require('cloudinary').v2;
 
 const Product = require('./models/Product');
@@ -1114,17 +1120,21 @@ app.delete('/api/portfolio/:id', async (req, res) => {
 
 // ================= SETTINGS API =================
 app.get('/api/settings', async (req, res) => {
+  const defaultReels = ["DQey2odkuvN", "C_BBpyty3B6", "DWZJtnwCCYE", "DVf8obXkZpJ", "DBY4ciBMcls"];
   if (useLocalJSON) {
     const db = readLocalDB();
     return res.json({
-      hero_bg: db.settings.hero_bg || '/images/hero-bg.png'
+      hero_bg: db.settings.hero_bg || '/images/hero-bg.png',
+      instagram_reels: db.settings.instagram_reels || defaultReels
     });
   }
 
   try {
     const bgSetting = await Settings.findOne({ key: 'hero_bg' });
+    const reelsSetting = await Settings.findOne({ key: 'instagram_reels' });
     res.json({
-      hero_bg: bgSetting ? bgSetting.value : '/images/hero-bg.png'
+      hero_bg: bgSetting ? bgSetting.value : '/images/hero-bg.png',
+      instagram_reels: reelsSetting ? reelsSetting.value : defaultReels
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve settings' });
@@ -1132,27 +1142,50 @@ app.get('/api/settings', async (req, res) => {
 });
 
 app.put('/api/settings', async (req, res) => {
-  const { hero_bg } = req.body;
-  if (!hero_bg) {
-    return res.status(400).json({ error: 'Hero background URL is required.' });
-  }
+  const { hero_bg, instagram_reels } = req.body;
 
   if (useLocalJSON) {
     const db = readLocalDB();
-    db.settings.hero_bg = hero_bg;
+    if (hero_bg !== undefined) {
+      db.settings.hero_bg = hero_bg;
+    }
+    if (instagram_reels !== undefined) {
+      db.settings.instagram_reels = instagram_reels;
+    }
     writeLocalDB(db);
-    return res.json({ success: true, hero_bg });
+    return res.json({ 
+      success: true, 
+      hero_bg: db.settings.hero_bg || '/images/hero-bg.png',
+      instagram_reels: db.settings.instagram_reels || []
+    });
   }
 
   try {
-    let bgSetting = await Settings.findOne({ key: 'hero_bg' });
-    if (bgSetting) {
-      bgSetting.value = hero_bg;
-      await bgSetting.save();
-    } else {
-      bgSetting = await Settings.create({ key: 'hero_bg', value: hero_bg });
+    const result = { success: true };
+    
+    if (hero_bg !== undefined) {
+      let bgSetting = await Settings.findOne({ key: 'hero_bg' });
+      if (bgSetting) {
+        bgSetting.value = hero_bg;
+        await bgSetting.save();
+      } else {
+        bgSetting = await Settings.create({ key: 'hero_bg', value: hero_bg });
+      }
+      result.hero_bg = bgSetting.value;
     }
-    res.json({ success: true, hero_bg: bgSetting.value });
+
+    if (instagram_reels !== undefined) {
+      let reelsSetting = await Settings.findOne({ key: 'instagram_reels' });
+      if (reelsSetting) {
+        reelsSetting.value = instagram_reels;
+        await reelsSetting.save();
+      } else {
+        reelsSetting = await Settings.create({ key: 'instagram_reels', value: instagram_reels });
+      }
+      result.instagram_reels = reelsSetting.value;
+    }
+
+    res.json(result);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update settings' });
   }

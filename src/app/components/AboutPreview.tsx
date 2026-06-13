@@ -3,7 +3,7 @@ import { ArrowRight, MapPin } from "lucide-react";
 
 export function AboutPreview() {
   return (
-    <section className="pt-8 pb-0 md:pt-0 md:pb-8 bg-white overflow-hidden">
+    <section className="pt-12 pb-12 md:pt-16 md:pb-20 bg-gray-50 overflow-hidden">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -49,7 +49,9 @@ export function AboutPreview() {
 
             <h2 className="text-4xl md:text-5xl lg:text-[64px] font-medium leading-[1.1] tracking-tight">
               <span className="text-[#3D7B89]">Three dots.</span>{' '}
-              <span className="text-gray-400">One signal.</span>
+              <span className="text-gray-400">One</span>
+              <br />
+              <span className="text-gray-400">signal.</span>
             </h2>
 
             <div className="space-y-6 text-gray-500 text-[15px] leading-relaxed max-w-xl">

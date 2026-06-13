@@ -6,6 +6,7 @@ import { AcrylicMiniMe } from "../components/AcrylicMiniMe";
 import { BrandingBanner } from "../components/BrandingBanner";
 import { PromotionalBanner } from "../components/PromotionalBanner";
 import { CTASection } from "../components/CTASection";
+import { InstagramPanel, InstagramSection } from "../components/InstagramPanel";
 import { motion } from "motion/react";
 
 const subcategoryFallbackImages: Record<string, string> = {
@@ -82,8 +83,22 @@ export default function Home() {
   const [laserAcrylic, setLaserAcrylic] = useState<any[]>([]);
   const [corporateGifts, setCorporateGifts] = useState<any[]>([]);
   const [outdoorIndoor, setOutdoorIndoor] = useState<any[]>([]);
+  const [instagramDrawerOpen, setInstagramDrawerOpen] = useState(false);
+  const [activeReel, setActiveReel] = useState<any | null>(null);
+  const [instagramReels, setInstagramReels] = useState<string[]>(["C-c3G2yO1gA", "C9tD2QySg1B", "C8o_JkJsR9y", "C6sN_XysB8d"]);
 
   useEffect(() => {
+    fetch("/api/settings")
+      .then(res => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then(data => {
+        if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
+          setInstagramReels(data.instagram_reels);
+        }
+      })
+      .catch(() => {});
     fetch("/api/products")
       .then(res => {
         if (res.ok) return res.json();
@@ -205,6 +220,7 @@ export default function Home() {
             products={digitalPrinting} 
             boldAll
             categoryKey="digital-printing"
+            bgColor="bg-white"
           />
         )}
         
@@ -216,6 +232,7 @@ export default function Home() {
             products={screenOffset} 
             boldAll
             categoryKey="screen-offset"
+            bgColor="bg-white"
           />
         )}
         
@@ -227,6 +244,7 @@ export default function Home() {
             products={laserAcrylic} 
             boldAll
             categoryKey="laser-acrylic"
+            bgColor="bg-gray-50"
           />
         )}
         
@@ -244,10 +262,10 @@ export default function Home() {
         )}
 
         {corporateGifts.length > 0 && (
-          <div className="relative bg-white z-0">
+          <div className="relative bg-gray-50 z-0">
             <BrandingBanner />
             <ProductSection 
-              title="Customized Corporate Gifts" 
+              title="Customized & Corporate Gifts" 
               products={corporateGifts} 
               transparent={true}
               className="-mt-12 md:-mt-20"
@@ -256,9 +274,21 @@ export default function Home() {
           </div>
         )}
 
+        <InstagramSection 
+          instagramReels={instagramReels}
+          onOpenDrawer={() => setInstagramDrawerOpen(true)} 
+          onPlayReel={(reel) => setActiveReel(reel)}
+        />
         
         <CTASection />
       </motion.div>
+      <InstagramPanel 
+        instagramReels={instagramReels}
+        isOpen={instagramDrawerOpen} 
+        onClose={() => setInstagramDrawerOpen(false)} 
+        activeReel={activeReel}
+        setActiveReel={setActiveReel}
+      />
     </div>
   );
 }

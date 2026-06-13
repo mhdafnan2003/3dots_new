@@ -1,5 +1,7 @@
 import { motion } from "motion/react";
 
+import { Link } from "react-router";
+
 export function AcrylicMiniMe() {
   return (
     <section className="relative w-full bg-white overflow-hidden">
@@ -16,13 +18,11 @@ export function AcrylicMiniMe() {
           className="w-full h-auto object-cover"
         />
         
-        {/* Hotspot overlay link to WhatsApp */}
-        <a
-          href="https://wa.me/971563139733?text=Hi,%20I'm%20interested%20in%20Acrylic%20Mini%20Me"
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Hotspot overlay link to Laser & Acrylic Category */}
+        <Link
+          to="/products?category=laser-acrylic"
           className="absolute bottom-[18%] right-[7.8%] w-[8%] h-[8%] cursor-pointer z-20"
-          aria-label="Order Acrylic Mini Me on WhatsApp"
+          aria-label="Go to Laser & Acrylic Category"
         />
       </motion.div>
     </section>
