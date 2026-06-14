@@ -86,12 +86,10 @@ export default function Home() {
   const [instagramDrawerOpen, setInstagramDrawerOpen] = useState(false);
   const [activeReel, setActiveReel] = useState<any | null>(null);
   const [instagramReels, setInstagramReels] = useState<string[]>([
-    "C2kO2m0xCpF",
-    "DWZJtnwCCYE",
-    "DBY4ciBMcls",
-    "C_BBpyty3B6",
-    "C_a4D39s0Kh",
-    "video:http://localhost:5000/uploads/We%20offer%20high-quality%20customizedPhone%20Case%20printing%20services%20with%20vibrant,%20long-lasting%20designsD.mp4"
+    "video:/uploads/reel4.mp4",
+    "video:/uploads/reel3.mp4",
+    "video:/uploads/reel 1.mp4",
+    "video:/uploads/reel2.mp4"
   ]);
 
   useEffect(() => {

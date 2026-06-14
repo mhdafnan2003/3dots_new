@@ -1,4 +1,4 @@
-import { Facebook } from "lucide-react";
+import { Link } from "react-router";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,15 +17,13 @@ export default function Footer() {
                 className="h-8 md:h-16 w-auto object-contain"
               />
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs text-left">
-              Precision in every dot. Bringing luxury tactile experiences to the modern brand.
+            <p className="text-gray-400 text-xs leading-relaxed max-w-sm text-left">
+              3Dots Advertising is a Printing Press in Abu Dhabi specializing in corporate gifts, crystal awards, signage, and branding solutions across UAE including Dubai, Sharjah, Ajman, Alain and Abu Dhabi.
             </p>
             <div className="flex gap-4 justify-start w-full">
               {[
                 { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
-                { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" },
-                { src: "/images/BE.png", href: "#", alt: "Behance" },
-                { icon: Facebook, href: "#", alt: "Facebook" }
+                { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" }
               ].map((item, i) => (
                 <a 
                   key={i} 
@@ -52,31 +50,48 @@ export default function Footer() {
           <div className="space-y-8 text-left">
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Services</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Bespoke Packaging</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Editorial Design</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Brand Identity</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Material Sourcing</a></li>
+              <li><Link to="/services/printing-press-services-abu-dhabi" className="hover:text-[#3D7B89] transition-colors">Printing Press Services</Link></li>
+              <li><Link to="/services/corporate-gifts-promotional-items-uae" className="hover:text-[#3D7B89] transition-colors">Corporate Gifts</Link></li>
+              <li><Link to="/services/crystal-awards-mementos-abu-dhabi" className="hover:text-[#3D7B89] transition-colors">Crystal Awards</Link></li>
+              <li><Link to="/services/signage-large-format-printing-uae" className="hover:text-[#3D7B89] transition-colors">Signage & Large Format</Link></li>
+              <li><Link to="/services/exhibition-branding-solutions-uae" className="hover:text-[#3D7B89] transition-colors">Exhibition Branding</Link></li>
             </ul>
           </div>
 
-          {/* Resources Column */}
+          {/* Contact Column */}
           <div className="space-y-8 text-left">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Resources</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Contact</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Print Guide</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Case Studies</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Process Overview</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Sustainability</a></li>
+              <li>
+                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Office Phone</span>
+                <a href="tel:+97125175916" className="hover:text-[#3D7B89] transition-colors block">02 517 5916</a>
+                <a href="tel:+971563139733" className="hover:text-[#3D7B89] transition-colors block">+971 56 313 9733</a>
+              </li>
+              <li>
+                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Email</span>
+                <a href="mailto:info@3dotsadv.com" className="hover:text-[#3D7B89] transition-colors block">info@3dotsadv.com</a>
+                <a href="mailto:3dotsadv@gmail.com" className="hover:text-[#3D7B89] transition-colors block">3dotsadv@gmail.com</a>
+              </li>
             </ul>
           </div>
 
-          {/* Inquiries Column */}
+          {/* Timing Column */}
           <div className="space-y-8 text-left">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Inquiries</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Shop Timings</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-[#3D7B89] transition-colors">WhatsApp Inquiry</a></li>
-              <li className="pt-2 text-gray-300">Mon - Fri: 9:00 - 18:00</li>
+              <li>
+                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Working Hours</span>
+                <span className="text-[#0A0A0A] block">9:30am to 9:30pm</span>
+              </li>
+              <li>
+                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Holiday</span>
+                <span className="text-[#3D7B89] font-bold block">Sunday Holiday</span>
+              </li>
+              <li className="pt-2">
+                <Link to="/contact" className="text-xs font-bold uppercase tracking-[0.1em] text-[#3D7B89] hover:underline">
+                  Contact Us →
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -87,10 +102,6 @@ export default function Footer() {
           <p className="text-[10px] text-gray-400 font-bold tracking-wider">
             © {currentYear} 3DOTS ADV.
           </p>
-          <div className="flex gap-8">
-            <a href="#" className="text-[10px] text-gray-400 font-bold tracking-wider hover:text-black transition-colors uppercase">Privacy Policy</a>
-            <a href="#" className="text-[10px] text-gray-400 font-bold tracking-wider hover:text-black transition-colors uppercase">Terms of Service</a>
-          </div>
         </div>
       </div>
     </footer>

@@ -9,8 +9,6 @@ import {
   Plus, 
   Trash2, 
   Globe, 
-  Eye,
-  FileText,
   Lock,
   Edit2,
   Menu,
@@ -1039,7 +1037,7 @@ export default function AdminDashboard() {
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
                         <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold">
-                          {heroBg.startsWith("/uploads/") ? "✓ Custom Background Active" : "↑ Upload Media Locally"}
+                          {uploading ? "Uploading..." : (heroBg.startsWith("/uploads/") ? "✓ Custom Background Active" : "↑ Upload Media Locally")}
                         </span>
                         <p className="text-[8px] text-gray-400 mt-1 uppercase tracking-wider">Supports PNG, JPG, WEBP, MP4, WEBM, MOV, OGG</p>
                       </div>
@@ -1134,8 +1132,11 @@ export default function AdminDashboard() {
                             }}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                           />
-                          <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-gray-200">
-                            Upload
+                          <button 
+                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-gray-200 disabled:opacity-50"
+                            disabled={uploading}
+                          >
+                            {uploading ? "Uploading..." : "Upload"}
                           </button>
                         </div>
                       </div>
@@ -1441,7 +1442,7 @@ export default function AdminDashboard() {
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
                         <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold block">
-                          ↑ Upload Image #{prodImages.length + 1} Locally
+                          {uploading ? "Uploading..." : `↑ Upload Image #${prodImages.length + 1} Locally`}
                         </span>
                         <span className="text-[9px] text-gray-500 mt-1 block">Supports PNG, JPG, JPEG, WEBP</span>
                       </div>
@@ -1585,7 +1586,7 @@ export default function AdminDashboard() {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     />
                     <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold">
-                      {portImage ? "✓ Image Selected" : "↑ Upload Image Locally"}
+                      {uploading ? "Uploading..." : (portImage ? "✓ Image Selected" : "↑ Upload Image Locally")}
                     </span>
                     <p className="text-[9px] text-gray-400 mt-1 uppercase tracking-wider">Drag & drop or click to choose</p>
                   </div>

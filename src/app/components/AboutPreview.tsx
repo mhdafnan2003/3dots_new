@@ -56,10 +56,13 @@ export function AboutPreview() {
 
             <div className="space-y-6 text-gray-500 text-[15px] leading-relaxed max-w-xl">
               <p>
-                The name comes from the ellipsis — that moment of pause before something impactful is said. We started in 2013 from a single 1,200 sq ft unit in Al Quoz with two wide-format printers and a belief that Dubai's booming market deserved a production partner with genuine craft values.
+                We are an Emirates-based company licensed by the Abu Dhabi Media Council. Our team is made up of creative thinkers and passionate designers who believe in understanding your brand first—because meaningful advertising begins with insight, not assumptions.
               </p>
               <p>
-                Over a decade later we operate a 18,000 sq ft facility in Sharjah and a client relations studio in Business Bay, with production capabilities spanning large-format, screen, offset, CNC routing, LED fabrication, and branded merchandise — all under one quality-controlled roof.
+                We are genuine in our approach and deeply committed to delivering exceptional results. This dedication comes from a true love for our craft and the privilege of enjoying every stage of the creative journey.
+              </p>
+              <p>
+                Above all, we stay true to our values and proudly collaborate with responsible companies that strive to make the world a better place.
               </p>
             </div>
 

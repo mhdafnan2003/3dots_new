@@ -112,11 +112,12 @@ export function ProductSection({ title, products, categoryKey, reversed = false,
     const wordsArray = text.split(' ');
     return wordsArray.map((word, i) => {
       const isAmp = word === '&';
+      const shouldDim = isAmp || (isLine2 && !boldAll);
       return (
         <span key={i}>
           <span 
-            className={isAmp || isLine2 ? "text-gray-400 font-light" : ""} 
-            style={isAmp || isLine2 ? {} : { color: '#3D7B89' }}
+            className={shouldDim ? "text-gray-400 font-light" : ""} 
+            style={shouldDim ? {} : { color: '#3D7B89' }}
           >
             {word}
           </span>

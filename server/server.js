@@ -1121,11 +1121,10 @@ app.delete('/api/portfolio/:id', async (req, res) => {
 // ================= SETTINGS API =================
 app.get('/api/settings', async (req, res) => {
   const defaultReels = [
-    "C2kO2m0xCpF",
-    "DWZJtnwCCYE",
-    "DBY4ciBMcls",
-    "C_BBpyty3B6",
-    "C_a4D39s0Kh"
+    "video:/uploads/reel4.mp4",
+    "video:/uploads/reel3.mp4",
+    "video:/uploads/reel 1.mp4",
+    "video:/uploads/reel2.mp4"
   ];
   if (useLocalJSON) {
     const db = readLocalDB();

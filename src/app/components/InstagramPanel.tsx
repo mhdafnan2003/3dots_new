@@ -25,6 +25,28 @@ export const getVideoMetadata = (index: number) => {
   return metadata[index % metadata.length];
 };
 
+export const isReelVideo = (url: string) => {
+  if (!url) return false;
+  if (url.startsWith("video:")) return true;
+  const cleanUrl = url.split("?")[0].toLowerCase();
+  return (
+    cleanUrl.endsWith(".mp4") ||
+    cleanUrl.endsWith(".webm") ||
+    cleanUrl.endsWith(".ogg") ||
+    cleanUrl.endsWith(".mov") ||
+    cleanUrl.includes("/video/") ||
+    cleanUrl.includes("/uploads/") ||
+    url.startsWith("data:video/")
+  );
+};
+
+export const getReelVideoSrc = (url: string) => {
+  if (url.startsWith("video:")) {
+    return url.substring(6);
+  }
+  return url;
+};
+
 interface InstagramPanelProps {
   instagramReels: string[];
   isOpen: boolean;
@@ -117,15 +139,15 @@ export function InstagramPanel({ instagramReels, isOpen, onClose }: InstagramPan
                         className="relative w-full rounded-[32px] overflow-hidden bg-[#0F172A] border border-white/5 shadow-lg flex flex-col justify-between"
                         style={{ aspectRatio: "9/16" }}
                       >
-                        {shortcode.startsWith('video:') ? (
+                        {isReelVideo(shortcode) ? (
                           <video
-                            src={shortcode.replace('video:', '')}
+                            src={getReelVideoSrc(shortcode)}
                             className="insta-iframe-crop"
                             autoPlay
                             muted
                             loop
                             playsInline
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                           />
                         ) : (
                           <iframe
@@ -154,6 +176,7 @@ export function InstagramPanel({ instagramReels, isOpen, onClose }: InstagramPan
                 <a
                   href="#contact"
                   onClick={(e) => {
+                    e.preventDefault();
                     onClose();
                     const el = document.getElementById("contact");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -172,6 +195,107 @@ export function InstagramPanel({ instagramReels, isOpen, onClose }: InstagramPan
   );
 }
 
+interface CarouselVideoProps {
+  src: string;
+  isCenter: boolean;
+  isIntersecting: boolean;
+  onPlayStateChange: (isPlaying: boolean) => void;
+}
+
+export function CarouselVideo({ src, isCenter, isIntersecting, onPlayStateChange }: CarouselVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isCenter && isIntersecting) {
+      // Try to play with sound (unmuted)
+      video.muted = false;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+            onPlayStateChange(true);
+          })
+          .catch((error) => {
+            console.log("Autoplay with sound blocked, trying muted:", error);
+            // Fallback to muted autoplay if browser blocks audio autoplay
+            video.muted = true;
+            video.play()
+              .then(() => {
+                setIsPlaying(true);
+                onPlayStateChange(true);
+              })
+              .catch((err) => console.log("Muted autoplay also blocked:", err));
+          });
+      }
+    } else {
+      video.pause();
+      setIsPlaying(false);
+      onPlayStateChange(false);
+    }
+  }, [isCenter, isIntersecting, src]);
+
+  // Sync state if video pauses on its own or ends
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handlePlay = () => {
+      setIsPlaying(true);
+      onPlayStateChange(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+      onPlayStateChange(false);
+    };
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+
+    return () => {
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+    };
+  }, [onPlayStateChange]);
+
+  const handleVideoClick = (e: React.MouseEvent) => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Only allow play/pause toggle if this is the center card
+    if (!isCenter) return;
+
+    // Prevent propagating the click to carousel shift
+    e.stopPropagation();
+
+    if (isPlaying) {
+      video.pause();
+    } else {
+      // Unmute if playing on click
+      video.muted = false;
+      video.play().catch((err) => console.log("Play failed:", err));
+    }
+  };
+
+  return (
+    <div className="relative w-full h-full cursor-pointer" onClick={handleVideoClick}>
+      <video
+        ref={videoRef}
+        src={src}
+        className="insta-iframe-crop"
+        loop
+        playsInline
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+      />
+    </div>
+  );
+}
+
 interface InstagramSectionProps {
   instagramReels: string[];
   onOpenDrawer: () => void;
@@ -184,6 +308,7 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
   const [isMobile, setIsMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
   // Responsive device check
@@ -212,7 +337,7 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
 
   // Auto-play sliding loop with visibility and hover check (slides every 8 seconds)
   useEffect(() => {
-    if (!isIntersecting || activeReels.length === 0 || isHovered) {
+    if (!isIntersecting || activeReels.length === 0 || isHovered || isVideoPlaying) {
       return;
     }
 
@@ -221,7 +346,7 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
     }, 8000); // Shift slide every 8 seconds
 
     return () => clearInterval(interval);
-  }, [isIntersecting, activeReels.length, isHovered]);
+  }, [isIntersecting, activeReels.length, isHovered, isVideoPlaying]);
 
   const handleCardClick = (index: number) => {
     if (activeIndex !== index) {
@@ -328,29 +453,26 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
                   style={{ aspectRatio: "9/16" }}
                 >
                   {/* Cropped Sandboxed Instagram Embed */}
-                   {shortcode.startsWith('video:') ? (
-                     <video
-                       src={shortcode.replace('video:', '')}
-                       className="insta-iframe-crop"
-                       autoPlay
-                       muted
-                       loop
-                       playsInline
-                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                     />
-                   ) : (
-                     <iframe
-                       src={`https://www.instagram.com/p/${shortcode}/embed`}
-                       className={`insta-iframe-crop transition-all duration-300 ${
-                         isCenter ? "pointer-events-auto" : "pointer-events-none"
-                       }`}
-                       scrolling="no"
-                       allowTransparency
-                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                       sandbox="allow-scripts allow-same-origin allow-presentation"
-                       loading="lazy"
-                     ></iframe>
-                   )}
+                    {isReelVideo(shortcode) ? (
+                      <CarouselVideo
+                        src={getReelVideoSrc(shortcode)}
+                        isCenter={isCenter}
+                        isIntersecting={isIntersecting}
+                        onPlayStateChange={setIsVideoPlaying}
+                      />
+                    ) : (
+                      <iframe
+                        src={`https://www.instagram.com/p/${shortcode}/embed`}
+                        className={`insta-iframe-crop transition-all duration-300 ${
+                          isCenter ? "pointer-events-auto" : "pointer-events-none"
+                        }`}
+                        scrolling="no"
+                        allowTransparency
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        sandbox="allow-scripts allow-same-origin allow-presentation"
+                        loading="lazy"
+                      ></iframe>
+                    )}
 
                   {/* Transparent overlay on non-centered cards to capture carousel clicks */}
                   {!isCenter && (

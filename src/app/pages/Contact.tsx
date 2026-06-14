@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, MessageCircle, Send, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
 
@@ -52,25 +52,41 @@ export default function Contact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">EMAIL</span>
-                <a 
-                  href="mailto:hello@3dots.ae" 
-                  className="text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
-                >
-                  hello@3dots.ae
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a 
+                    href="mailto:info@3dotsadv.com" 
+                    className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
+                  >
+                    info@3dotsadv.com
+                  </a>
+                  <a 
+                    href="mailto:3dotsadv@gmail.com" 
+                    className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
+                  >
+                    3dotsadv@gmail.com
+                  </a>
+                </div>
               </div>
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">PHONE</span>
-                <a 
-                  href="tel:+971563139733" 
-                  className="text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
-                >
-                  +971 56 313 9733
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a 
+                    href="tel:+97125175916" 
+                    className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
+                  >
+                    02 517 5916
+                  </a>
+                  <a 
+                    href="tel:+971563139733" 
+                    className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
+                  >
+                    +971 56 313 9733
+                  </a>
+                </div>
               </div>
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">LOCATION</span>
-                <p className="text-2xl font-normal text-[#0A0A0A] leading-relaxed">
+                <p className="text-xl md:text-2xl font-normal text-[#0A0A0A] leading-relaxed">
                   Sheikh Zayed Bin Sultan St <br />
                   behind Lulu Center, Al Danah <br />
                   Abu Dhabi, UAE
@@ -78,8 +94,9 @@ export default function Contact() {
               </div>
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">HOURS</span>
-                <p className="text-2xl font-normal text-[#0A0A0A] leading-relaxed">
-                  Sat — Thu <br /> 09:00 — 18:00
+                <p className="text-xl md:text-2xl font-normal text-[#0A0A0A] leading-relaxed">
+                  9:30am to 9:30pm <br />
+                  <span className="text-[#3D7B89] text-xs font-bold uppercase tracking-wider block mt-1">Sunday Holiday</span>
                 </p>
               </div>
             </div>

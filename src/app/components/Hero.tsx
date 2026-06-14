@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Facebook } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 
 const isVideoUrl = (url: string) => {
@@ -32,9 +32,7 @@ export function Hero() {
 
   const socialIcons = [
     { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
-    { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" },
-    { src: "/images/BE.png", href: "#", alt: "Behance" },
-    { icon: Facebook, href: "#", alt: "Facebook" }
+    { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" }
   ];
 
   return (
@@ -69,6 +67,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
+          <span className="text-white/60 text-[10px] md:text-xs uppercase tracking-[0.25em] font-bold mb-6 block max-w-4xl mx-auto leading-relaxed">
+            Leading Printing Press in Abu Dhabi for Corporate Gifts, Crystal Awards, Signage & Branding Solutions across UAE
+          </span>
           <h1 
             className="text-white mb-8 uppercase"
             style={{ 
@@ -90,13 +91,13 @@ export function Hero() {
               color: 'rgba(255, 255, 255, 0.60)',
               textAlign: 'center',
               fontFamily: '"Neue Regrade", sans-serif',
-              fontSize: '17.5px',
+              fontSize: '15.5px',
               fontStyle: 'normal',
               fontWeight: 500,
-              lineHeight: '28px'
+              lineHeight: '26px'
             }}
           >
-            We bring your ideas to life with creative designs, quality printing, and customized promotional gifts.
+            3Dots Advertising is a full-service printing press and branding company in Abu Dhabi offering corporate gifts, signage, large format printing, and promotional solutions across UAE.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full mt-4">

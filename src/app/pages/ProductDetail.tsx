@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, MessageCircle, Share2, Award, Shield, Zap, Sparkles, X } from "lucide-react";
+import { ArrowLeft, MessageCircle, Share2, Sparkles, X } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 

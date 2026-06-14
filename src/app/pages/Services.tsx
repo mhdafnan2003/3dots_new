@@ -1,71 +1,52 @@
-import { Printer, Palette, Award, Megaphone, CheckCircle2, ArrowRight, Layers, ExternalLink, Box } from "lucide-react";
+import { Printer, Award, CheckCircle2, ArrowRight, Layers, ExternalLink, Box } from "lucide-react";
 import { motion } from "motion/react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { Link } from "react-router";
 
 export default function Services() {
   const services = [
     {
-      slug: "banners-sticker-printing",
-      icon: Printer,
-      title: "Banners & Sticker Printing",
-      description: "High-impact visual communication for indoor and outdoor use. We specialize in high-resolution vinyl banners, custom die-cut stickers, and large-format wall graphics with UV-resistant inks.",
-      image: "https://images.unsplash.com/photo-1762888244708-3ac199a33a59?q=80&w=800",
-      category: "Production"
-    },
-    {
-      slug: "screen-offset-printing",
+      slug: "printing-press-services-abu-dhabi",
       icon: Layers,
-      title: "Screen & Offset Printing",
-      description: "Traditional precision meets modern speed. From high-volume corporate stationery and brochures to custom-screened apparel and packaging, we ensure color consistency and sharp details.",
+      title: "Printing Press Services in Abu Dhabi",
+      description: "Printing Press Abu Dhabi – UAE. We offer professional screen printing and offset printing services in Abu Dhabi for business cards, brochures, flyers, and bulk printing requirements with sharp quality and accurate color output.",
       image: "https://images.unsplash.com/photo-1693031630189-a39e6d70bf22?q=80&w=800",
       category: "Publishing"
     },
     {
-      slug: "outdoor-signages",
-      icon: ExternalLink,
-      title: "Outdoor Signages",
-      description: "Command attention from afar. Our architectural outdoor signage solutions include 3D channel letters, pylon signs, and illuminated building facades engineered to withstand the UAE climate.",
-      image: "/images/outdoor.png",
-      category: "Fabrication"
+      slug: "corporate-gifts-promotional-items-uae",
+      icon: Box,
+      title: "Corporate Gifts & Promotional Items UAE",
+      description: "Corporate Gifts UAE. We are a leading corporate gifts supplier in Abu Dhabi offering customized promotional gifts, branded items, and premium corporate giveaways across UAE. Ideal for branding, events, and corporate identity enhancement.",
+      image: "/images/promo.png",
+      category: "Branding"
     },
     {
-      slug: "indoor-signages",
+      slug: "crystal-awards-mementos-abu-dhabi",
       icon: Award,
-      title: "Indoor Signages",
-      description: "Elevate your internal environment. We provide sophisticated wayfinding systems, reception logos, and glass frosting that combine aesthetics with functional navigation.",
-      image: "/images/indoor.png",
+      title: "Crystal Awards & Mementos Abu Dhabi",
+      description: "We design and manufacture premium custom crystal awards, acrylic trophies, wooden plaques, and custom mementos in Abu Dhabi and across the UAE. Suitable for corporate recognition, academic honors, and special events with high-precision engraving.",
+      image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800",
       category: "Identity"
     },
     {
-      slug: "promotional-items",
-      icon: Box,
-      title: "Promotional Items",
-      description: "Put your brand in their hands. A vast catalog of customizable corporate gifts, from premium executive sets to high-volume event giveaways, branded with precision.",
-      image: "/images/promo.png",
-      category: "Branding"
+      slug: "signage-large-format-printing-uae",
+      icon: Printer,
+      title: "Signage & Large Format Printing UAE",
+      description: "Printing Press Abu Dhabi – UAE. We provide high-quality banner printing, sticker printing, and custom branding solutions in Abu Dhabi and across the UAE. Suitable for indoor and outdoor advertising needs with premium finishing and fast delivery. Signages Abu Dhabi – UAE. We design and manufacture outdoor and indoor signage solutions in Abu Dhabi and UAE including shop signs, 3D signs, LED signs, and branding boards with durable materials and premium finishing.",
+      image: "/images/outdoor.png",
+      category: "Production"
+    },
+    {
+      slug: "exhibition-branding-solutions-uae",
+      icon: ExternalLink,
+      title: "Exhibition Branding Solutions UAE",
+      description: "We provide high-impact exhibition branding solutions in Abu Dhabi and across the UAE, including custom exhibition stands, backdrop banners, pop-up displays, and roll-up stands for trade shows, pavilions, and events.",
+      image: "/images/indoor.png",
+      category: "Fabrication"
     },
   ];
 
   const renderTitle = (title: string) => {
-    if (title.includes(" & ")) {
-      const parts = title.split(" & ");
-      return (
-        <>
-          <span className="text-[#3D7B89]">{parts[0]}</span> <span className="text-gray-300 font-light">&</span> <br />
-          <span className="text-[#3D7B89]">{parts[1]}</span>
-        </>
-      );
-    }
-    const firstSpace = title.indexOf(" ");
-    if (firstSpace !== -1) {
-      return (
-        <>
-          <span className="text-[#3D7B89]">{title.substring(0, firstSpace)}</span> <br />
-          <span className="text-gray-300">{title.substring(firstSpace + 1)}</span>
-        </>
-      );
-    }
     return <span className="text-[#3D7B89]">{title}</span>;
   };
 
@@ -80,14 +61,21 @@ export default function Services() {
             transition={{ duration: 0.8 }}
             className="text-center md:text-left"
           >
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40 mb-8 block">Our Expertise</span>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-medium leading-[0.9] tracking-tight mb-12">
+            <span className="text-[10px] md:text-[11px] uppercase tracking-[0.25em] font-bold text-white/40 mb-8 block max-w-4xl leading-relaxed">
+              Printing Press in Abu Dhabi | Corporate Gifts | Crystal Awards | Signage & Branding Solutions in UAE
+            </span>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-medium leading-[0.9] tracking-tight mb-12 uppercase">
               BEYOND <br />
-              <span className="text-white/35">CAPABILITIES.</span>
+              <span className="text-gray-400">SOLUTIONS.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/75 max-w-3xl leading-relaxed mx-auto md:mx-0">
-              3Dots Advertising delivers premium advertising and printing solutions across the UAE. We combine engineering precision with creative vision.
-            </p>
+            <div className="space-y-4 max-w-3xl">
+              <p className="text-xl md:text-2xl text-white/75 leading-relaxed">
+                3Dots Advertising delivers premium advertising and printing solutions across the UAE. We combine engineering precision with creative vision.
+              </p>
+              <p className="text-sm md:text-base text-white/60 leading-relaxed font-normal">
+                We provide high-quality printing press services in Abu Dhabi and across the UAE including Dubai, Al Ain, Ajman and Sharjah.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
