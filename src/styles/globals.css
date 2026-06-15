@@ -70,3 +70,7 @@ body {
     max-width: 1200px !important;
   }
 }
+
+.font-script-handwritten {
+  font-family: 'Caveat', cursive !important;
+}
