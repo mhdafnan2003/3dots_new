@@ -259,9 +259,8 @@ export default function Home() {
             <ProductSection 
               title="Outdoor & Indoor Signages" 
               products={outdoorIndoor} 
-              transparent={true}
-              className="md:-mt-20 md:-mb-20"
               categoryKey="outdoor-indoor"
+              bgColor="bg-white"
             />
           </div>
         )}

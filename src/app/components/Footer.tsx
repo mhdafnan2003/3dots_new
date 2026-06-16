@@ -23,7 +23,7 @@ export default function Footer() {
             <div className="flex gap-4 justify-start w-full">
               {[
                 { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
-                { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" }
+                { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" }
               ].map((item, i) => (
                 <a 
                   key={i} 
@@ -65,7 +65,7 @@ export default function Footer() {
               <li>
                 <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Office Phone</span>
                 <a href="tel:+97125175916" className="hover:text-[#3D7B89] transition-colors block">02 517 5916</a>
-                <a href="tel:+971563139733" className="hover:text-[#3D7B89] transition-colors block">+971 56 313 9733</a>
+                <a href="tel:+971562599155" className="hover:text-[#3D7B89] transition-colors block">+971 56 259 9155</a>
               </li>
               <li>
                 <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Email</span>

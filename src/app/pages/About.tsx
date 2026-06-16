@@ -45,22 +45,22 @@ const milestones = [
 
 const team = [
   {
-    name: "Omar Al Rashidi",
-    role: "Founder & Creative Director",
-    imgId: "1507003211169-0a1dd7228f2d",
-    bio: "15 years in UAE visual communications. Former head of production at JWT MENA.",
+    name: "Rajab Navunda",
+    role: "Creative Director",
+    imgId: "/images/rajab2.png",
+    bio: "Expert in visual communications, branding, and design production in the UAE.",
   },
   {
-    name: "Priya Sharma",
-    role: "Head of Client Strategy",
-    imgId: "1494790108377-be9c29b29330",
-    bio: "Managed landmark campaigns for Emirates Group and Majid Al Futtaim.",
+    name: "Shihab Anorammal",
+    role: "Sales Executive",
+    imgId: "/images/SHIHAB (4).png",
+    bio: "Expert in client relations and print solutions, assisting corporate partners with tailored advertising and branding projects.",
   },
   {
-    name: "Hassan Darwish",
-    role: "Production Manager",
-    imgId: "1472099645785-5658abf4ff4e",
-    bio: "20+ years on press. Certified master printer — HP Latex and Durst Rho systems.",
+    name: "Navaf Muhammed",
+    role: "Business Developer",
+    imgId: "/images/3.png",
+    bio: "Specializes in business development and corporate strategy, connecting clients with premium advertising and production solutions.",
   },
 ];
 
@@ -170,7 +170,7 @@ export default function About() {
 
             <div className="pt-4">
               <a
-                href="https://wa.me/971563139733?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
+                href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-4 rounded-none hover:bg-[#2F616D] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]"
@@ -279,9 +279,15 @@ export default function About() {
               <motion.div key={member.name} {...fadeUp(i * 0.12)} className="group">
                 <div className="overflow-hidden mb-6 bg-white/5 aspect-[4/3] sm:aspect-[3/2] md:aspect-[4/3]">
                   <img
-                    src={`https://images.unsplash.com/photo-${member.imgId}?w=800&h=600&fit=crop&crop=faces&auto=format`}
+                    src={member.imgId.startsWith('/') || member.imgId.startsWith('http')
+                      ? member.imgId
+                      : `https://images.unsplash.com/photo-${member.imgId}?w=800&h=600&fit=crop&crop=faces&auto=format`}
                     alt={member.name}
-                    className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
+                    className={`w-full h-full transition-all duration-700 group-hover:scale-105 ${
+                      member.imgId.startsWith('/')
+                        ? "object-contain object-bottom pt-4"
+                        : "object-cover object-center"
+                    }`}
                   />
                 </div>
                 <p className="text-[9px] uppercase tracking-[0.35em] text-white/40 mb-2 font-bold">
@@ -329,7 +335,7 @@ export default function About() {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 shrink-0">
               <a
-                href="https://wa.me/971563139733?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%203Dots"
+                href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%203Dots"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-5 text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#2F616D] transition-colors"

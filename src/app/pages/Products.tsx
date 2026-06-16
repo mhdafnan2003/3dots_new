@@ -124,7 +124,7 @@ export default function Products() {
             </h1>
           </div>
           
-          <div className="flex flex-nowrap overflow-x-auto no-scrollbar whitespace-nowrap gap-2 sm:gap-6 border-b border-black/5 pb-2 w-full">
+          <div className="flex flex-wrap gap-2 sm:gap-6 border-b border-black/5 pb-4 w-full">
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -136,7 +136,7 @@ export default function Products() {
                     setSearchParams(newParams);
                   }
                 }}
-                className={`text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] px-3 sm:px-4 py-2.5 transition-all shrink-0 focus:outline-none border-b-2 ${
+                className={`text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] px-3 sm:px-4 py-2.5 transition-all focus:outline-none border-b-2 ${
                   selectedCategory === cat.id 
                     ? "text-[#3D7B89] border-[#3D7B89]" 
                     : "text-black/30 hover:text-black border-transparent"
@@ -217,7 +217,7 @@ export default function Products() {
             Looking for a specific execution?
           </span>
           <a 
-            href="https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
+            href="https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20you."
             className="group inline-flex items-center gap-3.5 text-3xl md:text-4xl font-medium text-[#0A0A0A] hover:text-[#3D7B89] transition-colors uppercase tracking-tight"
           >
             START A PROJECT

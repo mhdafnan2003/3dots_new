@@ -13,7 +13,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const whatsappMessage = `Hi, I'm ${formData.name}. I'm interested in ${formData.service}. ${formData.message}`;
-    const whatsappUrl = `https://wa.me/971563139733?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/971562599155?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, "_blank");
   };
 
@@ -77,10 +77,10 @@ export default function Contact() {
                     02 517 5916
                   </a>
                   <a 
-                    href="tel:+971563139733" 
+                    href="tel:+971562599155" 
                     className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
                   >
-                    +971 56 313 9733
+                    +971 56 259 9155
                   </a>
                 </div>
               </div>
