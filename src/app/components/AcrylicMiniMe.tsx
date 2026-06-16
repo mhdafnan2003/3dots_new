@@ -14,7 +14,11 @@ export function AcrylicMiniMe() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const activeYOffset = isMobile ? 30 : 40;
+  // Define rising Y offsets for the banner edge crop animation (scaled up for even larger character sizes)
+  const centerY = isMobile ? 125 : 160;
+  const sideY = isMobile ? 150 : 200;
+  const backY = isMobile ? 395 : 540;
+
 
   // Track scroll position of the section relative to the viewport
   // Offset ["start start", "end end"] pins the container during the full progression
@@ -33,22 +37,22 @@ export function AcrylicMiniMe() {
     {
       name: "Boss Baby",
       src: "/images/boss_baby.png",
-      width: "25%",
+      width: "37%",
     },
     {
       name: "Snow White",
       src: "/images/snow_white.png",
-      width: "30%",
+      width: "45%",
     },
     {
       name: "Superman",
       src: "/images/superman.png",
-      width: "27%",
+      width: "40%",
     },
     {
       name: "Spider-Man",
       src: "/images/spiderman.png",
-      width: "23%",
+      width: "34%",
     }
   ];
 
@@ -90,18 +94,18 @@ export function AcrylicMiniMe() {
   );
   const c3X = useTransform(c3XRelative, (val) => `${val * (isMobile ? 22 : 13)}vw`);
 
-  // Scroll-bound scales (Center: 1.95x for heavy projection, Left/Right: 0.95x, Back: 0.4x)
-  const c0Scale = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [1.5, 1.5, 0.95, 0.6, 0.4, 0.4, 0.6, 0.95, 0.95]);
-  const c1Scale = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [0.95, 0.95, 1.5, 0.95, 0.6, 0.4, 0.4, 0.4]);
-  const c2Scale = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [0.4, 0.4, 0.6, 0.95, 1.5, 0.95, 0.95]);
-  const c3Scale = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [0.95, 0.95, 0.6, 0.4, 0.4, 0.6, 0.95, 1.5, 1.5]);
+  // Scroll-bound scales (Center: 2.4x, Left/Right: 1.5x, Back: 0.65x)
+  const c0Scale = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [2.4, 2.4, 1.5, 0.9, 0.65, 0.65, 0.9, 1.5, 1.5]);
+  const c1Scale = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [1.5, 1.5, 2.4, 1.5, 0.9, 0.65, 0.65, 0.65]);
+  const c2Scale = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [0.65, 0.65, 0.9, 1.5, 2.4, 1.5, 1.5]);
+  const c3Scale = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [1.5, 1.5, 0.9, 0.65, 0.65, 0.9, 1.5, 2.4, 2.4]);
 
-  // Scroll-bound opacities (Center: 1.0, Left/Right: 0.6, Back: 0.0)
+  // Scroll-bound opacities (Center: 1.0, Left/Right: 0.8, Back: 0.0)
   // Implementing early fade-out and late fade-in to ensure the fourth character is never visible
-  const c0Opacity = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [1.0, 1.0, 0.6, 0.0, 0.0, 0.0, 0.0, 0.6, 0.6]);
-  const c1Opacity = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [0.6, 0.6, 1.0, 0.6, 0.0, 0.0, 0.0, 0.0]);
-  const c2Opacity = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [0.0, 0.0, 0.0, 0.6, 1.0, 0.6, 0.6]);
-  const c3Opacity = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [0.6, 0.6, 0.0, 0.0, 0.0, 0.0, 0.6, 1.0, 1.0]);
+  const c0Opacity = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [1.0, 1.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.8, 0.8]);
+  const c1Opacity = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [0.8, 0.8, 1.0, 0.8, 0.0, 0.0, 0.0, 0.0]);
+  const c2Opacity = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [0.0, 0.0, 0.0, 0.8, 1.0, 0.8, 0.8]);
+  const c3Opacity = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [0.8, 0.8, 0.0, 0.0, 0.0, 0.0, 0.8, 1.0, 1.0]);
 
   // Scroll-bound rotations (Center: 0, Left: -12, Right: 12, Back: -20/20)
   const c0Rotate = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [0, 0, -12, -16, 0, 0, 6, 12, 12]);
@@ -109,11 +113,33 @@ export function AcrylicMiniMe() {
   const c2Rotate = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [0, 0, 6, 12, 0, -12, -12]);
   const c3Rotate = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [-12, -12, -16, 0, 0, 6, 12, 0, 0]);
 
-  // Scroll-bound y vertical offset (Center: 50px for submerging projection, Left/Right: 0px, Back: 20px)
-  const c0Y = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [activeYOffset, activeYOffset, 0, 20, 20, 20, 10, 0, 0]);
-  const c1Y = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [0, 0, activeYOffset, 0, 10, 20, 20, 20]);
-  const c2Y = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [20, 20, 10, 0, activeYOffset, 0, 0]);
-  const c3Y = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [0, 0, 10, 20, 20, 10, 0, activeYOffset, activeYOffset]);
+  // Character 0 (Boss Baby) scroll-bound Y translation
+  const c0Y = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0],
+    [centerY, centerY, sideY, backY, backY, backY, backY, sideY, sideY]
+  );
+
+  // Character 1 (Snow White) scroll-bound Y translation
+  const c1Y = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0],
+    [sideY, sideY, centerY, sideY, backY, backY, backY, backY]
+  );
+
+  // Character 2 (Superman) scroll-bound Y translation
+  const c2Y = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0],
+    [backY, backY, backY, sideY, centerY, sideY, sideY]
+  );
+
+  // Character 3 (Spider-Man) scroll-bound Y translation
+  const c3Y = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0],
+    [sideY, sideY, backY, backY, backY, backY, sideY, centerY, centerY]
+  );
 
   // Z-Index transitions: 50 when active/center, 20 when left/right, 10 when invisible/back (behind center)
   const c0ZIndex = useTransform(clampedProgress, [0, 0.25, 0.26, 0.50, 0.51, 0.75, 0.76, 1.0], [50, 50, 20, 20, 10, 10, 20, 20]);
@@ -127,6 +153,19 @@ export function AcrylicMiniMe() {
   const c2BadgeOpacity = useTransform(clampedProgress, [0.50, 0.60, 0.65, 0.70, 0.80], [0.0, 0.0, 1.0, 0.0, 0.0]);
   const c3BadgeOpacity = useTransform(clampedProgress, [0.75, 0.85, 0.90, 0.95, 1.0], [0.0, 0.0, 1.0, 1.0, 1.0]);
 
+  // Scroll-bound blur (Center: 0px, Side: 4px, Back: 10px)
+  const c0Blur = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [0, 0, 4, 10, 10, 10, 10, 4, 4]);
+  const c0Filter = useTransform(c0Blur, (val) => `blur(${val}px)`);
+
+  const c1Blur = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [4, 4, 0, 4, 10, 10, 10, 10]);
+  const c1Filter = useTransform(c1Blur, (val) => `blur(${val}px)`);
+
+  const c2Blur = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [10, 10, 10, 4, 0, 4, 4]);
+  const c2Filter = useTransform(c2Blur, (val) => `blur(${val}px)`);
+
+  const c3Blur = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [4, 4, 10, 10, 10, 10, 4, 0, 0]);
+  const c3Filter = useTransform(c3Blur, (val) => `blur(${val}px)`);
+
   // Glare sweep opacity
   const c0Glare = useTransform(clampedProgress, [0, 0.15, 0.25], [0.4, 0.4, 0.0]);
   const c1Glare = useTransform(clampedProgress, [0.25, 0.40, 0.55], [0.0, 0.4, 0.0]);
@@ -135,10 +174,10 @@ export function AcrylicMiniMe() {
 
   // Group animated props
   const animatedChars = [
-    { ...characters[0], x: c0X, y: c0Y, scale: c0Scale, opacity: c0Opacity, rotate: c0Rotate, zIndex: c0ZIndex, badgeOpacity: c0BadgeOpacity, glare: c0Glare },
-    { ...characters[1], x: c1X, y: c1Y, scale: c1Scale, opacity: c1Opacity, rotate: c1Rotate, zIndex: c1ZIndex, badgeOpacity: c1BadgeOpacity, glare: c1Glare },
-    { ...characters[2], x: c2X, y: c2Y, scale: c2Scale, opacity: c2Opacity, rotate: c2Rotate, zIndex: c2ZIndex, badgeOpacity: c2BadgeOpacity, glare: c2Glare },
-    { ...characters[3], x: c3X, y: c3Y, scale: c3Scale, opacity: c3Opacity, rotate: c3Rotate, zIndex: c3ZIndex, badgeOpacity: c3BadgeOpacity, glare: c3Glare },
+    { ...characters[0], x: c0X, y: c0Y, scale: c0Scale, opacity: c0Opacity, rotate: c0Rotate, zIndex: c0ZIndex, badgeOpacity: c0BadgeOpacity, glare: c0Glare, filter: c0Filter },
+    { ...characters[1], x: c1X, y: c1Y, scale: c1Scale, opacity: c1Opacity, rotate: c1Rotate, zIndex: c1ZIndex, badgeOpacity: c1BadgeOpacity, glare: c1Glare, filter: c1Filter },
+    { ...characters[2], x: c2X, y: c2Y, scale: c2Scale, opacity: c2Opacity, rotate: c2Rotate, zIndex: c2ZIndex, badgeOpacity: c2BadgeOpacity, glare: c2Glare, filter: c2Filter },
+    { ...characters[3], x: c3X, y: c3Y, scale: c3Scale, opacity: c3Opacity, rotate: c3Rotate, zIndex: c3ZIndex, badgeOpacity: c3BadgeOpacity, glare: c3Glare, filter: c3Filter },
   ];
 
   // Timeline indicator dots
@@ -178,50 +217,11 @@ export function AcrylicMiniMe() {
           }}
         />
 
-        {/* Mask to cover the blurry description text baked into the background image (desktop only) */}
-        {!isMobile && (
-          <div 
-            style={{
-              left: "4.5vw",
-              width: "37vw",
-              bottom: "45px",
-              height: "130px",
-              background: "linear-gradient(to right, #be8523, #c9932d)",
-            }}
-            className="absolute blur-[3px] z-1 pointer-events-none"
-          />
-        )}
-
-        {/* Crisp HTML Description Text overlaying the mask in the exact position of the background image (desktop only) */}
-        {!isMobile && (
-          <div
-            style={{
-              left: "5vw",
-              width: "36vw",
-              bottom: "56px",
-              height: "110px",
-            }}
-            className="absolute z-2 flex flex-col justify-end text-left pointer-events-none"
-          >
-            <p 
-              style={{ fontSize: "1.1vw", lineHeight: "1.5" }}
-              className="text-[#fdfaf2]/80"
-            >
-              Acrylic Mini Me brings your personality to life through unique, custom-made acrylic characters designed just for you. Whether it's for gifts, branding, or personal keepsakes, we transform your photos and ideas into high-quality, detailed mini versions that stand out. With a focus on creativity, precision, and premium finishing, we create memorable pieces that capture your style in a fun and artistic way.
-            </p>
-          </div>
-        )}
 
         {/* Desktop-only transparent clickable overlay that tracks the full-width background image's button */}
         <Link
           to="/products?category=laser-acrylic"
-          style={{
-            right: "7.5vw",
-            width: "16.5vw",
-            height: "50px",
-            bottom: "25px",
-          }}
-          className="hidden md:block absolute cursor-pointer z-30 opacity-0"
+          className="hidden md:block absolute right-0 top-0 bottom-0 w-[30%] cursor-pointer z-30 opacity-0"
           aria-label="Order Now"
         />
 
@@ -230,18 +230,7 @@ export function AcrylicMiniMe() {
           <div className="w-full md:w-[30%] hidden md:flex" />
 
           {/* Center: Dynamic Character Stage (middle-aligned) */}
-          <div className="w-full md:w-[40%] flex flex-col items-center justify-end relative h-full min-h-[260px] md:min-h-[380px] order-2 md:order-2 overflow-visible pb-6 md:pb-10">
-            {/* Stage Shadow */}
-            <motion.div 
-              style={{ opacity: charOpacity }}
-              className="absolute bottom-3 md:bottom-5 w-[85%] h-6 md:h-8 bg-black/40 rounded-full blur-md z-0" 
-            />
-
-            {/* Stage Glowing Gold Ring */}
-            <motion.div 
-              style={{ opacity: charOpacity }}
-              className="absolute bottom-1 md:bottom-3 w-[35%] md:w-[40%] h-6 md:h-8 border border-white/20 bg-white/5 rounded-full blur-[2px] shadow-[0_0_20px_rgba(212,158,49,0.4)] z-0" 
-            />
+          <div className="w-full md:w-[40%] flex flex-col items-center justify-end relative h-full min-h-[260px] md:min-h-[380px] order-2 md:order-2 overflow-visible pb-0">
 
             {/* Character Standees */}
             <div className="relative w-full h-[200px] md:h-[280px] overflow-visible">
@@ -267,6 +256,7 @@ export function AcrylicMiniMe() {
                         scale: char.scale,
                         opacity: char.opacity,
                         rotate: char.rotate,
+                        filter: char.filter,
                       }}
                       className="cursor-pointer pointer-events-auto group/char drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)] filter origin-bottom"
                     >
@@ -276,13 +266,7 @@ export function AcrylicMiniMe() {
                         className="w-full h-auto object-contain select-none"
                       />
                       
-                      {/* Floating Name Badge - Fades in at the peak of projection */}
-                      <motion.div
-                        style={{ opacity: char.badgeOpacity }}
-                        className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/75 backdrop-blur-md text-white border border-white/20 rounded-full text-[10px] md:text-[11px] font-bold tracking-wider uppercase whitespace-nowrap pointer-events-none shadow-lg"
-                      >
-                        {char.name}
-                      </motion.div>
+
 
                       {/* Subtle 3D Reflection Glare Overlay on Active scroll projection */}
                       <motion.div 
