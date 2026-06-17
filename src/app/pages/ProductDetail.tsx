@@ -170,15 +170,15 @@ export default function ProductDetail() {
         </Link>
       </div>
 
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 pt-40 pb-32">
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 pt-28 lg:pt-32 pb-20 lg:pb-12">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           
           {/* Left: Imagery */}
-          <div className="lg:col-span-7 space-y-12">
+          <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-4 lg:space-y-6">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-[2.5rem] sm:rounded-[3.5rem] overflow-hidden bg-gray-50 relative shadow-lg w-full aspect-[4/5]"
+              className="rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-gray-50 relative shadow-lg w-full lg:w-[38.4vh] aspect-[4/5] lg:h-[48vh] max-h-[500px] mx-auto"
             >
               <ImageWithFallback 
                 src={activeImage}
@@ -187,17 +187,17 @@ export default function ProductDetail() {
               />
             </motion.div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-4 w-full lg:w-[38.4vh] mx-auto">
               {allImages.slice(0, 3).map((img: string, i: number) => (
                 <motion.div 
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.05 }}
                   onClick={() => setActiveImage(img)}
-                  className={`aspect-square rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden bg-gray-50 cursor-pointer transition-all duration-300 ${
-                    activeImage === img ? 'ring-4 ring-[#3D7B89]' : 'opacity-70 hover:opacity-100'
+                  className={`aspect-square rounded-[1rem] lg:rounded-[1.2rem] overflow-hidden bg-gray-50 cursor-pointer transition-all duration-300 ${
+                    activeImage === img ? 'ring-3 ring-[#3D7B89]' : 'opacity-70 hover:opacity-100'
                   }`}
                 >
                   <ImageWithFallback src={img} alt="Detail" className="w-full h-full object-cover" />
@@ -208,123 +208,77 @@ export default function ProductDetail() {
 
           {/* Right: Info */}
           <div className="lg:col-span-5">
-            <div className="sticky top-40">
-              <div className="flex justify-between items-start mb-8">
+            <div className="lg:sticky lg:top-32 space-y-4 lg:space-y-6">
+              <div className="flex justify-between items-start">
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.35em] text-[#8E8E8E] mb-4 block font-bold">
+                  <span className="text-[9px] uppercase tracking-[0.35em] text-[#8E8E8E] mb-2 block font-bold">
                     PROJECT {product.year}
                   </span>
-                  <h1 className="text-4xl md:text-5xl font-medium tracking-tight leading-tight mb-6 flex flex-col">
+                  <h1 className="text-3xl md:text-4xl font-medium tracking-tight leading-tight mb-4 flex flex-col">
                     <span className="text-[#0A0A0A]">{product.name}</span>
                     {product.titleLine2 && <span className="text-[#C4C4C4] font-normal">{product.titleLine2}</span>}
                   </h1>
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-4">
                     <span 
-                      className="px-5 py-1.5 rounded-full border border-black/10 bg-white"
-                      style={{
-                        color: "#0A0A0A",
-                        fontFamily: '"Neue Regrade", sans-serif',
-                        fontSize: "10px",
-                        fontStyle: "normal",
-                        fontWeight: 500,
-                        lineHeight: "15px",
-                        letterSpacing: "0.617px",
-                        textTransform: "uppercase"
-                      }}
+                      className="px-4 py-1 rounded-full border border-black/10 bg-white text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]"
+                      style={{ fontFamily: '"Neue Regrade", sans-serif' }}
                     >
                       {product.category}
                     </span>
-                    <span style={{
-                      color: "#0A0A0A",
-                      fontFamily: '"Neue Regrade", sans-serif',
-                      fontSize: "10px",
-                      fontStyle: "normal",
-                      fontWeight: 500,
-                      lineHeight: "15px",
-                      letterSpacing: "0.617px",
-                      textTransform: "uppercase"
-                    }}>
+                    <span 
+                      className="text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]"
+                      style={{ fontFamily: '"Neue Regrade", sans-serif' }}
+                    >
                       CLIENT: {product.client}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="mb-16">
+              <div>
                 <span 
-                  className="mb-4 block"
-                  style={{
-                    color: "#0A0A0A",
-                    fontFamily: '"Neue Regrade", sans-serif',
-                    fontSize: "10px",
-                    fontStyle: "normal",
-                    fontWeight: 500,
-                    lineHeight: "15px",
-                    letterSpacing: "0.617px",
-                    textTransform: "uppercase"
-                  }}
+                  className="mb-2 block text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]"
+                  style={{ fontFamily: '"Neue Regrade", sans-serif' }}
                 >
                   THE CHALLENGE
                 </span>
                 <p style={{
                   color: "rgba(0, 0, 0, 0.70)",
                   fontFamily: '"Neue Regrade", sans-serif',
-                  fontSize: "20px",
-                  fontStyle: "normal",
+                  fontSize: "14px",
                   fontWeight: 500,
-                  lineHeight: "32.5px"
+                  lineHeight: "22px"
                 }}>
                   {product.description}
                 </p>
               </div>
 
               {/* Technical Specifications */}
-              <div className="bg-[#F9F9F9] p-10 rounded-[2.5rem] mb-12 shadow-sm">
-                <span className="mb-8 block" style={{
-                  color: "#0A0A0A",
-                  fontFamily: '"Neue Regrade", sans-serif',
-                  fontSize: "12px",
-                  fontStyle: "normal",
-                  fontWeight: 500,
-                  lineHeight: "16px",
-                  letterSpacing: "3.6px",
-                  textTransform: "uppercase"
+              <div className="bg-[#F9F9F9] p-6 lg:p-8 rounded-[2rem] shadow-sm">
+                <span className="mb-4 block text-[11px] font-medium uppercase tracking-[0.2em] text-[#0A0A0A]" style={{
+                  fontFamily: '"Neue Regrade", sans-serif'
                 }}>TECHNICAL SPECS</span>
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {product.specs.map((spec: any, i: number) => (
-                    <div key={i} className="flex justify-between items-center border-b border-black/5 pb-4">
-                      <span style={{
-                        color: "rgba(0, 0, 0, 0.30)",
-                        fontFamily: '"Neue Regrade", sans-serif',
-                        fontSize: "10px",
-                        fontStyle: "normal",
-                        fontWeight: 500,
-                        lineHeight: "15px",
-                        letterSpacing: "0.117px",
-                        textTransform: "uppercase"
+                    <div key={i} className="flex justify-between items-center border-b border-black/5 pb-2">
+                      <span className="text-[9px] font-medium uppercase text-black/35" style={{
+                        fontFamily: '"Neue Regrade", sans-serif'
                       }}>
                         {spec.label}
                       </span>
-                      <span className="text-xs font-semibold text-[#0A0A0A]">{spec.value}</span>
+                      <span className="text-[11px] font-semibold text-[#0A0A0A]">{spec.value}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Features List */}
-              <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-16">
+              <div className="grid grid-cols-2 gap-y-3 gap-x-4">
                 {product.features.map((feature: string, i: number) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <Sparkles size={12} className="text-[#3D7B89] shrink-0" />
-                    <span style={{
-                      color: "#0A0A0A",
-                      fontFamily: '"Neue Regrade", sans-serif',
-                      fontSize: "10px",
-                      fontStyle: "normal",
-                      fontWeight: 500,
-                      lineHeight: "15px",
-                      letterSpacing: "0.617px",
-                      textTransform: "uppercase"
+                  <div key={i} className="flex items-center gap-2">
+                    <Sparkles size={11} className="text-[#3D7B89] shrink-0" />
+                    <span className="text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]" style={{
+                      fontFamily: '"Neue Regrade", sans-serif'
                     }}>
                       {feature}
                     </span>
@@ -333,17 +287,17 @@ export default function ProductDetail() {
               </div>
 
               {/* CTA Actions */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 pt-2">
                 <button 
                   onClick={() => setIsQuoteModalOpen(true)}
-                  className="flex-1 flex items-center justify-center gap-2.5 bg-[#3D7B89] hover:bg-[#2D5F6A] text-white py-4 rounded-full text-[15px] font-normal transition-all shadow-sm cursor-pointer"
+                  className="flex-1 flex items-center justify-center gap-2.5 bg-[#3D7B89] hover:bg-[#2D5F6A] text-white py-3.5 rounded-full text-[14px] font-normal transition-all shadow-sm cursor-pointer"
                   style={{ fontFamily: '"Neue Regrade", sans-serif' }}
                 >
-                  <MessageCircle size={18} strokeWidth={1.5} />
+                  <MessageCircle size={16} strokeWidth={1.5} />
                   Request Quote
                 </button>
-                <button className="w-14 h-14 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all group shadow-sm shrink-0">
-                  <Share2 size={18} strokeWidth={1.5} className="text-[#0A0A0A] group-hover:text-white group-hover:scale-110 transition-all" />
+                <button className="w-12 h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all group shadow-sm shrink-0">
+                  <Share2 size={16} strokeWidth={1.5} className="text-[#0A0A0A] group-hover:text-white group-hover:scale-110 transition-all" />
                 </button>
               </div>
             </div>

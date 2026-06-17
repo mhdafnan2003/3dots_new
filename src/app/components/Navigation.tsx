@@ -222,18 +222,18 @@ export default function Navigation() {
               {navLinks.map((link) => {
                 if (link.name === "Products") {
                   const productsButtonClass = scrolled
-                    ? `inline-flex items-center gap-1.5 text-[14px] font-bold tracking-wider uppercase px-5 py-2 rounded-full border transition-all duration-300 ${
+                    ? `inline-flex items-center gap-1.5 text-[14px] font-bold tracking-wider uppercase px-5 py-2 rounded-none border transition-all duration-300 ${
                         dropdownOpen
                           ? "bg-white text-[#3D7B89] border-white shadow-md shadow-black/10"
                           : "bg-white/15 text-white border-white/20 hover:bg-white hover:text-[#3D7B89] hover:border-white"
                       }`
                     : (isWhiteNavbar
-                      ? `inline-flex items-center gap-1.5 text-[14px] font-bold tracking-wider uppercase px-5 py-2 rounded-full border transition-all duration-300 ${
+                      ? `inline-flex items-center gap-1.5 text-[14px] font-bold tracking-wider uppercase px-5 py-2 rounded-none border transition-all duration-300 ${
                           dropdownOpen
                             ? "bg-[#3D7B89] text-white border-[#3D7B89] shadow-md shadow-[#3D7B89]/25"
                             : "bg-[#3D7B89]/5 text-[#3D7B89] border-[#3D7B89]/20 hover:bg-[#3D7B89] hover:text-white hover:border-[#3D7B89]"
                         }`
-                      : `inline-flex items-center gap-1.5 text-[14px] font-bold tracking-wider uppercase px-5 py-2 rounded-full border transition-all duration-300 ${
+                      : `inline-flex items-center gap-1.5 text-[14px] font-bold tracking-wider uppercase px-5 py-2 rounded-none border transition-all duration-300 ${
                           dropdownOpen
                             ? "bg-[#3D7B89] text-white border-[#3D7B89] shadow-md shadow-[#3D7B89]/25"
                             : "bg-white/10 text-white/95 border-white/20 hover:bg-[#3D7B89] hover:text-white hover:border-[#3D7B89]"
@@ -281,7 +281,7 @@ export default function Navigation() {
                   <motion.div
                     animate={{ width: (searchHovered || searchFocused || searchQuery) ? 200 : 40 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`flex items-center rounded-full border px-3 py-1.5 overflow-hidden transition-all duration-300 ${
+                    className={`flex items-center rounded-none border px-3 py-1.5 overflow-hidden transition-all duration-300 ${
                       scrolled
                         ? "border-white/20 bg-white/10 hover:bg-white/20 text-white"
                         : (isWhiteNavbar

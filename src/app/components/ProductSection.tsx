@@ -27,7 +27,7 @@ function ProductCard({ id, title, image, category, linkTo }: ProductCardProps) {
         />
       </div>
       <div className="space-y-1 text-center">
-        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 block">{category}</span>
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 block mb-1">{category}</span>
         <h3 className="text-base sm:text-[20px] font-bold text-black tracking-tight leading-tight group-hover:text-[#3D7B89] transition-colors flex flex-col items-center">
           <span>{title}</span>
         </h3>
@@ -55,7 +55,16 @@ interface ProductSectionProps {
   bgColor?: string;
 }
 
-export function ProductSection({ title, products, categoryKey, reversed = false, boldAll = false, transparent = false, className = '', bgColor = 'bg-white' }: ProductSectionProps) {
+export function ProductSection({ 
+  title, 
+  products, 
+  categoryKey, 
+  reversed = false, 
+  boldAll = false, 
+  transparent = false, 
+  className = '', 
+  bgColor = 'bg-white' 
+}: ProductSectionProps) {
   const words = title.split(' ');
   const firstWord = words[0];
   const ampersandIndex = words.indexOf('&');
@@ -198,7 +207,7 @@ export function ProductSection({ title, products, categoryKey, reversed = false,
           {/* Slidable Carousel Container */}
           <div 
             ref={scrollRef}
-            className="flex flex-row overflow-x-auto no-scrollbar-forced scroll-smooth gap-4 sm:gap-8 md:gap-10 pb-4 snap-x snap-mandatory"
+            className="flex flex-row overflow-x-auto overflow-y-hidden no-scrollbar-forced scroll-smooth gap-4 sm:gap-8 md:gap-10 pt-2 pb-4 snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {products.map((product, index) => (

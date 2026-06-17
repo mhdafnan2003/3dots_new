@@ -78,22 +78,22 @@ export default function About() {
     <main className="bg-white min-h-screen overflow-hidden">
 
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative bg-[#3D7B89] pt-28 md:pt-40 pb-16 md:pb-32 px-6 md:px-12 overflow-hidden">
+      <section className="relative bg-[#3D7B89] pt-28 md:pt-32 pb-16 md:pb-24 px-6 md:px-12 overflow-hidden">
         <div className="max-w-screen-2xl mx-auto relative z-10">
           <motion.p
             {...fadeUp(0)}
-            className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-12 font-bold text-center md:text-left"
+            className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-6 md:mb-8 font-bold text-center md:text-left"
           >
             About 3Dots Advertising
           </motion.p>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end text-center md:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:items-start items-end text-center md:text-left">
             <motion.div {...fadeUp(0.1)} className="lg:col-span-8">
               <h1 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-normal leading-[1.05] tracking-tight text-white uppercase">
                 Built to Make Brands<br />
                 <span className="text-white/60">Impossible to Ignore.</span>
               </h1>
             </motion.div>
-            <motion.div {...fadeUp(0.25)} className="lg:col-span-4 lg:pb-4 text-left">
+            <motion.div {...fadeUp(0.25)} className="lg:col-span-4 text-center md:text-left">
               <div className="text-white/70 text-sm md:text-base leading-relaxed font-normal mx-auto md:mx-0 space-y-4">
                 <p>Established in Abu Dhabi in 2022, 3Dots Advertising is a full-service advertising and production company dedicated to transforming ideas into powerful brand experiences. From concept and design to production and installation, we deliver innovative signage, premium printing, exhibition displays, promotional products, custom fabrication, and branding solutions that help businesses stand out in a competitive market.</p>
                 <p>Driven by creativity, craftsmanship, and commitment, we combine quality, precision, and speed to bring every project to life—on time, on brand, and beyond expectations.</p>

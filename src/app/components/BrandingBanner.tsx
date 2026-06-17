@@ -48,13 +48,13 @@ export function BrandingBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-3"
+            className="space-y-4"
           >
-            <h2 className="text-[11px] uppercase tracking-[0.3em] font-bold text-gray-400">
+            <h2 className="text-2xl md:text-4xl uppercase tracking-[0.2em] font-medium text-gray-900">
               Our Clients
             </h2>
-            <div className="h-[1px] w-12 bg-gray-200 mx-auto my-3" />
-            <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+            <div className="h-[1px] w-16 bg-gray-200 mx-auto my-4" />
+            <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
               We have experience working with clients in Government, Contracting, Retail, Healthcare, Hospitality, Corporate sectors, and more.
             </p>
           </motion.div>
