@@ -3,7 +3,7 @@ import { ArrowRight, MapPin } from "lucide-react";
 
 export function AboutPreview() {
   return (
-    <section className="pt-8 pb-0 md:pt-0 md:pb-8 bg-white overflow-hidden">
+    <section className="pt-12 pb-12 md:pt-16 md:pb-20 bg-gray-50 overflow-hidden">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -49,15 +49,20 @@ export function AboutPreview() {
 
             <h2 className="text-4xl md:text-5xl lg:text-[64px] font-medium leading-[1.1] tracking-tight">
               <span className="text-[#3D7B89]">Three dots.</span>{' '}
-              <span className="text-gray-400">One signal.</span>
+              <span className="text-gray-400">One</span>
+              <br />
+              <span className="text-gray-400">signal.</span>
             </h2>
 
             <div className="space-y-6 text-gray-500 text-[15px] leading-relaxed max-w-xl">
               <p>
-                The name comes from the ellipsis — that moment of pause before something impactful is said. We started in 2013 from a single 1,200 sq ft unit in Al Quoz with two wide-format printers and a belief that Dubai's booming market deserved a production partner with genuine craft values.
+                We are an Emirates-based company licensed by the Abu Dhabi Media Council. Our team is made up of creative thinkers and passionate designers who believe in understanding your brand first—because meaningful advertising begins with insight, not assumptions.
               </p>
               <p>
-                Over a decade later we operate a 18,000 sq ft facility in Sharjah and a client relations studio in Business Bay, with production capabilities spanning large-format, screen, offset, CNC routing, LED fabrication, and branded merchandise — all under one quality-controlled roof.
+                We are genuine in our approach and deeply committed to delivering exceptional results. This dedication comes from a true love for our craft and the privilege of enjoying every stage of the creative journey.
+              </p>
+              <p>
+                Above all, we stay true to our values and proudly collaborate with responsible companies that strive to make the world a better place.
               </p>
             </div>
 

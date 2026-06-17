@@ -27,7 +27,7 @@ function ProductCard({ id, title, image, category, linkTo }: ProductCardProps) {
         />
       </div>
       <div className="space-y-1 text-center">
-        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 block">{category}</span>
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 block mb-1">{category}</span>
         <h3 className="text-base sm:text-[20px] font-bold text-black tracking-tight leading-tight group-hover:text-[#3D7B89] transition-colors flex flex-col items-center">
           <span>{title}</span>
         </h3>
@@ -52,11 +52,33 @@ interface ProductSectionProps {
   boldAll?: boolean;
   transparent?: boolean;
   className?: string;
+  bgColor?: string;
 }
 
-export function ProductSection({ title, products, categoryKey, reversed = false, boldAll = false, transparent = false, className = '' }: ProductSectionProps) {
-  const [firstWord, ...rest] = title.split(' ');
-  const remainingText = rest.join(' ');
+export function ProductSection({ 
+  title, 
+  products, 
+  categoryKey, 
+  reversed = false, 
+  boldAll = false, 
+  transparent = false, 
+  className = '', 
+  bgColor = 'bg-white' 
+}: ProductSectionProps) {
+  const words = title.split(' ');
+  const firstWord = words[0];
+  const ampersandIndex = words.indexOf('&');
+  let line1 = title;
+  let line2 = '';
+
+  if (ampersandIndex !== -1 && ampersandIndex + 1 < words.length) {
+    line1 = words.slice(0, ampersandIndex + 2).join(' ');
+    line2 = words.slice(ampersandIndex + 2).join(' ');
+  } else if (words.length > 1) {
+    line1 = words.slice(0, -1).join(' ');
+    line2 = words[words.length - 1];
+  }
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const viewAllHref = categoryKey ? `/products?category=${categoryKey}` : "/products";
 
@@ -95,17 +117,27 @@ export function ProductSection({ title, products, categoryKey, reversed = false,
     }
   };
 
-  const renderTitle = (text: string) => {
-    return text.split(' ').map((word, i) => (
-      <span key={i}>
-        {word === '&' ? <span className="text-gray-400 font-light">&</span> : word}
-        {i < text.split(' ').length - 1 ? ' ' : ''}
-      </span>
-    ));
+  const renderTitle = (text: string, isLine2: boolean) => {
+    const wordsArray = text.split(' ');
+    return wordsArray.map((word, i) => {
+      const isAmp = word === '&';
+      const shouldDim = isAmp || (isLine2 && !boldAll);
+      return (
+        <span key={i}>
+          <span 
+            className={shouldDim ? "text-gray-400 font-light" : ""} 
+            style={shouldDim ? {} : { color: '#3D7B89' }}
+          >
+            {word}
+          </span>
+          {i < wordsArray.length - 1 ? ' ' : ''}
+        </span>
+      );
+    });
   };
 
   return (
-    <section className={`relative z-10 py-12 md:py-28 ${transparent ? 'bg-transparent' : 'bg-white'} ${className}`}>
+    <section className={`relative z-10 py-12 md:py-28 ${transparent ? 'bg-transparent' : bgColor} ${className}`}>
       <style>{`
         .no-scrollbar-forced::-webkit-scrollbar {
           display: none !important;
@@ -126,12 +158,15 @@ export function ProductSection({ title, products, categoryKey, reversed = false,
           transition={{ duration: 0.8, ease: "easeOut" }}
           className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-start md:items-end gap-6 mb-12`}
         >
-          <div className="max-w-xl">
-            <h2 className="font-normal uppercase text-3xl sm:text-4xl md:text-[60px] leading-tight md:leading-[60px] tracking-[-1px] md:tracking-[-3px] text-[#0A0A0A]">
-              {renderTitle(firstWord)} <br />
-              <span style={{ color: boldAll ? '#0A0A0A' : 'rgba(0, 0, 0, 0.20)' }}>
-                {renderTitle(remainingText)}
-              </span>
+          <div className="max-w-3xl lg:max-w-4xl">
+            <h2 className="font-normal uppercase text-2xl sm:text-3xl md:text-4xl lg:text-[50px] leading-tight lg:leading-[52px] tracking-[-1px] lg:tracking-[-2px]">
+              {renderTitle(line1, false)}
+              {line2 && (
+                <>
+                  <br />
+                  {renderTitle(line2, true)}
+                </>
+              )}
             </h2>
           </div>
           
@@ -172,7 +207,7 @@ export function ProductSection({ title, products, categoryKey, reversed = false,
           {/* Slidable Carousel Container */}
           <div 
             ref={scrollRef}
-            className="flex flex-row overflow-x-auto no-scrollbar-forced scroll-smooth gap-4 sm:gap-8 md:gap-10 pb-4 snap-x snap-mandatory"
+            className="flex flex-row overflow-x-auto overflow-y-hidden no-scrollbar-forced scroll-smooth gap-4 sm:gap-8 md:gap-10 pt-2 pb-4 snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {products.map((product, index) => (

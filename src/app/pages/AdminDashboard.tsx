@@ -9,8 +9,6 @@ import {
   Plus, 
   Trash2, 
   Globe, 
-  Eye,
-  FileText,
   Lock,
   Edit2,
   Menu,
@@ -146,6 +144,7 @@ export default function AdminDashboard() {
       return "/images/hero-bg.png";
     }
   });
+  const [instagramReels, setInstagramReels] = useState<string[]>(["", "", "", "", ""]);
 
   // Form States - Products
   const [prodTitle, setProdTitle] = useState("");
@@ -266,6 +265,9 @@ export default function AdminDashboard() {
           try {
             localStorage.setItem("3dots_hero_bg", data.hero_bg);
           } catch (err) {}
+        }
+        if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
+          setInstagramReels(data.instagram_reels);
         }
       }
     } catch (e) {
@@ -541,6 +543,31 @@ export default function AdminDashboard() {
         localStorage.setItem("3dots_hero_bg", url);
       } catch (err) {}
       toast.success("Hero background updated (Local Mode).");
+    }
+  };
+
+  const handleSaveReels = async () => {
+    const cleanedReels = Array.from({ length: 5 }, (_, i) => {
+      const val = instagramReels[i];
+      return val ? val.trim() : "";
+    });
+
+    const toastId = toast.loading("Saving video showcase settings...");
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ instagram_reels: cleanedReels })
+      });
+      if (res.ok) {
+        toast.success("Showcase video feed updated successfully!", { id: toastId });
+        fetchSettings();
+      } else {
+        toast.error("Failed to save settings to server.", { id: toastId });
+      }
+    } catch (e) {
+      setInstagramReels(cleanedReels);
+      toast.success("Showcase video feed saved locally.", { id: toastId });
     }
   };
 
@@ -968,7 +995,8 @@ export default function AdminDashboard() {
 
             {/* SITE CUSTOMIZER & HERO BACKGROUND VIEW */}
             {activeTab === "settings" && (
-              <motion.div
+              <>
+                <motion.div
                 key="settings"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1026,7 +1054,7 @@ export default function AdminDashboard() {
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
                         <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold">
-                          {heroBg.startsWith("/uploads/") ? "✓ Custom Background Active" : "↑ Upload Media Locally"}
+                          {uploading ? "Uploading..." : (heroBg.startsWith("/uploads/") ? "✓ Custom Background Active" : "↑ Upload Media Locally")}
                         </span>
                         <p className="text-[8px] text-gray-400 mt-1 uppercase tracking-wider">Supports PNG, JPG, WEBP, MP4, WEBM, MOV, OGG</p>
                       </div>
@@ -1080,7 +1108,116 @@ export default function AdminDashboard() {
                 </div>
 
               </motion.div>
-            )}
+
+              <motion.div
+                key="settings-instagram"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="max-w-3xl bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm mt-8"
+              >
+                <div className="space-y-1">
+                  <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Video Showcase Configuration</h3>
+                  <p className="text-[11px] text-gray-500 font-medium">Configure up to 5 vertical videos to showcase in the homepage carousel and gallery drawer. Upload your own video files locally/to Cloudinary or paste direct MP4/video URLs.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {instagramReels.map((reel, index) => (
+                    <div key={index} className="space-y-2">
+                      <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">
+                        Showcase Video {index + 1}
+                      </label>
+                      
+                      <div className="flex gap-2">
+                        <input 
+                          type="text"
+                          value={reel}
+                          onChange={(e) => {
+                            const updated = [...instagramReels];
+                            updated[index] = e.target.value;
+                            setInstagramReels(updated);
+                          }}
+                          placeholder="e.g., https://res.cloudinary.com/.../video.mp4"
+                          className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-xs font-semibold focus:outline-none focus:border-[#3D7B89] transition-colors"
+                        />
+                        <div className="relative shrink-0">
+                          <input 
+                            type="file"
+                            accept="video/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                handleFileUpload(file, (url) => {
+                                  const updated = [...instagramReels];
+                                  updated[index] = url;
+                                  setInstagramReels(updated);
+                                });
+                              }
+                            }}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          />
+                          <button 
+                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-gray-200 disabled:opacity-50"
+                            disabled={uploading}
+                          >
+                            {uploading ? "Uploading..." : "Upload"}
+                          </button>
+                        </div>
+                      </div>
+                      {reel && (
+                        <div className="text-[9px] text-gray-400 truncate max-w-[320px]">
+                          File: <span className="font-bold text-[#3D7B89]">{reel}</span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 pt-2">
+                  <button
+                    onClick={handleSaveReels}
+                    className="bg-[#3D7B89] hover:bg-[#347689] text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                  >
+                    <Plus size={14} />
+                    Save Video Showcase
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      const defaultReels = [
+                        "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054ba274eb4de0d96dcd3703f290d23&profile_id=139&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/517602120.sd.mp4?s=d00cd2cf4b95f17109265f9a62efd1421f5fb3d0&profile_id=165&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/435674703.sd.mp4?s=6f477e08ad1abf07eb786a34cf81079d8544e392&profile_id=165&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/538568600.sd.mp4?s=ff0337c768997ff9f4b306b9b32e6761664cd1eb&profile_id=165&oauth2_token_id=57447761",
+                        "https://player.vimeo.com/external/538571701.sd.mp4?s=0894e75d05e263d91cf05c5cf2547b7468bb1d8a&profile_id=165&oauth2_token_id=57447761"
+                      ];
+                      setInstagramReels(defaultReels);
+                      const toastId = toast.loading("Resetting showcase videos...");
+                      fetch("/api/settings", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ instagram_reels: defaultReels })
+                      })
+                      .then(res => {
+                        if (res.ok) {
+                          toast.success("Showcase videos reset to defaults!", { id: toastId });
+                          fetchSettings();
+                        } else {
+                          toast.error("Failed to reset settings.", { id: toastId });
+                        }
+                      })
+                      .catch(() => {
+                        toast.success("Showcase videos reset locally.", { id: toastId });
+                      });
+                    }}
+                    className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all cursor-pointer bg-white shadow-sm"
+                  >
+                    Reset to Default
+                  </button>
+                </div>
+              </motion.div>
+            </>
+          )}
           </AnimatePresence>
         </div>
 
@@ -1329,7 +1466,7 @@ export default function AdminDashboard() {
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
                         <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold block">
-                          ↑ Upload Image #{prodImages.length + 1} Locally
+                          {uploading ? "Uploading..." : `↑ Upload Image #${prodImages.length + 1} Locally`}
                         </span>
                         <span className="text-[9px] text-gray-500 mt-1 block">Supports PNG, JPG, JPEG, WEBP</span>
                       </div>
@@ -1456,7 +1593,7 @@ export default function AdminDashboard() {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     />
                     <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold">
-                      {portImage ? "✓ Image Selected" : "↑ Upload Image Locally"}
+                      {uploading ? "Uploading..." : (portImage ? "✓ Image Selected" : "↑ Upload Image Locally")}
                     </span>
                     <p className="text-[9px] text-gray-400 mt-1 uppercase tracking-wider">Drag & drop or click to choose</p>
                   </div>
