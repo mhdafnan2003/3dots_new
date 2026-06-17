@@ -9,6 +9,7 @@ import { CTASection } from "../components/CTASection";
 import { InstagramPanel, InstagramSection } from "../components/InstagramPanel";
 import { motion } from "motion/react";
 
+
 const subcategoryFallbackImages: Record<string, string> = {
   // Digital & Printing Solutions
   "Business Cards": "/images/business_card_fallback.jpg",

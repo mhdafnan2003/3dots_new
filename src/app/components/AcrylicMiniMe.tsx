@@ -30,9 +30,6 @@ export function AcrylicMiniMe() {
   // Clamp the scroll progress between 0.0 and 1.0 to prevent scroll extrapolation bugs
   const clampedProgress = useTransform(scrollYProgress, (val) => Math.max(0, Math.min(1, val)));
 
-  // Entrance general opacity
-  const charOpacity = useTransform(clampedProgress, [0.0, 0.08], [0, 1]);
-
   const characters = [
     {
       name: "Boss Baby",
