@@ -137,7 +137,13 @@ export default function AdminDashboard() {
   // Data States
   const [products, setProducts] = useState<Product[]>([]);
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
-  const [heroBg, setHeroBg] = useState("/images/hero-bg.png");
+  const [heroBg, setHeroBg] = useState(() => {
+    try {
+      return localStorage.getItem("3dots_hero_bg") || "/images/hero-bg.png";
+    } catch (e) {
+      return "/images/hero-bg.png";
+    }
+  });
   const [instagramReels, setInstagramReels] = useState<string[]>(["", "", "", "", ""]);
 
   // Form States - Products
@@ -254,7 +260,12 @@ export default function AdminDashboard() {
       const res = await fetch("/api/settings");
       if (res.ok) {
         const data = await res.json();
-        if (data.hero_bg) setHeroBg(data.hero_bg);
+        if (data.hero_bg) {
+          setHeroBg(data.hero_bg);
+          try {
+            localStorage.setItem("3dots_hero_bg", data.hero_bg);
+          } catch (err) {}
+        }
         if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
           setInstagramReels(data.instagram_reels);
         }
@@ -447,7 +458,7 @@ export default function AdminDashboard() {
   // Add Portfolio item
   const handleAddPortfolio = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!portTitle || !portClient || !portImage) {
+    if (!portTitle || !portImage) {
       toast.error("Please fill in all portfolio fields.");
       return;
     }
@@ -455,7 +466,7 @@ export default function AdminDashboard() {
     const payload = { 
       title: portTitle, 
       category: portCategory, 
-      client: portClient, 
+      client: portClient || "VIP Client", 
       year: portYear, 
       image: portImage 
     };
@@ -519,12 +530,18 @@ export default function AdminDashboard() {
       });
       if (res.ok) {
         toast.success("Hero background image updated in MongoDB!");
+        try {
+          localStorage.setItem("3dots_hero_bg", url);
+        } catch (err) {}
         fetchSettings();
       } else {
         toast.error("Failed to save setting to database.");
       }
     } catch (e) {
       setHeroBg(url);
+      try {
+        localStorage.setItem("3dots_hero_bg", url);
+      } catch (err) {}
       toast.success("Hero background updated (Local Mode).");
     }
   };
@@ -1065,10 +1082,17 @@ export default function AdminDashboard() {
                   <div className="flex gap-4">
                     <button
                       onClick={() => handleSaveBg(heroBg)}
-                      className="bg-[#3D7B89] hover:bg-[#347689] text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                      disabled={uploading}
+                      className="bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
                     >
-                      <Plus size={14} />
-                      Save Background
+                      {uploading ? (
+                        "Uploading..."
+                      ) : (
+                        <>
+                          <Plus size={14} />
+                          Save Background
+                        </>
+                      )}
                     </button>
                     
                     <button
@@ -1485,10 +1509,17 @@ export default function AdminDashboard() {
 
                 <button 
                   type="submit"
-                  className="w-full bg-[#3D7B89] hover:bg-[#347689] text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4 md:col-span-2"
+                  disabled={uploading}
+                  className="w-full bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4 md:col-span-2"
                 >
-                  <Plus size={14} />
-                  {editingProductId ? "Update Product" : "Insert Product"}
+                  {uploading ? (
+                    "Processing Upload..."
+                  ) : (
+                    <>
+                      <Plus size={14} />
+                      {editingProductId ? "Update Product" : "Insert Product"}
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>
@@ -1547,30 +1578,6 @@ export default function AdminDashboard() {
                   </select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Client</label>
-                  <input 
-                    type="text"
-                    value={portClient}
-                    onChange={(e) => setPortClient(e.target.value)}
-                    placeholder="Dubai World Trade Centre"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 text-xs focus:outline-none focus:border-[#3D7B89] focus:bg-white transition-all"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Year</label>
-                  <input 
-                    type="text"
-                    value={portYear}
-                    onChange={(e) => setPortYear(e.target.value)}
-                    placeholder="2025"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 text-xs focus:outline-none focus:border-[#3D7B89] focus:bg-white transition-all"
-                    required
-                  />
-                </div>
-
                 <div className="space-y-3">
                   <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Portfolio Image</label>
                   
@@ -1606,10 +1613,17 @@ export default function AdminDashboard() {
 
                 <button 
                   type="submit"
-                  className="w-full bg-[#3D7B89] hover:bg-[#347689] text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4"
+                  disabled={uploading}
+                  className="w-full bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4"
                 >
-                  <Plus size={14} />
-                  Insert Gallery Image
+                  {uploading ? (
+                    "Uploading..."
+                  ) : (
+                    <>
+                      <Plus size={14} />
+                      Insert Gallery Image
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>

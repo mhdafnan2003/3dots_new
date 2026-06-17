@@ -17,7 +17,13 @@ const isVideoUrl = (url: string) => {
 };
 
 export function Hero() {
-  const [heroBg, setHeroBg] = useState("/images/hero-bg.png");
+  const [heroBg, setHeroBg] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem("3dots_hero_bg") || "/images/hero-bg.png";
+    } catch (e) {
+      return "/images/hero-bg.png";
+    }
+  });
 
   useEffect(() => {
     fetch("/api/settings")
@@ -25,10 +31,23 @@ export function Hero() {
       .then(data => {
         if (data && data.hero_bg) {
           setHeroBg(data.hero_bg);
+          try {
+            localStorage.setItem("3dots_hero_bg", data.hero_bg);
+          } catch (e) {}
+        } else {
+          setHeroBg("/images/hero-bg.png");
+          try {
+            localStorage.removeItem("3dots_hero_bg");
+          } catch (e) {}
         }
       })
-      .catch(err => console.warn("Failed to fetch custom hero background from DB, using fallback", err));
-  }, []);
+      .catch(err => {
+        console.warn("Failed to fetch custom hero background from DB, using fallback", err);
+        if (!heroBg) {
+          setHeroBg("/images/hero-bg.png");
+        }
+      });
+  }, [heroBg]);
 
   const socialIcons = [
     { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
@@ -38,24 +57,27 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Media with Overlay */}
-      <div className="absolute inset-0 z-0">
-        {isVideoUrl(heroBg) ? (
-          <video
-            key={heroBg}
-            src={heroBg}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover animate-fade-in"
-          />
-        ) : (
-          <img
-            src={heroBg}
-            alt="Printing Press"
-            className="w-full h-full object-cover"
-            onError={(e) => { (e.target as HTMLImageElement).src = '/images/hero-bg.png'; }}
-          />
+      <div className="absolute inset-0 z-0 bg-black">
+        {heroBg && (
+          isVideoUrl(heroBg) ? (
+            <video
+              key={heroBg}
+              src={heroBg}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover animate-fade-in"
+            />
+          ) : (
+            <img
+              src={heroBg}
+              alt="Printing Press"
+              className="w-full h-full object-cover"
+              onError={(e) => { (e.target as HTMLImageElement).src = '/images/hero-bg.png'; }}
+            />
+          )
         )}
         <div className="absolute inset-0 bg-black/60"></div>
       </div>

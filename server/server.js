@@ -44,6 +44,21 @@ app.use(express.json({ limit: '200mb' }));
 app.use(express.urlencoded({ limit: '200mb', extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Database connection middleware for APIs
+app.use(async (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    try {
+      await connectDB();
+      next();
+    } catch (err) {
+      console.error('Database connection middleware error:', err);
+      return res.status(500).json({ error: 'Database connection failed: ' + err.message });
+    }
+  } else {
+    next();
+  }
+});
+
 // ================= LOCAL JSON DATABASE ENGINE (FAIL-SAFE FALLBACK) =================
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
@@ -631,26 +646,91 @@ function writeLocalDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-// Global active database state toggle
+// Global active database state toggle and connection flags
 let useLocalJSON = true;
+let isConnected = false;
+let isConnecting = false;
+let connectionPromise = null;
+let seededAndMigrated = false;
 
-// MongoDB Connection with active fallback toggle
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/3dotsadv';
-mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 3000 // 3 seconds timeout before switching to JSON mode
-})
-  .then(async () => {
-    console.log('Successfully connected to MongoDB.');
+async function connectDB() {
+  // If already connected, ensure useLocalJSON is false and return
+  if (isConnected && mongoose.connection.readyState >= 1) {
     useLocalJSON = false;
-    await seedDatabase();
-    await migrateSeedImagesToCloudinary();
-  })
-  .catch(async err => {
-    console.warn('⚠️ MongoDB not running locally. Seamlessly activated local JSON database engine.');
-    useLocalJSON = true;
-    readLocalDB(); // Initialize local file if not present
-    await migrateSeedImagesToCloudinary();
-  });
+    return;
+  }
+
+  // If already connecting, await the existing connection promise
+  if (isConnecting && connectionPromise) {
+    await connectionPromise;
+    return;
+  }
+
+  // If connection is already open via mongoose
+  if (mongoose.connection.readyState >= 1) {
+    isConnected = true;
+    useLocalJSON = false;
+    if (!seededAndMigrated) {
+      seededAndMigrated = true;
+      await seedDatabase().catch(err => console.error('Seeding error:', err));
+      await migrateSeedImagesToCloudinary().catch(err => console.error('Migration error:', err));
+    }
+    return;
+  }
+
+  // Start new connection attempt
+  isConnecting = true;
+  connectionPromise = (async () => {
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL;
+    const MONGODB_URI = process.env.MONGODB_URI;
+
+    if (!MONGODB_URI) {
+      if (isProduction) {
+        throw new Error('MONGODB_URI environment variable is missing in production environment.');
+      }
+      console.warn('⚠️ MONGODB_URI not set. Falling back to local JSON database engine.');
+      useLocalJSON = true;
+      readLocalDB(); // Initialize local file if not present
+      await migrateSeedImagesToCloudinary().catch(err => console.error('Migration error:', err));
+      isConnected = true;
+      isConnecting = false;
+      return;
+    }
+
+    try {
+      console.log('🔄 Connecting to MongoDB...');
+      await mongoose.connect(MONGODB_URI, {
+        serverSelectionTimeoutMS: 5000 // 5 seconds timeout before throwing error
+      });
+      isConnected = true;
+      useLocalJSON = false;
+      console.log('✅ Successfully connected to MongoDB.');
+
+      if (!seededAndMigrated) {
+        seededAndMigrated = true;
+        await seedDatabase();
+        await migrateSeedImagesToCloudinary();
+      }
+    } catch (err) {
+      console.error('❌ MongoDB connection failed:', err.message);
+      if (isProduction) {
+        // In production, we MUST fail the request instead of silently fallbacking to read-only local JSON
+        throw err;
+      } else {
+        console.warn('⚠️ MongoDB not running locally. Seamlessly activated local JSON database engine.');
+        useLocalJSON = true;
+        readLocalDB(); // Initialize local file if not present
+        await migrateSeedImagesToCloudinary().catch(e => console.error('Migration error:', e));
+        isConnected = true; // Mark as "connected" (initialized) for JSON fallback
+      }
+    } finally {
+      isConnecting = false;
+      connectionPromise = null;
+    }
+  })();
+
+  await connectionPromise;
+}
 
 // Seed Database helper for MongoDB
 async function seedDatabase() {

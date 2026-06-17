@@ -8,7 +8,17 @@ const PortfolioSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Banners', 'Printing', 'Signage', 'Promotional']
+    enum: [
+      'Digital & Printing',
+      'Screen & Offset',
+      'Laser & Acrylic',
+      'Outdoor & Indoor',
+      'Corporate Gifts',
+      'Banners',
+      'Printing',
+      'Signage',
+      'Promotional'
+    ]
   },
   client: {
     type: String,
