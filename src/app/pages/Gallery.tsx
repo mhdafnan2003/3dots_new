@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ZoomIn, ArrowRight } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -93,6 +93,24 @@ export default function Gallery() {
   const [active, setActive] = useState<Category>("All");
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+
+  // Inline zoom states & refs for the lightbox
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+  const zoomContainerRef = useRef<HTMLDivElement>(null);
+
+  // Reset zoom on item switch or close
+  useEffect(() => {
+    setIsZoomed(false);
+  }, [selected]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isZoomed || !zoomContainerRef.current) return;
+    const { left, top, width, height } = zoomContainerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoomPos({ x, y });
+  };
 
   useEffect(() => {
     fetch("/api/portfolio")
@@ -242,11 +260,23 @@ export default function Gallery() {
             >
               {selected && (
                 <div className="relative max-w-5xl w-full max-h-full flex flex-col md:flex-row gap-8">
-                  <div className="flex-1 overflow-hidden rounded-[2rem] shadow-2xl">
+                  <div 
+                    ref={zoomContainerRef}
+                    onMouseMove={handleMouseMove}
+                    onClick={() => setIsZoomed(!isZoomed)}
+                    className={`flex-1 overflow-hidden rounded-[2rem] shadow-2xl bg-zinc-950 flex items-center justify-center ${
+                      isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
+                    }`}
+                  >
                     <img
                       src={selected.image || `https://images.unsplash.com/photo-${selected.imgId}?w=1400&h=900&fit=crop&auto=format`}
                       alt={selected.title}
-                      className="w-full h-full object-cover max-h-[70vh] md:max-h-[80vh]"
+                      className="w-full h-full object-cover max-h-[70vh] md:max-h-[80vh] transition-transform duration-200 select-none"
+                      style={{
+                        transform: isZoomed ? "scale(2.5)" : "scale(1)",
+                        transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
+                        pointerEvents: "none"
+                      }}
                     />
                   </div>
                   <div className="md:w-64 flex flex-col justify-end shrink-0">

@@ -11,6 +11,8 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<any>(null);
   const [activeImage, setActiveImage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
 
   // Quote form state hooks
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -178,13 +180,31 @@ export default function ProductDetail() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-gray-50 relative shadow-lg w-full lg:w-[38.4vh] aspect-[4/5] lg:h-[48vh] max-h-[500px] mx-auto"
+              onMouseEnter={() => setIsZoomed(true)}
+              onMouseLeave={() => {
+                setIsZoomed(false);
+                setZoomPos({ x: 50, y: 50 });
+              }}
+              onMouseMove={(e) => {
+                const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - left) / width) * 100;
+                const y = ((e.clientY - top) / height) * 100;
+                setZoomPos({ x, y });
+              }}
+              className="rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-gray-50 relative shadow-lg w-full lg:w-[38.4vh] aspect-[4/5] lg:h-[48vh] max-h-[500px] mx-auto cursor-zoom-in"
             >
-              <ImageWithFallback 
-                src={activeImage}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+              <div className="w-full h-full overflow-hidden relative">
+                <ImageWithFallback 
+                  src={activeImage}
+                  alt={product.name}
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                  style={{
+                    transform: isZoomed ? "scale(2.2)" : "scale(1)",
+                    transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
+                    transition: isZoomed ? "transform 0.05s ease-out" : "transform 0.3s ease-out"
+                  }}
+                />
+              </div>
             </motion.div>
 
             <div className="grid grid-cols-3 gap-4 w-full lg:w-[38.4vh] mx-auto">
@@ -220,7 +240,7 @@ export default function ProductDetail() {
                   </h1>
                   <div className="flex items-center gap-4">
                     <span 
-                      className="px-4 py-1 rounded-full border border-black/10 bg-white text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]"
+                      className="px-4 py-1 rounded-full border border-black/10 bg-white text-[9px] font-bold uppercase tracking-wider text-[#0A0A0A]"
                       style={{ fontFamily: '"Neue Regrade", sans-serif' }}
                     >
                       {product.category}

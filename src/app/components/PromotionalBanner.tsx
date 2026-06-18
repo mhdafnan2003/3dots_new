@@ -1,4 +1,6 @@
+import { useRef, useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Review {
   name: string;
@@ -60,6 +62,8 @@ const reviews: Review[] = [
   }
 ];
 
+const infiniteReviews = [...reviews, ...reviews, ...reviews];
+
 const StarIcon = () => (
   <svg className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -76,21 +80,141 @@ const GoogleIcon = () => (
 );
 
 export function PromotionalBanner() {
-  // Duplicate reviews to create a seamless infinite scroll effect
-  const doubleReviews = [...reviews, ...reviews];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Use refs for drag state coordinates to handle instant wrap-around updates smoothly without React state lag
+  const isMouseDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftStateRef = useRef(0);
+
+  // Initialize scroll position to the middle set on mount (with a small timeout to ensure cards are measured)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (scrollRef.current) {
+        const cardEls = scrollRef.current.querySelectorAll(".snap-start");
+        const cardN = cardEls[reviews.length] as HTMLElement;
+        if (cardN) {
+          scrollRef.current.scrollLeft = cardN.offsetLeft - scrollRef.current.offsetLeft;
+        }
+      }
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    isMouseDownRef.current = true;
+    setIsMouseDown(true);
+    startXRef.current = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    scrollLeftStateRef.current = scrollRef.current?.scrollLeft || 0;
+  };
+
+  const handleMouseLeaveOrUp = () => {
+    isMouseDownRef.current = false;
+    setIsMouseDown(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isMouseDownRef.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5; // scroll speed multiplier
+    scrollRef.current.scrollLeft = scrollLeftStateRef.current - walk;
+  };
+
+  const scrollToCardIndex = (targetCardIndex: number) => {
+    if (scrollRef.current) {
+      const cardEls = scrollRef.current.querySelectorAll(".snap-start");
+      const targetCard = cardEls[targetCardIndex] as HTMLElement;
+      if (targetCard) {
+        const targetScrollLeft = targetCard.offsetLeft - scrollRef.current.offsetLeft;
+        scrollRef.current.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
+      }
+    }
+  };
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    let { scrollLeft } = scrollRef.current;
+    const cardEls = scrollRef.current.querySelectorAll(".snap-start");
+    if (cardEls.length < reviews.length * 3) return;
+
+    const card0 = cardEls[0] as HTMLElement;
+    const cardN = cardEls[reviews.length] as HTMLElement;
+    if (!card0 || !cardN) return;
+
+    const loopWidth = cardN.offsetLeft - card0.offsetLeft;
+
+    // Boundary checks for infinite wrap-around
+    if (scrollLeft < loopWidth) {
+      // Jump forward by loopWidth
+      scrollRef.current.scrollLeft = scrollLeft + loopWidth;
+      if (isMouseDownRef.current) {
+        scrollLeftStateRef.current += loopWidth;
+      }
+      return;
+    } else if (scrollLeft >= 2 * loopWidth) {
+      // Jump backward by loopWidth
+      scrollRef.current.scrollLeft = scrollLeft - loopWidth;
+      if (isMouseDownRef.current) {
+        scrollLeftStateRef.current -= loopWidth;
+      }
+      return;
+    }
+
+    // Find closest index within the middle set (indices reviews.length to 2 * reviews.length - 1)
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    for (let i = reviews.length; i < 2 * reviews.length; i++) {
+      const cardEl = cardEls[i] as HTMLElement;
+      if (cardEl) {
+        const offsetLeft = cardEl.offsetLeft - scrollRef.current.offsetLeft;
+        const distance = Math.abs(offsetLeft - scrollLeft);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = i - reviews.length;
+        }
+      }
+    }
+
+    if (closestIndex !== activeIndex) {
+      setActiveIndex(closestIndex);
+    }
+  };
+
+  const scroll = (direction: "left" | "right") => {
+    if (direction === "left") {
+      scrollToCardIndex(activeIndex + reviews.length - 1);
+    } else {
+      scrollToCardIndex(activeIndex + reviews.length + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (isHovered || isMouseDown) return;
+
+    const interval = setInterval(() => {
+      scrollToCardIndex(activeIndex + reviews.length + 1);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isHovered, isMouseDown, activeIndex]);
 
   return (
     <section className="relative w-full py-16 md:py-24 bg-gradient-to-br from-[#2E626D] to-[#3D7B89] overflow-hidden z-0">
       <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
+        .no-scrollbar-forced::-webkit-scrollbar {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+          background: transparent !important;
         }
-        .animate-marquee-slow {
-          animation: marquee 45s linear infinite;
-        }
-        .animate-marquee-slow:hover {
-          animation-play-state: paused;
+        .no-scrollbar-forced {
+          -ms-overflow-style: none !important;
+          scrollbar-width: none !important;
         }
       `}</style>
 
@@ -103,13 +227,13 @@ export function PromotionalBanner() {
 
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
-        <div className="text-center md:text-left mb-12 space-y-4">
+        <div className="text-center mb-12 space-y-4 flex flex-col items-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-medium tracking-tight text-white uppercase"
+            className="text-3xl md:text-5xl font-medium tracking-tight text-white uppercase text-center"
           >
             What Our Clients Say
           </motion.h2>
@@ -118,24 +242,54 @@ export function PromotionalBanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white/60 text-sm md:text-base font-normal max-w-xl"
+            className="text-white/60 text-sm md:text-base font-normal max-w-xl text-center"
           >
             Honest feedback from our valued clients
           </motion.p>
         </div>
 
-        {/* Sliding Marquee Container */}
-        <div className="w-full overflow-hidden relative">
-          {/* Shadow gradients for a fading edge effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-[#2E626D] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-[#3D7B89] to-transparent z-10 pointer-events-none" />
+        {/* Carousel Container Wrapper */}
+        <div 
+          className="relative group/carousel w-full"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Floating Left Button */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute -left-4 lg:-left-8 z-20 w-12 h-12 rounded-full bg-white hover:bg-gray-100 text-[#2E626D] flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 scale-90 group-hover/carousel:scale-100 cursor-pointer hidden md:flex border border-black/5 top-1/2 -translate-y-1/2"
+            aria-label="Scroll Left"
+          >
+            <ChevronLeft size={22} />
+          </button>
 
-          {/* Marquee Track */}
-          <div className="flex w-max gap-6 py-4 animate-marquee-slow">
-            {doubleReviews.map((rev, idx) => (
+          {/* Floating Right Button */}
+          <button
+            onClick={() => scroll("right")}
+            className="absolute -right-4 lg:-right-8 z-20 w-12 h-12 rounded-full bg-white hover:bg-gray-100 text-[#2E626D] flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 scale-90 group-hover/carousel:scale-100 cursor-pointer hidden md:flex border border-black/5 top-1/2 -translate-y-1/2"
+            aria-label="Scroll Right"
+          >
+            <ChevronRight size={22} />
+          </button>
+
+          {/* Sliding Carousel Track */}
+          <div 
+            ref={scrollRef}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseLeaveOrUp}
+            onMouseLeave={handleMouseLeaveOrUp}
+            onMouseMove={handleMouseMove}
+            onScroll={handleScroll}
+            className={`flex flex-row overflow-x-auto overflow-y-hidden no-scrollbar-forced gap-6 py-4 w-full cursor-grab ${
+              isMouseDown 
+                ? "cursor-grabbing select-none scroll-auto" 
+                : "snap-x snap-mandatory scroll-smooth"
+            }`}
+          >
+            {infiniteReviews.map((rev, idx) => (
               <div 
                 key={idx}
-                className="w-[300px] sm:w-[350px] md:w-[400px] min-h-[180px] md:min-h-[220px] bg-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between shrink-0 border border-white/10 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                className="w-[300px] sm:w-[350px] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] min-h-[200px] md:min-h-[220px] bg-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between shrink-0 border border-white/10 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 snap-start"
               >
                 <div>
                   {/* Card Header */}

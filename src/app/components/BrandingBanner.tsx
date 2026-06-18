@@ -21,28 +21,52 @@ const clientLogos = [
   { name: "Systems Equipment", src: "/clients_logo/systems_equipment.png" },
 ];
 
+const topRowLogos = clientLogos.slice(0, 9);
+const bottomRowLogos = clientLogos.slice(9);
+
+// Triple each array to build a seamless infinite marquee scroll buffer
+const topInfiniteLogos = [...topRowLogos, ...topRowLogos, ...topRowLogos];
+const bottomInfiniteLogos = [...bottomRowLogos, ...bottomRowLogos, ...bottomRowLogos];
+
 export function BrandingBanner() {
-  const getBorderClasses = (idx: number) => {
-    // 18 logos total (0 to 17)
-    const isLastColMobile = idx % 2 === 1;
-    const isLastColDesktop = idx % 4 === 3 || idx === 17;
-    const isLastRowMobile = idx >= 16;
-    // Desktop: Row 4 is centered (cols 1 & 2). Row 3 cols 0 & 3 (indices 12 & 15) have no items below them.
-    const isLastRowDesktop = idx === 12 || idx === 15 || idx >= 16;
-
-    return `
-      ${isLastColMobile ? "border-r-0" : "border-r border-gray-100"} 
-      ${isLastColDesktop ? "md:border-r-0" : "md:border-r md:border-gray-100"} 
-      ${isLastRowMobile ? "border-b-0" : "border-b border-gray-100"} 
-      ${isLastRowDesktop ? "md:border-b-0" : "md:border-b md:border-gray-100"}
-    `.trim().replace(/\s+/g, " ");
-  };
-
   return (
-    <section className="relative w-full py-20 md:py-24 bg-white overflow-hidden border-t border-gray-100 z-0">
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
+    <section className="relative w-full py-20 md:py-24 bg-gray-50/50 overflow-hidden border-t border-gray-100 z-0">
+      <style>{`
+        @keyframes marquee-rtl {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.3333%);
+          }
+        }
+        @keyframes marquee-ltr {
+          0% {
+            transform: translateX(-33.3333%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+        .animate-marquee-rtl {
+          display: flex;
+          width: max-content;
+          animation: marquee-rtl 40s linear infinite;
+        }
+        .animate-marquee-ltr {
+          display: flex;
+          width: max-content;
+          animation: marquee-ltr 40s linear infinite;
+        }
+        .animate-marquee-rtl:hover,
+        .animate-marquee-ltr:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-16">
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
+        <div className="max-w-3xl mx-auto text-center space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,21 +83,48 @@ export function BrandingBanner() {
             </p>
           </motion.div>
         </div>
+      </div>
 
-        {/* Flex-Wrap Grid Container for centered last row */}
-        <div className="max-w-5xl mx-auto flex flex-wrap justify-center">
-          {clientLogos.map((logo, idx) => (
-            <div
-              key={idx}
-              className={`w-1/2 md:w-1/4 flex items-center justify-center p-8 h-32 md:h-40 bg-white transition-all duration-300 ${getBorderClasses(idx)}`}
-            >
-              <img
-                src={logo.src}
-                alt={logo.name}
-                className="max-h-full max-w-full object-contain transition-all duration-300 ease-in-out hover:scale-105"
-              />
-            </div>
-          ))}
+      {/* Marquee Rows Container */}
+      <div className="space-y-8 relative w-full select-none">
+        {/* Left & Right Fade Overlays */}
+        <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none z-10" />
+        <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none z-10" />
+
+        {/* Row 1: Left to Right */}
+        <div className="overflow-hidden w-full flex">
+          <div className="animate-marquee-ltr gap-6 flex flex-row px-3">
+            {topInfiniteLogos.map((logo, idx) => (
+              <div
+                key={`top-${idx}`}
+                className="w-36 h-20 sm:w-44 sm:h-24 md:w-52 md:h-28 bg-white border border-gray-100 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.01)] flex items-center justify-center p-5 sm:p-7 shrink-0 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  className="max-h-full max-w-full object-contain transition-all duration-300 ease-in-out"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2: Right to Left */}
+        <div className="overflow-hidden w-full flex">
+          <div className="animate-marquee-rtl gap-6 flex flex-row px-3">
+            {bottomInfiniteLogos.map((logo, idx) => (
+              <div
+                key={`bottom-${idx}`}
+                className="w-36 h-20 sm:w-44 sm:h-24 md:w-52 md:h-28 bg-white border border-gray-100 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.01)] flex items-center justify-center p-5 sm:p-7 shrink-0 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  className="max-h-full max-w-full object-contain transition-all duration-300 ease-in-out"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

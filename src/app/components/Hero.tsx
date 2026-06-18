@@ -49,7 +49,7 @@ export function Hero() {
       });
   }, [heroBg]);
 
-  const socialIcons = [
+  const socialIcons: { src: string; href: string; alt: string; icon?: any }[] = [
     { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
     { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" }
   ];

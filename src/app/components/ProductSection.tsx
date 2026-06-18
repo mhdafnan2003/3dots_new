@@ -49,7 +49,6 @@ interface ProductSectionProps {
   products: ProductCardProps[];
   categoryKey?: string;
   reversed?: boolean;
-  boldAll?: boolean;
   transparent?: boolean;
   className?: string;
   bgColor?: string;
@@ -60,7 +59,6 @@ export function ProductSection({
   products, 
   categoryKey, 
   reversed = false, 
-  boldAll = false, 
   transparent = false, 
   className = '', 
   bgColor = 'bg-white' 
@@ -121,13 +119,21 @@ export function ProductSection({
     const wordsArray = text.split(' ');
     return wordsArray.map((word, i) => {
       const isAmp = word === '&';
-      const shouldDim = isAmp || (isLine2 && !boldAll);
+      
+      let className = "font-bold";
+      let style: React.CSSProperties = { color: '#3D7B89' };
+
+      if (isAmp) {
+        className = "text-gray-400 font-light";
+        style = {};
+      } else if (isLine2) {
+        className = "text-gray-400 font-bold";
+        style = {};
+      }
+
       return (
         <span key={i}>
-          <span 
-            className={shouldDim ? "text-gray-400 font-light" : ""} 
-            style={shouldDim ? {} : { color: '#3D7B89' }}
-          >
+          <span className={className} style={style}>
             {word}
           </span>
           {i < wordsArray.length - 1 ? ' ' : ''}
@@ -159,7 +165,7 @@ export function ProductSection({
           className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-start md:items-end gap-6 mb-12`}
         >
           <div className="max-w-3xl lg:max-w-4xl">
-            <h2 className="font-normal uppercase text-2xl sm:text-3xl md:text-4xl lg:text-[50px] leading-tight lg:leading-[52px] tracking-[-1px] lg:tracking-[-2px]">
+            <h2 className="font-bold uppercase text-2xl sm:text-3xl md:text-4xl lg:text-[50px] leading-tight lg:leading-[52px] tracking-[-1px] lg:tracking-[-2px]">
               {renderTitle(line1, false)}
               {line2 && (
                 <>
