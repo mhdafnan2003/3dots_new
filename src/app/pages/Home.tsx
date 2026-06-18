@@ -224,7 +224,6 @@ export default function Home() {
           <ProductSection 
             title="Digital & Printing Solutions" 
             products={digitalPrinting} 
-            boldAll
             categoryKey="digital-printing"
             bgColor="bg-white"
           />
@@ -236,7 +235,6 @@ export default function Home() {
           <ProductSection 
             title="Screen & Offset Printing" 
             products={screenOffset} 
-            boldAll
             categoryKey="screen-offset"
             bgColor="bg-white"
           />
@@ -248,7 +246,6 @@ export default function Home() {
           <ProductSection 
             title="Laser Etching & Acrylic Works" 
             products={laserAcrylic} 
-            boldAll
             categoryKey="laser-acrylic"
             bgColor="bg-gray-50"
           />

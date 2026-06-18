@@ -24,7 +24,7 @@ export default function Footer() {
               {[
                 { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
                 { src: "/images/Whatsapp_icon.png", href: "https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp" }
-              ].map((item, i) => (
+              ].map((item: { src: string; href: string; alt: string; icon?: any }, i) => (
                 <a 
                   key={i} 
                   href={item.href} 
@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Services Column */}
           <div className="space-y-8 text-left">
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Services</h4>
-            <ul className="space-y-4 text-gray-400 text-sm">
+            <ul className="space-y-4 text-gray-400 text-sm font-bold">
               <li><Link to="/services/printing-press-services-abu-dhabi" className="hover:text-[#3D7B89] transition-colors">Printing Press Services</Link></li>
               <li><Link to="/services/corporate-gifts-promotional-items-uae" className="hover:text-[#3D7B89] transition-colors">Corporate Gifts</Link></li>
               <li><Link to="/services/crystal-awards-mementos-abu-dhabi" className="hover:text-[#3D7B89] transition-colors">Crystal Awards</Link></li>

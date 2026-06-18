@@ -15,9 +15,9 @@ export function AcrylicMiniMe() {
   }, []);
 
   // Define rising Y offsets for the banner edge crop animation (scaled up for even larger character sizes)
-  const centerY = isMobile ? 125 : 160;
-  const sideY = isMobile ? 150 : 200;
-  const backY = isMobile ? 395 : 540;
+  const centerY = isMobile ? 135 : 180;
+  const sideY = isMobile ? 160 : 220;
+  const backY = isMobile ? 450 : 620;
 
 
   // Track scroll position of the section relative to the viewport
@@ -150,18 +150,67 @@ export function AcrylicMiniMe() {
   const c2BadgeOpacity = useTransform(clampedProgress, [0.50, 0.60, 0.65, 0.70, 0.80], [0.0, 0.0, 1.0, 0.0, 0.0]);
   const c3BadgeOpacity = useTransform(clampedProgress, [0.75, 0.85, 0.90, 0.95, 1.0], [0.0, 0.0, 1.0, 1.0, 1.0]);
 
-  // Scroll-bound blur (Center: 0px, Side: 4px, Back: 10px)
-  const c0Blur = useTransform(clampedProgress, [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0], [0, 0, 4, 10, 10, 10, 10, 4, 4]);
-  const c0Filter = useTransform(c0Blur, (val) => `blur(${val}px)`);
+  // Color-changing drop-shadow and blur filter combined for each character
+  const c0Filter = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.40, 0.50, 0.55, 0.65, 0.80, 0.90, 1.0],
+    [
+      "blur(0px) drop-shadow(0 20px 30px rgba(212, 158, 49, 0.75))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(212, 158, 49, 0.75))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))"
+    ]
+  );
 
-  const c1Blur = useTransform(clampedProgress, [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0], [4, 4, 0, 4, 10, 10, 10, 10]);
-  const c1Filter = useTransform(c1Blur, (val) => `blur(${val}px)`);
+  const c1Filter = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.40, 0.65, 0.75, 0.80, 0.90, 1.0],
+    [
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(61, 123, 137, 0.85))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))"
+    ]
+  );
 
-  const c2Blur = useTransform(clampedProgress, [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0], [10, 10, 10, 4, 0, 4, 4]);
-  const c2Filter = useTransform(c2Blur, (val) => `blur(${val}px)`);
+  const c2Filter = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.30, 0.40, 0.65, 0.90, 1.0],
+    [
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(30, 58, 138, 0.85))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))"
+    ]
+  );
 
-  const c3Blur = useTransform(clampedProgress, [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0], [4, 4, 10, 10, 10, 10, 4, 0, 0]);
-  const c3Filter = useTransform(c3Blur, (val) => `blur(${val}px)`);
+  const c3Filter = useTransform(
+    clampedProgress,
+    [0, 0.15, 0.25, 0.30, 0.40, 0.55, 0.65, 0.90, 1.0],
+    [
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
+      "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(185, 28, 28, 0.85))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(185, 28, 28, 0.85))"
+    ]
+  );
 
   // Glare sweep opacity
   const c0Glare = useTransform(clampedProgress, [0, 0.15, 0.25], [0.4, 0.4, 0.0]);
@@ -197,13 +246,42 @@ export function AcrylicMiniMe() {
     { scale: dot3Scale, opacity: dot3Opacity },
   ];
 
+  // Active background color overlay and timeline indicator variables
+  const activeBgColor = useTransform(
+    clampedProgress,
+    [0.15, 0.40, 0.65, 0.90],
+    ["rgba(212, 158, 49, 0.45)", "rgba(61, 123, 137, 0.45)", "rgba(30, 58, 138, 0.45)", "rgba(185, 28, 28, 0.45)"]
+  );
+
+  const highlightX = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], [-33, -11, 11, 33]);
+  const highlightColor = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], ["#d49e31", "#3D7B89", "#1e3a8a", "#b91c1c"]);
+  const highlightShadow = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], [
+    "0 0 12px rgba(212, 158, 49, 0.9)",
+    "0 0 12px rgba(61, 123, 137, 0.9)",
+    "0 0 12px rgba(30, 58, 138, 0.9)",
+    "0 0 12px rgba(185, 28, 28, 0.9)"
+  ]);
+
+  const backdropShadow = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], [
+    "0 0 120px 45px rgba(212, 158, 49, 0.5)",
+    "0 0 120px 45px rgba(61, 123, 137, 0.5)",
+    "0 0 120px 45px rgba(30, 58, 138, 0.5)",
+    "0 0 120px 45px rgba(185, 28, 28, 0.5)"
+  ]);
+
   return (
     <section 
       ref={containerRef} 
       className="relative w-full h-[200vh] md:h-[250vh] overflow-visible bg-transparent z-10"
     >
       {/* Sticky container that keeps the section pinned during the scroll progression */}
-      <div className="sticky top-[20vh] h-[320px] md:h-[420px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg">
+      <div className="sticky top-[15vh] h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg">
+        {/* Color changing background overlay */}
+        <motion.div 
+          className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
+          style={{ backgroundColor: activeBgColor }}
+        />
+
         {/* Background Image Wrapper spanning full width */}
         <div 
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
@@ -227,10 +305,19 @@ export function AcrylicMiniMe() {
           <div className="w-full md:w-[30%] hidden md:flex" />
 
           {/* Center: Dynamic Character Stage (middle-aligned) */}
-          <div className="w-full md:w-[40%] flex flex-col items-center justify-end relative h-full min-h-[260px] md:min-h-[380px] order-2 md:order-2 overflow-visible pb-0">
+          <div className="w-full md:w-[40%] flex flex-col items-center justify-end relative h-full min-h-[320px] md:min-h-[460px] order-2 md:order-2 overflow-visible pb-0">
+
+            {/* Glowing active character back drop aura */}
+            <motion.div
+              style={{
+                backgroundColor: highlightColor,
+                boxShadow: backdropShadow
+              }}
+              className="absolute w-40 h-40 rounded-full blur-[80px] opacity-70 z-0 pointer-events-none top-1/4"
+            />
 
             {/* Character Standees */}
-            <div className="relative w-full h-[200px] md:h-[280px] overflow-visible">
+            <div className="relative w-full h-[260px] md:h-[350px] overflow-visible">
               {animatedChars.map((char) => {
                 return (
                   <motion.div
@@ -277,7 +364,17 @@ export function AcrylicMiniMe() {
             </div>
 
             {/* Timeline / Dots Indicator */}
-            <div className="absolute -bottom-10 flex justify-center gap-3 w-full z-20">
+            <div className="absolute -bottom-10 flex justify-center items-center gap-3 w-full z-20 h-3">
+              {/* Sliding Highlight Pill */}
+              <motion.div
+                style={{
+                  x: highlightX,
+                  backgroundColor: highlightColor,
+                  boxShadow: highlightShadow,
+                }}
+                className="absolute w-4 h-4 rounded-full -translate-x-1/2 z-10"
+              />
+
               {dots.map((dot, idx) => (
                 <motion.div
                   key={idx}
@@ -285,7 +382,7 @@ export function AcrylicMiniMe() {
                     scale: dot.scale,
                     opacity: dot.opacity,
                   }}
-                  className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] cursor-pointer"
+                  className="w-2.5 h-2.5 rounded-full bg-white/80 cursor-pointer z-20"
                 />
               ))}
             </div>

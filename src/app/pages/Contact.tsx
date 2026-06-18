@@ -68,20 +68,35 @@ export default function Contact() {
                 </div>
               </div>
               <div className="space-y-3">
-                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">PHONE</span>
-                <div className="flex flex-col gap-1">
-                  <a 
-                    href="tel:+97125175916" 
-                    className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
-                  >
-                    02 517 5916
-                  </a>
-                  <a 
-                    href="tel:+971562599155" 
-                    className="text-xl md:text-2xl font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors"
-                  >
-                    +971 56 259 9155
-                  </a>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">PHONE & ENQUIRIES</span>
+                <div className="space-y-4">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89]">Office Contact</span>
+                    <div className="flex flex-col gap-0.5">
+                      <a href="tel:+97125175916" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Tel: +971 2 517 5916</a>
+                      <a href="tel:+971562599155" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Mob: +971 56 259 9155</a>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Designing Enquiries</span>
+                    <span className="text-xs text-gray-400 font-medium">Rajab Navunda</span>
+                    <a href="tel:+971563138214" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 313 8214</a>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Digital Printing Enquiries</span>
+                    <span className="text-xs text-gray-400 font-medium">Navaf Muhammed</span>
+                    <a href="tel:+971562599155" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 259 9155</a>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Offset Printing Enquiries</span>
+                    <span className="text-xs text-gray-400 font-medium">Shihab Anorammal</span>
+                    <a href="tel:+971564704648" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 470 4648</a>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Site Work Enquiries</span>
+                    <span className="text-xs text-gray-400 font-medium">Fayis Muhammed</span>
+                    <a href="tel:+971557271002" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 55 727 1002</a>
+                  </div>
                 </div>
               </div>
               <div className="space-y-3">

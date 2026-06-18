@@ -167,7 +167,7 @@ export default function AdminDashboard() {
   const [portTitle, setPortTitle] = useState("");
   const [portCategory, setPortCategory] = useState("Digital & Printing");
   const [portClient, setPortClient] = useState("");
-  const [portYear, setPortYear] = useState(new Date().getFullYear().toString());
+  const [portYear] = useState(new Date().getFullYear().toString());
   const [portImage, setPortImage] = useState("");
 
   const [uploading, setUploading] = useState(false);
@@ -590,7 +590,7 @@ export default function AdminDashboard() {
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
             <img 
-              src="/images/3Dotfooter.png" 
+              src="/images/3dotfav.png" 
               alt="3Dots Advertising Logo" 
               className="h-10 w-auto mb-4 object-contain brightness-100 hover:scale-105 transition-transform" 
             />
@@ -657,7 +657,7 @@ export default function AdminDashboard() {
       <header className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 px-6 py-4 shadow-sm select-none z-30">
         <div className="flex items-center gap-3">
           <img 
-            src="/images/3Dotfooter.png" 
+            src="/images/3dotfav.png" 
             alt="3Dots Advertising Logo" 
             className="h-6 w-auto object-contain" 
           />
@@ -690,7 +690,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start gap-2">
               <img 
-                src="/images/3Dotfooter.png" 
+                src="/images/3dotfav.png" 
                 alt="3Dots Advertising Logo" 
                 className="h-7 w-auto object-contain brightness-100 mb-1" 
               />

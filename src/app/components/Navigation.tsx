@@ -11,7 +11,6 @@ export default function Navigation() {
   const location = useLocation();
 
   // Search Bar States
-  const [searchHovered, setSearchHovered] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -192,11 +191,6 @@ export default function Navigation() {
       ? "text-black/70 hover:text-black"
       : "text-white/80 hover:text-white");
 
-  const ctaClass = scrolled
-    ? "bg-white text-[#3D7B89] hover:bg-white/90"
-    : (isWhiteNavbar
-      ? "bg-black text-white hover:bg-black/90"
-      : "bg-white text-black hover:bg-white/95");
 
   const mobileToggleClass = scrolled ? "text-white" : (isWhiteNavbar ? "text-black" : "text-white");
   const mobileOverlayBg = "bg-black text-white";
@@ -271,17 +265,11 @@ export default function Navigation() {
   
             {/* Right Group: Search Bar + CTA Button */}
             <div className="hidden lg:flex items-center gap-6">
-              {/* Expandable Search Bar */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setSearchHovered(true)}
-                onMouseLeave={() => setSearchHovered(false)}
-              >
+              {/* Search Bar */}
+              <div className="relative">
                 <div className="relative flex items-center">
-                  <motion.div
-                    animate={{ width: (searchHovered || searchFocused || searchQuery) ? 200 : 40 }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`flex items-center rounded-none border px-3 py-1.5 overflow-hidden transition-all duration-300 ${
+                  <div
+                    className={`flex items-center rounded-none border px-3 py-1.5 overflow-hidden transition-all duration-300 w-52 ${
                       scrolled
                         ? "border-white/20 bg-white/10 hover:bg-white/20 text-white"
                         : (isWhiteNavbar
@@ -299,11 +287,9 @@ export default function Navigation() {
                         setTimeout(() => setSearchFocused(false), 200);
                       }}
                       placeholder="Search archive..."
-                      className={`ml-2 bg-transparent border-none outline-none text-xs w-full transition-opacity duration-300 ${
-                        (searchHovered || searchFocused || searchQuery) ? "opacity-100" : "opacity-0 pointer-events-none"
-                      } ${scrolled ? "placeholder-white/50 text-white" : (isWhiteNavbar ? "placeholder-black/45 text-black" : "placeholder-white/45 text-white")}`}
+                      className={`ml-2 bg-transparent border-none outline-none text-xs w-full ${scrolled ? "placeholder-white/50 text-white" : (isWhiteNavbar ? "placeholder-black/45 text-black" : "placeholder-white/45 text-white")}`}
                     />
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Search Results Dropdown */}
@@ -364,14 +350,6 @@ export default function Navigation() {
                 </AnimatePresence>
               </div>
 
-              {/* Desktop CTA Button */}
-              <Link
-                to="/contact"
-                className={`flex items-center gap-3 px-8 py-4 rounded-none transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em] shadow-sm ${ctaClass} group`}
-              >
-                GET A QUOTE
-                <ArrowRight size={14} className="shrink-0 group-hover:translate-x-1 transition-transform" />
-              </Link>
             </div>
   
             {/* Mobile Menu Button */}
@@ -420,7 +398,7 @@ export default function Navigation() {
                         <Link 
                           to={`/products?subcategory=${encodeURIComponent(sub)}`}
                           onClick={() => setDropdownOpen(false)}
-                          className={`block text-[13px] font-normal transition-all hover:translate-x-1 duration-200 ${
+                          className={`block text-[13px] font-bold transition-all hover:translate-x-1 duration-200 ${
                             scrolled
                               ? "text-white/70 hover:text-white"
                               : (isWhiteNavbar ? "text-black/55 hover:text-[#3D7B89]" : "text-white/60 hover:text-[#3D7B89]")

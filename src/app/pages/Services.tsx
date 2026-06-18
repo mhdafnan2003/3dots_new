@@ -94,10 +94,10 @@ export default function Services() {
             >
               <div className={`lg:col-span-5 ${idx % 2 === 1 ? 'lg:order-2 lg:pl-12' : 'lg:pr-12'}`}>
                 <div className="mb-4 lg:mb-12 text-center lg:text-left">
-                   <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-[#3D7B89]/40 mb-6 block leading-none">
+                   <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#3D7B89]/40 mb-6 block leading-none">
                      Service 0{idx + 1} // {service.category}
                    </span>
-                   <h2 className="text-5xl md:text-6xl lg:text-[70px] font-medium tracking-tight mb-8 leading-[1.05]">
+                   <h2 className="text-5xl md:text-6xl lg:text-[70px] font-bold tracking-tight mb-8 leading-[1.05]">
                      {renderTitle(service.title)}
                    </h2>
                    <p className="text-lg md:text-[20px] text-black/60 leading-relaxed mb-12 font-normal max-w-xl mx-auto lg:mx-0">
