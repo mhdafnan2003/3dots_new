@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Link } from "react-router";
 
 export function AcrylicMiniMe() {
@@ -28,28 +28,36 @@ export function AcrylicMiniMe() {
   });
 
   // Clamp the scroll progress between 0.0 and 1.0 to prevent scroll extrapolation bugs
-  const clampedProgress = useTransform(scrollYProgress, (val) => Math.max(0, Math.min(1, val)));
+  const rawProgress = useTransform(scrollYProgress, (val) => Math.max(0, Math.min(1, val)));
+
+  // Smooth the scroll progress using a spring animation to eliminate scrolling steps/jumps
+  const clampedProgress = useSpring(rawProgress, {
+    stiffness: 90,
+    damping: 25,
+    mass: 0.8,
+    restDelta: 0.0001
+  });
 
   const characters = [
-    {
-      name: "Boss Baby",
-      src: "/images/boss_baby.png",
-      width: "37%",
-    },
     {
       name: "Snow White",
       src: "/images/snow_white.png",
       width: "45%",
     },
     {
-      name: "Superman",
-      src: "/images/superman.png",
-      width: "40%",
-    },
-    {
       name: "Spider-Man",
       src: "/images/spiderman.png",
       width: "34%",
+    },
+    {
+      name: "Boss Baby",
+      src: "/images/boss_baby.png",
+      width: "37%",
+    },
+    {
+      name: "Superman",
+      src: "/images/superman.png",
+      width: "40%",
     }
   ];
 
@@ -173,7 +181,7 @@ export function AcrylicMiniMe() {
     [
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
-      "blur(0px) drop-shadow(0 20px 30px rgba(61, 123, 137, 0.85))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(185, 28, 28, 0.85))",
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
       "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
       "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
@@ -190,7 +198,7 @@ export function AcrylicMiniMe() {
       "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
       "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
-      "blur(0px) drop-shadow(0 20px 30px rgba(30, 58, 138, 0.85))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(61, 123, 137, 0.85))",
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))"
     ]
@@ -207,8 +215,8 @@ export function AcrylicMiniMe() {
       "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
       "blur(10px) drop-shadow(0 0px 0px rgba(0, 0, 0, 0))",
       "blur(4px) drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3))",
-      "blur(0px) drop-shadow(0 20px 30px rgba(185, 28, 28, 0.85))",
-      "blur(0px) drop-shadow(0 20px 30px rgba(185, 28, 28, 0.85))"
+      "blur(0px) drop-shadow(0 20px 30px rgba(30, 58, 138, 0.85))",
+      "blur(0px) drop-shadow(0 20px 30px rgba(30, 58, 138, 0.85))"
     ]
   );
 
@@ -246,27 +254,20 @@ export function AcrylicMiniMe() {
     { scale: dot3Scale, opacity: dot3Opacity },
   ];
 
-  // Active background color overlay and timeline indicator variables
-  const activeBgColor = useTransform(
-    clampedProgress,
-    [0.15, 0.40, 0.65, 0.90],
-    ["rgba(212, 158, 49, 0.45)", "rgba(61, 123, 137, 0.45)", "rgba(30, 58, 138, 0.45)", "rgba(185, 28, 28, 0.45)"]
-  );
+
+  // Background image opacities matching each character's active scroll state
+  const bg0Opacity = useTransform(clampedProgress, [0.15, 0.30], [1, 0]);
+  const bg1Opacity = useTransform(clampedProgress, [0.15, 0.30, 0.40, 0.55], [0, 1, 1, 0]);
+  const bg2Opacity = useTransform(clampedProgress, [0.40, 0.55, 0.65, 0.80], [0, 1, 1, 0]);
+  const bg3Opacity = useTransform(clampedProgress, [0.65, 0.80], [0, 1]);
 
   const highlightX = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], [-33, -11, 11, 33]);
-  const highlightColor = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], ["#d49e31", "#3D7B89", "#1e3a8a", "#b91c1c"]);
+  const highlightColor = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], ["#d49e31", "#b91c1c", "#3D7B89", "#1e3a8a"]);
   const highlightShadow = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], [
     "0 0 12px rgba(212, 158, 49, 0.9)",
+    "0 0 12px rgba(185, 28, 28, 0.9)",
     "0 0 12px rgba(61, 123, 137, 0.9)",
-    "0 0 12px rgba(30, 58, 138, 0.9)",
-    "0 0 12px rgba(185, 28, 28, 0.9)"
-  ]);
-
-  const backdropShadow = useTransform(clampedProgress, [0.15, 0.40, 0.65, 0.90], [
-    "0 0 120px 45px rgba(212, 158, 49, 0.5)",
-    "0 0 120px 45px rgba(61, 123, 137, 0.5)",
-    "0 0 120px 45px rgba(30, 58, 138, 0.5)",
-    "0 0 120px 45px rgba(185, 28, 28, 0.5)"
+    "0 0 12px rgba(30, 58, 138, 0.9)"
   ]);
 
   return (
@@ -276,19 +277,47 @@ export function AcrylicMiniMe() {
     >
       {/* Sticky container that keeps the section pinned during the scroll progression */}
       <div className="sticky top-[15vh] h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg">
-        {/* Color changing background overlay */}
+        {/* Background Image 0: Boss Baby (Gold) */}
         <motion.div 
-          className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
-          style={{ backgroundColor: activeBgColor }}
-        />
-
-        {/* Background Image Wrapper spanning full width */}
-        <div 
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
           style={{ 
-            backgroundImage: "url('/images/acrylic_bg.png')",
-            backgroundSize: isMobile ? "cover" : "100% 100%",
+            backgroundImage: isMobile ? "url('/images/mobile1.png')" : "url('/images/acrylic_bg.png')",
+            backgroundSize: "100% 100%",
             backgroundPosition: isMobile ? "center" : "bottom",
+            opacity: bg0Opacity,
+          }}
+        />
+
+        {/* Background Image 1: Spider-Man (Red) */}
+        <motion.div 
+          className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
+          style={{ 
+            backgroundImage: isMobile ? "url('/images/mobile2.png')" : "url('/images/Mini Me Cartoon background-03.jpg.jpeg')",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
+            opacity: bg1Opacity,
+          }}
+        />
+
+        {/* Background Image 2: Boss Baby (Gold) */}
+        <motion.div 
+          className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
+          style={{ 
+            backgroundImage: isMobile ? "url('/images/mobile3.png')" : "url('/images/Mini Me Cartoon background-04.jpg.jpeg')",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
+            opacity: bg2Opacity,
+          }}
+        />
+
+        {/* Background Image 3: Superman (Dark Blue) */}
+        <motion.div 
+          className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
+          style={{ 
+            backgroundImage: isMobile ? "url('/images/mobile4.png')" : "url('/images/Mini Me Cartoon background-02.jpg.jpeg')",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
+            opacity: bg3Opacity,
           }}
         />
 
@@ -306,15 +335,6 @@ export function AcrylicMiniMe() {
 
           {/* Center: Dynamic Character Stage (middle-aligned) */}
           <div className="w-full md:w-[40%] flex flex-col items-center justify-end relative h-full min-h-[320px] md:min-h-[460px] order-2 md:order-2 overflow-visible pb-0">
-
-            {/* Glowing active character back drop aura */}
-            <motion.div
-              style={{
-                backgroundColor: highlightColor,
-                boxShadow: backdropShadow
-              }}
-              className="absolute w-40 h-40 rounded-full blur-[80px] opacity-70 z-0 pointer-events-none top-1/4"
-            />
 
             {/* Character Standees */}
             <div className="relative w-full h-[260px] md:h-[350px] overflow-visible">

@@ -64,7 +64,7 @@ export default function Footer() {
             <ul className="space-y-4 text-gray-400 text-sm">
               <li>
                 <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Office Phone</span>
-                <a href="tel:+97125175916" className="hover:text-[#3D7B89] transition-colors block">02 517 5916</a>
+                <a href="tel:+97125175916" className="hover:text-[#3D7B89] transition-colors block">+971 2 517 5916</a>
                 <a href="tel:+971562599155" className="hover:text-[#3D7B89] transition-colors block">+971 56 259 9155</a>
               </li>
               <li>
@@ -81,11 +81,8 @@ export default function Footer() {
             <ul className="space-y-4 text-gray-400 text-sm">
               <li>
                 <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Working Hours</span>
-                <span className="text-[#0A0A0A] block">9:30am to 9:30pm</span>
-              </li>
-              <li>
-                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Holiday</span>
-                <span className="text-[#3D7B89] font-bold block">Sunday Holiday</span>
+                <span className="text-[#0A0A0A] block">Monday to Sunday</span>
+                <span className="text-[#0A0A0A] block text-xs">9:30am to 9:30pm</span>
               </li>
               <li className="pt-2">
                 <Link to="/contact" className="text-xs font-bold uppercase tracking-[0.1em] text-[#3D7B89] hover:underline">

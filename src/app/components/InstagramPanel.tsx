@@ -413,9 +413,9 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
         <div 
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="lg:col-span-7 flex items-center justify-center min-h-[620px] relative w-full overflow-hidden select-none"
+          className="lg:col-span-7 flex items-center justify-center min-h-[450px] md:min-h-[620px] relative w-full overflow-hidden select-none"
         >
-          <div className="relative w-full max-w-[500px] h-[600px] flex items-center justify-center">
+          <div className="relative w-full max-w-[500px] h-[430px] md:h-[600px] flex items-center justify-center">
             {activeReels.map((shortcode, index) => {
               const total = activeReels.length;
               let offset = index - activeIndex;
@@ -428,12 +428,12 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
               if (!isVisible) return null;
 
               // 3D placement math
-              const stepX = isMobile ? 100 : 180;
+              const stepX = isMobile ? 75 : 180;
               const xValue = offset * stepX;
               const scaleValue = isCenter ? 1.05 : 0.85 - Math.abs(offset) * 0.05;
               const zIndexValue = 30 - Math.abs(offset) * 10;
               const opacityValue = isCenter ? 1 : 0.6 - Math.abs(offset) * 0.15;
-              const blurValue = isCenter ? "blur(0px)" : `blur(${Math.abs(offset) * 1.5}px)`;
+              const blurValue = (isCenter || isMobile) ? "blur(0px)" : `blur(${Math.abs(offset) * 1.5}px)`;
 
               return (
                 <motion.div
@@ -447,7 +447,7 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
                     filter: blurValue,
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 26 }}
-                  className={`absolute w-[328px] rounded-[32px] shadow-2xl overflow-hidden border border-black/5 bg-[#0F172A] cursor-pointer group origin-center ${
+                  className={`absolute ${isMobile ? "w-[210px] rounded-[24px]" : "w-[328px] rounded-[32px]"} shadow-2xl overflow-hidden border border-black/5 bg-[#0F172A] cursor-pointer group origin-center ${
                     isCenter ? "pointer-events-auto" : "pointer-events-auto hover:opacity-80"
                   }`}
                   style={{ aspectRatio: "9/16" }}

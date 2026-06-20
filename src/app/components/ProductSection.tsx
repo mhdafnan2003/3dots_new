@@ -162,10 +162,10 @@ export function ProductSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-start md:items-end gap-6 mb-12`}
+          className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-center md:items-end gap-6 mb-12`}
         >
-          <div className="max-w-3xl lg:max-w-4xl">
-            <h2 className="font-bold uppercase text-2xl sm:text-3xl md:text-4xl lg:text-[50px] leading-tight lg:leading-[52px] tracking-[-1px] lg:tracking-[-2px]">
+          <div className="max-w-3xl lg:max-w-4xl w-full text-center md:text-left">
+            <h2 className="font-bold uppercase text-2xl sm:text-3xl md:text-4xl lg:text-[50px] leading-tight lg:leading-[52px] tracking-[-1px] lg:tracking-[-2px] text-center md:text-left">
               {renderTitle(line1, false)}
               {line2 && (
                 <>

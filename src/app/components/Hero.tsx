@@ -17,13 +17,15 @@ const isVideoUrl = (url: string) => {
 };
 
 export function Hero() {
-  const [heroBg, setHeroBg] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem("3dots_hero_bg") || "/images/hero-bg.png";
-    } catch (e) {
-      return "/images/hero-bg.png";
-    }
-  });
+  const [heroBg, setHeroBg] = useState<string | null>(null);
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     fetch("/api/settings")
@@ -31,23 +33,15 @@ export function Hero() {
       .then(data => {
         if (data && data.hero_bg) {
           setHeroBg(data.hero_bg);
-          try {
-            localStorage.setItem("3dots_hero_bg", data.hero_bg);
-          } catch (e) {}
         } else {
           setHeroBg("/images/hero-bg.png");
-          try {
-            localStorage.removeItem("3dots_hero_bg");
-          } catch (e) {}
         }
       })
       .catch(err => {
         console.warn("Failed to fetch custom hero background from DB, using fallback", err);
-        if (!heroBg) {
-          setHeroBg("/images/hero-bg.png");
-        }
+        setHeroBg("/images/hero-bg.png");
       });
-  }, [heroBg]);
+  }, []);
 
   const socialIcons: { src: string; href: string; alt: string; icon?: any }[] = [
     { src: "/images/instagram_icon.png", href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram" },
@@ -55,9 +49,9 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Media with Overlay */}
-      <div className="absolute inset-0 z-0 bg-black">
+      <div className="absolute inset-0 w-full h-full z-0 bg-black">
         {heroBg && (
           isVideoUrl(heroBg) ? (
             <video
@@ -69,21 +63,23 @@ export function Hero() {
               playsInline
               preload="auto"
               className="w-full h-full object-cover animate-fade-in"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (
             <img
               src={heroBg}
               alt="Printing Press"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover animate-fade-in"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               onError={(e) => { (e.target as HTMLImageElement).src = '/images/hero-bg.png'; }}
             />
           )
         )}
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 w-full h-full bg-black/60"></div>
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 max-w-screen-2xl mx-auto px-6 md:px-12 text-center">
+      <div className="relative z-10 max-w-screen-2xl mx-auto px-6 md:px-12 text-center w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -95,10 +91,10 @@ export function Hero() {
           <h1 
             className="text-white mb-8 uppercase"
             style={{ 
-              fontSize: '72.143px',
+              fontSize: isMobile ? '38px' : '72.143px',
               fontWeight: 400,
-              lineHeight: '64.929px',
-              letterSpacing: '-3.607px',
+              lineHeight: isMobile ? '42px' : '64.929px',
+              letterSpacing: isMobile ? '-1.5px' : '-3.607px',
               fontStyle: 'normal'
             }}
           >
@@ -113,10 +109,10 @@ export function Hero() {
               color: 'rgba(255, 255, 255, 0.60)',
               textAlign: 'center',
               fontFamily: '"Neue Regrade", sans-serif',
-              fontSize: '15.5px',
+              fontSize: isMobile ? '13px' : '15.5px',
               fontStyle: 'normal',
               fontWeight: 500,
-              lineHeight: '26px'
+              lineHeight: isMobile ? '20px' : '26px'
             }}
           >
             3Dots Advertising is a full-service printing press and branding company in Abu Dhabi offering corporate gifts, signage, large format printing, and promotional solutions across UAE.

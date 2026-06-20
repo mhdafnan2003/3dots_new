@@ -43,18 +43,18 @@ export function AboutPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-8 flex flex-col items-center md:items-start text-center md:text-left"
           >
-            <span className="text-[11px] uppercase tracking-[0.3em] font-bold text-gray-400">Our Story</span>
+            <span className="text-[11px] uppercase tracking-[0.3em] font-bold text-gray-400 block w-full">Our Story</span>
 
-            <h2 className="text-4xl md:text-5xl lg:text-[64px] font-medium leading-[1.1] tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-[64px] font-medium leading-[1.1] tracking-tight w-full">
               <span className="text-[#3D7B89]">Three dots.</span>{' '}
               <span className="text-gray-400">One</span>
               <br />
               <span className="text-gray-400">signal.</span>
             </h2>
 
-            <div className="space-y-6 text-gray-500 text-[15px] leading-relaxed max-w-xl">
+            <div className="space-y-6 text-gray-500 text-[15px] leading-relaxed max-w-xl w-full">
               <p>
                 We are an Emirates-based company licensed by the Abu Dhabi Media Council. Our team is made up of creative thinkers and passionate designers who believe in understanding your brand first—because meaningful advertising begins with insight, not assumptions.
               </p>
@@ -66,7 +66,7 @@ export function AboutPreview() {
               </p>
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4 w-full flex justify-center md:justify-start">
               <button className="group flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-4 rounded-none hover:bg-[#2F616D] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]">
                 START A CONVERSATION
                 <ArrowRight size={16} />
