@@ -45,22 +45,46 @@ const milestones = [
 
 const team = [
   {
-    name: "Rajab Navunda",
-    role: "Creative Director",
-    imgId: "/images/rajab2.png",
-    bio: "Expert in visual communications, branding, and design production in the UAE.",
+    name: "Navaf Muhammed",
+    role: "Business Development Manager",
+    imgId: "/images/navaf.jpeg",
+    bio: "Focused on building strong client relationships and identifying new business opportunities. Navaf works closely with customers to understand their needs and deliver tailored advertising and printing solutions that help businesses grow.",
   },
   {
     name: "Shihab Anorammal",
     role: "Sales Executive",
-    imgId: "/images/SHIHAB (4).png",
-    bio: "Expert in client relations and print solutions, assisting corporate partners with tailored advertising and branding projects.",
+    imgId: "/images/shihab.jpeg",
+    bio: "Dedicated to providing excellent customer service and guiding clients through every stage of their project. Shihab ensures smooth communication, timely responses, and successful project execution from inquiry to delivery.",
   },
   {
-    name: "Navaf Muhammed",
-    role: "Business Developer",
-    imgId: "/images/3.png",
-    bio: "Specializes in business development and corporate strategy, connecting clients with premium advertising and production solutions.",
+    name: "Rajab Navunda",
+    role: "Creative Director",
+    imgId: "/images/rajab2.jpg",
+    bio: "A passionate creative leader with extensive experience in branding, visual communication, and print production. Rajab oversees design strategy, ensuring every project reflects creativity, quality, and strong brand identity while meeting client expectations.",
+  },
+  {
+    name: "Nufail Muhammed",
+    role: "Graphic Designer",
+    imgId: "/images/nufail.jpeg",
+    bio: "A creative designer specializing in print and digital artwork. Nufail transforms ideas into visually engaging designs, delivering innovative concepts that help brands stand out and communicate effectively.",
+  },
+  {
+    name: "Usman Navunda",
+    role: "Graphics Installer",
+    imgId: "/images/usman navunda.jpeg",
+    bio: "Specializing in vinyl application, vehicle branding, signage installation, and finishing works, ensuring precision and quality in every project.",
+  },
+  {
+    name: "Kavya Vinod K",
+    role: "Accounts & Finance Executive",
+    imgId: "/images/kavya.jpeg",
+    bio: "Manages financial operations, invoicing, and account administration with accuracy and efficiency. Kavya plays a key role in maintaining smooth business processes and ensuring excellent financial organization.",
+  },
+  {
+    name: "Fayis Muhammed",
+    role: "Site Supervisor",
+    imgId: "/images/fayis.jpeg",
+    bio: "Responsible for managing on-site installations and project coordination. Fayis ensures that every signage, branding, and advertising project is completed safely, efficiently, and to the highest professional standards.",
   },
 ];
 
@@ -128,7 +152,7 @@ export default function About() {
             <div className="relative" style={{ width: '100%', aspectRatio: '597.49 / 746.862' }}>
               <div className="w-full h-full rounded-sm overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200"
+                  src="/images/story section.jpeg"
                   alt="Our Studio"
                   className="w-full h-full object-cover"
                 />
@@ -274,27 +298,21 @@ export default function About() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-10">
             {team.map((member, i) => (
               <motion.div key={member.name} {...fadeUp(i * 0.12)} className="group">
-                <div className="overflow-hidden mb-6 bg-white/5 aspect-[4/3] sm:aspect-[3/2] md:aspect-[4/3]">
+                <div className="overflow-hidden mb-4 bg-white/5 aspect-[3/4] rounded-sm">
                   <img
-                    src={member.imgId.startsWith('/') || member.imgId.startsWith('http')
-                      ? member.imgId
-                      : `https://images.unsplash.com/photo-${member.imgId}?w=800&h=600&fit=crop&crop=faces&auto=format`}
+                    src={member.imgId}
                     alt={member.name}
-                    className={`w-full h-full transition-all duration-700 group-hover:scale-105 ${
-                      member.imgId.startsWith('/')
-                        ? "object-contain object-bottom pt-4"
-                        : "object-cover object-center"
-                    }`}
+                    className="w-full h-full transition-all duration-700 group-hover:scale-105 object-cover object-center"
                   />
                 </div>
-                <p className="text-[9px] uppercase tracking-[0.35em] text-white/40 mb-2 font-bold">
+                <p className="text-[8px] uppercase tracking-[0.3em] text-white/40 mb-1.5 font-bold">
                   {member.role}
                 </p>
-                <h3 className="text-xl font-medium text-white mb-3">{member.name}</h3>
-                <p className="text-white/60 text-sm leading-relaxed">{member.bio}</p>
+                <h3 className="text-base sm:text-lg font-medium text-white mb-2 leading-tight">{member.name}</h3>
+                <p className="text-white/60 text-[11px] sm:text-xs leading-relaxed">{member.bio}</p>
               </motion.div>
             ))}
           </div>
