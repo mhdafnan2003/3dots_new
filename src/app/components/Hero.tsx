@@ -49,7 +49,7 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-end justify-center overflow-hidden pb-20 md:pb-16">
       {/* Background Media with Overlay */}
       <div className="absolute inset-0 w-full h-full z-0 bg-black">
         {heroBg && (
@@ -85,26 +85,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <span className="text-white/60 text-[10px] md:text-xs uppercase tracking-[0.25em] font-bold mb-6 block max-w-4xl mx-auto leading-relaxed">
+          <span className="text-white/60 text-[9.5px] md:text-xs uppercase tracking-[0.2em] md:tracking-[0.25em] font-bold block max-w-none mx-auto leading-relaxed mb-6">
             Leading Printing Press in Abu Dhabi for Corporate Gifts, Crystal Awards, Signage & Branding Solutions across UAE
           </span>
-          <h1 
-            className="text-white mb-8 uppercase"
-            style={{ 
-              fontSize: isMobile ? '38px' : '72.143px',
-              fontWeight: 400,
-              lineHeight: isMobile ? '42px' : '64.929px',
-              letterSpacing: isMobile ? '-1.5px' : '-3.607px',
-              fontStyle: 'normal'
-            }}
-          >
-            <span className="block md:inline">DRIVEN</span>{" "}
-            <span className="block md:inline">DESIGN</span>{" "}
-            <span className="text-white/40 block md:inline" style={{ fontWeight: 400 }}>RESULTS.</span>
-          </h1>
           
           <p 
-            className="max-w-2xl mx-auto mb-12 uppercase"
+            className="max-w-4xl mx-auto mb-12 uppercase"
             style={{
               color: 'rgba(255, 255, 255, 0.60)',
               textAlign: 'center',
@@ -115,7 +101,7 @@ export function Hero() {
               lineHeight: isMobile ? '20px' : '26px'
             }}
           >
-            3Dots Advertising is a full-service printing press and branding company in Abu Dhabi offering corporate gifts, signage, large format printing, and promotional solutions across UAE.
+            3Dots Advertising is a full-service printing press and branding company in Abu Dhabi <br className="hidden md:inline" /> offering corporate gifts, signage, large format printing, and promotional solutions across UAE.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full mt-4">
@@ -132,7 +118,7 @@ export function Hero() {
       </div>
 
       {/* Social Icons - Bottom Left */}
-      <div className="absolute bottom-12 left-0 w-full flex justify-center md:left-12 md:w-auto md:justify-start z-20 items-center gap-4">
+      <div className="absolute bottom-6 md:bottom-8 left-0 w-full flex justify-center md:left-12 md:w-auto md:justify-start z-20 items-center gap-4">
         {socialIcons.map((item, index) => (
           <motion.a
             key={index}
