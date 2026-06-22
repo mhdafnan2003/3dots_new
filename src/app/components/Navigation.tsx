@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { Menu, X, ArrowRight, ChevronDown, Search } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -277,7 +277,11 @@ export default function Navigation() {
                           : "border-white/10 bg-white/5 hover:bg-white/10 text-white")
                     }`}
                   >
-                    <Search size={16} className="shrink-0 cursor-pointer" />
+                    <img 
+                      src="/images/3dotfav.png" 
+                      alt="Search" 
+                      className="w-4 h-4 shrink-0 cursor-pointer object-contain"
+                    />
                     <input
                       type="text"
                       value={searchQuery}

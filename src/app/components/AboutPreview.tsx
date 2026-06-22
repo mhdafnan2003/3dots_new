@@ -18,7 +18,7 @@ export function AboutPreview() {
           >
             <div className="w-full h-full rounded-sm overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200"
+                src="/images/story section.jpeg"
                 alt="Our Studio"
                 className="w-full h-full object-cover"
               />
@@ -67,10 +67,15 @@ export function AboutPreview() {
             </div>
 
             <div className="pt-4 w-full flex justify-center md:justify-start">
-              <button className="group flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-4 rounded-none hover:bg-[#2F616D] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]">
+              <a
+                href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-4 rounded-none hover:bg-[#2F616D] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]"
+              >
                 START A CONVERSATION
-                <ArrowRight size={16} />
-              </button>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </a>
             </div>
           </motion.div>
         </div>
