@@ -63,9 +63,12 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-black">Contact</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
               <li>
-                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Office Phone</span>
+                <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Phone</span>
                 <a href="tel:+97125175916" className="hover:text-[#3D7B89] transition-colors block">+971 2 517 5916</a>
                 <a href="tel:+971562599155" className="hover:text-[#3D7B89] transition-colors block">+971 56 259 9155</a>
+                <a href="tel:+971563138214" className="hover:text-[#3D7B89] transition-colors block">+971 56 313 8214</a>
+                <a href="tel:+971564704648" className="hover:text-[#3D7B89] transition-colors block">+971 56 470 4648</a>
+                <a href="tel:+971557271002" className="hover:text-[#3D7B89] transition-colors block">+971 55 727 1002</a>
               </li>
               <li>
                 <span className="text-gray-500 font-bold uppercase tracking-wider text-[10px] block mb-1">Email</span>

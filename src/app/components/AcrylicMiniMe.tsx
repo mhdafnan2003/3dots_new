@@ -276,14 +276,14 @@ export function AcrylicMiniMe() {
       className="relative w-full h-[200vh] md:h-[250vh] overflow-visible bg-transparent z-10"
     >
       {/* Sticky container that keeps the section pinned during the scroll progression */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg">
+      <div className="sticky top-[15vh] h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg">
         {/* Background Image 0: Boss Baby (Gold) */}
         <motion.div 
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
           style={{ 
             backgroundImage: isMobile ? "url('/images/mobile1.png')" : "url('/images/acrylic_bg.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
             opacity: bg0Opacity,
           }}
         />
@@ -293,8 +293,8 @@ export function AcrylicMiniMe() {
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
           style={{ 
             backgroundImage: isMobile ? "url('/images/mobile2.png')" : "url('/images/Mini Me Cartoon background-03.jpg.jpeg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
             opacity: bg1Opacity,
           }}
         />
@@ -304,8 +304,8 @@ export function AcrylicMiniMe() {
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
           style={{ 
             backgroundImage: isMobile ? "url('/images/mobile3.png')" : "url('/images/Mini Me Cartoon background-04.jpg.jpeg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
             opacity: bg2Opacity,
           }}
         />
@@ -315,8 +315,8 @@ export function AcrylicMiniMe() {
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
           style={{ 
             backgroundImage: isMobile ? "url('/images/mobile4.png')" : "url('/images/Mini Me Cartoon background-02.jpg.jpeg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: "100% 100%",
+            backgroundPosition: isMobile ? "center" : "bottom",
             opacity: bg3Opacity,
           }}
         />
