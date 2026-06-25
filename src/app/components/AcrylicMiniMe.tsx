@@ -2,8 +2,9 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Link } from "react-router";
 
-export function AcrylicMiniMe() {
+export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
   const containerRef = useRef<HTMLElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
 
   // Responsive layout state to adjust orbital spacing
   const [isMobile, setIsMobile] = useState(false);
@@ -14,29 +15,75 @@ export function AcrylicMiniMe() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Track viewport height and child container height dynamically
+  const [viewportHeight, setViewportHeight] = useState(900);
+  const [childHeight, setChildHeight] = useState(1000);
+
+  useEffect(() => {
+    const handleResize = () => setViewportHeight(window.innerHeight);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!childRef.current) return;
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setChildHeight(entry.contentRect.height);
+      }
+    });
+    resizeObserver.observe(childRef.current);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  const bannerHeight = isMobile ? 380 : 500;
+  const scrollAnimationRange = isMobile ? 1200 : 1800;
+  const parentHeight = bannerHeight + childHeight + scrollAnimationRange;
+
+  const totalRange = parentHeight - 0.85 * viewportHeight;
+  const animationEndProgress = scrollAnimationRange / Math.max(1, totalRange);
+
   // Define rising Y offsets for the banner edge crop animation (scaled up for even larger character sizes)
   const centerY = isMobile ? 135 : 180;
   const sideY = isMobile ? 160 : 220;
   const backY = isMobile ? 450 : 620;
 
-
   // Track scroll position of the section relative to the viewport
-  // Offset ["start start", "end end"] pins the container during the full progression
+  // Offset ["start 0.15", "end 1.0"] pins the container during the full progression
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start 0.15", "end 1.0"]
   });
 
-  // Clamp the scroll progress between 0.0 and 1.0 to prevent scroll extrapolation bugs
-  const rawProgress = useTransform(scrollYProgress, (val) => Math.max(0, Math.min(1, val)));
+  // Transform scroll progress to animate carousel from 0.0 to 1.0 during scrollAnimationRange
+  const rawProgress = useTransform(scrollYProgress, [0, animationEndProgress], [0, 1]);
+  const mappedProgress = useTransform(rawProgress, (val) => Math.max(0, Math.min(1, val)));
 
   // Smooth the scroll progress using a spring animation to eliminate scrolling steps/jumps
-  const clampedProgress = useSpring(rawProgress, {
+  const clampedProgress = useSpring(mappedProgress, {
     stiffness: 90,
     damping: 25,
     mass: 0.8,
     restDelta: 0.0001
   });
+
+  const remainingScroll = Math.max(0, totalRange - scrollAnimationRange);
+  const yOffset = useTransform(clampedProgress, [0.90, 1.0], [0, -remainingScroll]);
+
+  // Map activeIndex to the exact original scroll mapping values where each character is centered:
+  // Boss Baby = 0.15, Snow White = 0.40, Superman = 0.65, Spider-Man = 0.90
+  const indexToProgressMap = [0.15, 0.40, 0.65, 0.90];
+
+  const handleDotClick = (idx: number) => {
+    if (!containerRef.current) return;
+    const progressVal = indexToProgressMap[idx];
+    const targetScrollTop = containerRef.current.offsetTop - 0.15 * window.innerHeight + progressVal * scrollAnimationRange;
+    window.scrollTo({
+      top: targetScrollTop,
+      behavior: "smooth"
+    });
+  };
 
   const characters = [
     {
@@ -273,10 +320,17 @@ export function AcrylicMiniMe() {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-[200vh] md:h-[250vh] overflow-visible bg-transparent z-10"
+      style={{ 
+        height: `${parentHeight}px`,
+        marginBottom: `-${remainingScroll}px`
+      }}
+      className="relative w-full overflow-visible bg-transparent z-10"
     >
       {/* Sticky container that keeps the section pinned during the scroll progression */}
-      <div className="sticky top-[15vh] h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg">
+      <motion.div 
+        style={{ y: yOffset }}
+        className="sticky top-[15vh] h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg z-20"
+      >
         {/* Background Image 0: Boss Baby (Gold) */}
         <motion.div 
           className="absolute inset-0 w-full h-full bg-no-repeat pointer-events-none select-none z-0"
@@ -402,6 +456,7 @@ export function AcrylicMiniMe() {
                     scale: dot.scale,
                     opacity: dot.opacity,
                   }}
+                  onClick={() => handleDotClick(idx)}
                   className="w-2.5 h-2.5 rounded-full bg-white/80 cursor-pointer z-20"
                 />
               ))}
@@ -430,7 +485,21 @@ export function AcrylicMiniMe() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
+
+      {/* Sticky Children (Next Section) */}
+      {children && (
+        <motion.div 
+          ref={childRef}
+          className="sticky w-full z-30"
+          style={{ 
+            top: isMobile ? "calc(15vh + 380px)" : "calc(15vh + 500px)",
+            y: yOffset
+          }}
+        >
+          {children}
+        </motion.div>
+      )}
     </section>
   );
 }

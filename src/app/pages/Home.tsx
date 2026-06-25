@@ -240,16 +240,16 @@ export default function Home() {
           />
         )}
         
-        <AcrylicMiniMe />
-        
-        {laserAcrylic.length > 0 && (
-          <ProductSection 
-            title="Laser Etching & Acrylic Works" 
-            products={laserAcrylic} 
-            categoryKey="laser-acrylic"
-            bgColor="bg-gray-50"
-          />
-        )}
+        <AcrylicMiniMe>
+          {laserAcrylic.length > 0 && (
+            <ProductSection 
+              title="Laser Etching & Acrylic Works" 
+              products={laserAcrylic} 
+              categoryKey="laser-acrylic"
+              bgColor="bg-gray-50"
+            />
+          )}
+        </AcrylicMiniMe>
         
         {outdoorIndoor.length > 0 && (
           <div className="relative bg-white z-0">
