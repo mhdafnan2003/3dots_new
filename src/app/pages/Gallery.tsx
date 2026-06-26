@@ -288,7 +288,7 @@ export default function Gallery() {
                     </h2>
                     <p className="text-white/45 text-sm mb-8">Client: {selected.client}</p>
                     <a
-                      href="https://wa.me/971562599155?text=Hi%2C%20I%27m%20interested%20in%20a%20similar%20project"
+                      href="https://wa.me/97156259915?text=Hi%2C%20I%27m%20interested%20in%20a%20similar%20project"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group flex items-center justify-center gap-3 bg-white text-[#0A0A0A] px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-white/90 transition-colors rounded-none"
@@ -324,7 +324,7 @@ export default function Gallery() {
           </h3>
         </div>
         <a
-          href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
+          href="https://wa.me/97156259915?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-4 border border-white/20 text-white px-8 py-4 hover:bg-white hover:text-[#3D7B89] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]"

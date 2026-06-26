@@ -124,7 +124,7 @@ export default function ProductDetail() {
 *Quantity*: ${quantity || 'Not specified'}`;
 
     const encodedText = encodeURIComponent(baseMessage);
-    const whatsappUrl = `https://wa.me/971562599155?text=${encodedText}`;
+    const whatsappUrl = `https://wa.me/97156259915?text=${encodedText}`;
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     setIsQuoteModalOpen(false);
     

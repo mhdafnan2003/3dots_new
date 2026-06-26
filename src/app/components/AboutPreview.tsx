@@ -68,7 +68,7 @@ export function AboutPreview() {
 
             <div className="pt-4 w-full flex justify-center md:justify-start">
               <a
-                href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
+                href="https://wa.me/97156259915?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-4 rounded-none hover:bg-[#2F616D] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]"

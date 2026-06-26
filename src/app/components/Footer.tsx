@@ -37,7 +37,7 @@ export default function Footer() {
             <div className="flex gap-4 justify-start w-full pt-2">
               {[
                 { href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram", icon: Instagram },
-                { href: "https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp", icon: MessageCircle }
+                { href: "https://wa.me/97156259915?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp", icon: MessageCircle }
               ].map((item, i) => {
                 const IconComponent = item.icon;
                 return (
@@ -107,8 +107,8 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center gap-3 py-3 px-6 hover:bg-white/[0.02]">
                   <Smartphone size={14} className="text-[#3D7B89] shrink-0" />
-                  <a href="tel:+971562599155" className="hover:text-white transition-colors truncate">
-                    +971 56 259 9155
+                  <a href="tel:+97156259915" className="hover:text-white transition-colors truncate">
+                    +971 56 259 915
                   </a>
                 </li>
                 <li className="flex items-center gap-3 py-3 px-6 hover:bg-white/[0.02]">

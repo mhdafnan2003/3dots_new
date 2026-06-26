@@ -41,7 +41,7 @@ export default function Services() {
       icon: ExternalLink,
       title: "Exhibition Branding Solutions UAE",
       description: "We provide high-impact exhibition branding solutions in Abu Dhabi and across the UAE, including custom exhibition stands, backdrop banners, pop-up displays, and roll-up stands for trade shows, pavilions, and events.",
-      image: "/images/indoor.png",
+      image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800",
       category: "Fabrication"
     },
   ];
@@ -142,7 +142,7 @@ export default function Services() {
           LET'S TALK PRODUCTION.
         </h2>
         <a 
-          href="https://wa.me/971562599155?text=Hi%203Dots%2C%20I%27d%20like%20to%20inquire%20about%20your%20services."
+          href="https://wa.me/97156259915?text=Hi%203Dots%2C%20I%27d%20like%20to%20inquire%20about%20your%20services."
           className="inline-flex items-center gap-4 bg-transparent border border-white/40 hover:border-white/60 hover:bg-white/5 text-white px-12 py-4 rounded-none text-lg font-medium transition-all"
         >
           WhatsApp Us

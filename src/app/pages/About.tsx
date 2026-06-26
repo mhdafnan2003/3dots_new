@@ -1,5 +1,69 @@
 import { motion } from "motion/react";
 import { ArrowRight, MapPin, Award, Users, Layers } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+
+interface CounterProps {
+  value: string;
+}
+
+function Counter({ value }: CounterProps) {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  const numericMatch = value.match(/^(\d+)(.*)$/);
+  const targetNumber = numericMatch ? parseInt(numericMatch[1], 10) : 0;
+  const suffix = numericMatch ? numericMatch[2] : "";
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          let startTime: number | null = null;
+          const duration = 2000; // 2 seconds
+
+          const animate = (currentTime: number) => {
+            if (!startTime) startTime = currentTime;
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            
+            // easeOutQuad
+            const easeProgress = progress * (2 - progress);
+            const currentCount = Math.floor(easeProgress * targetNumber);
+            
+            setCount(currentCount);
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setCount(targetNumber);
+            }
+          };
+
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [targetNumber, hasAnimated]);
+
+  return (
+    <span ref={elementRef}>
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 const stats = [
   { value: "5+", label: "Years In UAE" },
@@ -134,7 +198,7 @@ export default function About() {
             {stats.map((s) => (
               <div key={s.label} className="md:pr-8 text-center md:text-left">
                 <p className="text-5xl md:text-6xl font-normal text-white tracking-tight leading-none mb-4">
-                  {s.value}
+                  <Counter value={s.value} />
                 </p>
                 <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">
                   {s.label}
@@ -194,7 +258,7 @@ export default function About() {
 
             <div className="pt-4">
               <a
-                href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
+                href="https://wa.me/97156259915?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%203Dots"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-4 rounded-none hover:bg-[#2F616D] transition-all duration-300 text-xs font-bold uppercase tracking-[0.2em]"
@@ -353,7 +417,7 @@ export default function About() {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 shrink-0">
               <a
-                href="https://wa.me/971562599155?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%203Dots"
+                href="https://wa.me/97156259915?text=Hi%2C%20I%27d%20like%20to%20get%20a%20quote%20from%203Dots"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 bg-[#3D7B89] text-white px-8 py-5 text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#2F616D] transition-colors"

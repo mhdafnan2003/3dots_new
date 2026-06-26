@@ -93,12 +93,103 @@ const serviceData: Record<string, any> = {
       { step: "03", title: "Mass Branding", desc: "Laser engraving, pad printing, or embroidery production." },
       { step: "04", title: "Packaging", desc: "Professional kitting and individual packing if required." }
     ]
+  },
+  // New slug mappings matching the services list and footer links:
+  "printing-press-services-abu-dhabi": {
+    title: "Printing Press Services in Abu Dhabi",
+    subtitle: "Precision. Volume. Consistency.",
+    description: "From high-volume corporate stationery to custom-branded apparel, our printing division handles complex orders with ease. We bridge the gap between traditional craft and modern efficiency to deliver sharp, consistent results every time.",
+    heroImage: "https://images.unsplash.com/photo-1693031630189-a39e6d70bf22?q=80&w=1200",
+    features: [
+      "Bulk offset printing for brochures & flyers",
+      "Premium business cards & corporate sets",
+      "High-quality screen printing for apparel",
+      "Spot UV, foil stamping, and custom finishes"
+    ],
+    process: [
+      { step: "01", title: "Pre-press Setup", desc: "Meticulous plate making and screen tensioning for sharp output." },
+      { step: "02", title: "Ink Mixing", desc: "Custom Pantone matching for absolute color fidelity." },
+      { step: "03", title: "Production Run", desc: "High-speed offset or manual screen application depending on scale." },
+      { step: "04", title: "Quality Audit", desc: "Rigorous inspection for alignment and color density." }
+    ]
+  },
+  "corporate-gifts-promotional-items-uae": {
+    title: "Corporate Gifts & Promotional Items UAE",
+    subtitle: "Brand Longevity.",
+    description: "Stay top-of-mind with a curated selection of promotional products. From executive corporate gifts to high-volume event merchandise, we provide high-quality branding that reflects your company's excellence.",
+    heroImage: "https://images.unsplash.com/photo-1625552186152-668cd2f0b707?q=80&w=1200",
+    features: [
+      "Curated corporate gift sets",
+      "Custom branded tech accessories",
+      "Event giveaways & merchandise",
+      "Eco-friendly promotional options"
+    ],
+    process: [
+      { step: "01", title: "Curation", desc: "Selecting the right products that align with your campaign goals." },
+      { step: "02", title: "Mockup Design", desc: "Digital visualization of logo placement and branding." },
+      { step: "03", title: "Mass Branding", desc: "Laser engraving, pad printing, or embroidery production." },
+      { step: "04", title: "Packaging", desc: "Professional kitting and individual packing if required." }
+    ]
+  },
+  "crystal-awards-mementos-abu-dhabi": {
+    title: "Crystal Awards & Mementos Abu Dhabi",
+    subtitle: "Excellence Recognized.",
+    description: "Honor outstanding achievements with our custom crystal awards, acrylic trophies, wooden plaques, and personalized mementos. Crafted with high-precision laser engraving and sandblasting, we create premium recognition pieces for corporate events, schools, and organizations in Abu Dhabi and across the UAE.",
+    heroImage: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1200",
+    features: [
+      "Custom-cut optical crystal and acrylic trophies",
+      "High-precision laser engraving and color filling",
+      "Premium wooden and metal plaque designs",
+      "Luxury gift box packaging for awards presentation"
+    ],
+    process: [
+      { step: "01", title: "Design Mockup", desc: "Creating digital artwork layout with your logo, text, and layout." },
+      { step: "02", title: "Material Selection", desc: "Choosing crystal grade, base type, and dimensions." },
+      { step: "03", title: "Precision Etching", desc: "Laser engraving or sandblasting for frosted and crisp detail." },
+      { step: "04", title: "Inspection & Pack", desc: "Cleaning, polishing, and placing in luxury gift boxes." }
+    ]
+  },
+  "signage-large-format-printing-uae": {
+    title: "Signage & Large Format Printing UAE",
+    subtitle: "Durable. Vibrant. Professional.",
+    description: "Establish a prominent visual presence with our indoor/outdoor signage and large format printing. From 3D LED backlit signs, shop fronts, and building pylons, to high-resolution vinyl banner printing, canvas printing, and window graphics, we offer durable materials tailored to stand out in the UAE climate.",
+    heroImage: "/images/outdoor.png",
+    features: [
+      "3D LED illuminated channel letters and lightboxes",
+      "Wide-format high-resolution banner and vinyl sticker printing",
+      "Facade branding, window frosting, and wall decals",
+      "Professional site survey, engineering layout, and installation"
+    ],
+    process: [
+      { step: "01", title: "Site Assessment", desc: "Measuring visibility, wind load requirements, and surface support." },
+      { step: "02", title: "Design & Render", desc: "Providing 3D mockups and technical layout drawings." },
+      { step: "03", title: "Production & Build", desc: "CNC route cutting, high-grade printing, and LED wiring." },
+      { step: "04", title: "Certified Setup", desc: "Professional installation with high-reach equipment and safety compliance." }
+    ]
+  },
+  "exhibition-branding-solutions-uae": {
+    title: "Exhibition Branding Solutions UAE",
+    subtitle: "High-Impact Presence.",
+    description: "Make a powerful statement at your next trade show, exhibition, or event. We design, fabricate, and install custom exhibition stands, high-resolution backdrop banners, premium pop-up displays, and durable roll-up stands that attract traffic and elevate your brand's presence across the UAE.",
+    heroImage: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=1200",
+    features: [
+      "Custom fabrication and modular exhibition stands",
+      "High-resolution backdrop banners & pop-up displays",
+      "Sleek and durable roll-up & pop-up banners",
+      "Professional trade show setup and installation"
+    ],
+    process: [
+      { step: "01", title: "Concept & Planning", desc: "Collaborating on layout, brand assets, and structural specifications." },
+      { step: "02", title: "Design & Fabricate", desc: "Crafting components, lighting, and printing high-impact graphics." },
+      { step: "03", title: "Quality Check", desc: "Pre-assembling stands and banners to verify structural integrity." },
+      { step: "04", title: "On-site Build", desc: "Seamless logistics, delivery, assembly, and handover at the venue." }
+    ]
   }
 };
 
 export default function ServiceDetail() {
   const { slug } = useParams();
-  const service = serviceData[slug || ""] || serviceData["banners-sticker-printing"];
+  const service = serviceData[slug || ""] || serviceData["signage-large-format-printing-uae"];
 
   return (
     <div className="bg-[#f8f8f8] min-h-screen">
@@ -188,7 +279,7 @@ export default function ServiceDetail() {
                 </div>
               </div>
               <a 
-                href={`https://wa.me/971562599155?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
+                href={`https://wa.me/97156259915?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
                 className="flex items-center justify-center gap-3 bg-white text-black py-5 rounded-none font-bold hover:bg-[#25D366] hover:text-white transition-colors"
               >
                 <MessageCircle size={20} />
@@ -241,7 +332,7 @@ export default function ServiceDetail() {
             Get a Quote
           </Link>
           <a 
-            href={`https://wa.me/971562599155?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
+            href={`https://wa.me/97156259915?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
             className="px-12 py-5 border border-white/20 rounded-none font-bold hover:bg-white/10 transition-colors flex items-center gap-2"
           >
             WhatsApp
