@@ -94,7 +94,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Site Work Enquiries</span>
-                    <span className="text-xs text-gray-400 font-medium">Nufail Muhammed</span>
+                    <span className="text-xs text-gray-400 font-medium">Fayis Muhammed</span>
                     <a href="https://wa.me/971557271002" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 55 727 1002</a>
                   </div>
                 </div>
