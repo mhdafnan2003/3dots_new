@@ -39,7 +39,7 @@ export default function WhatsAppFloat() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          href="https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services."
+          href="https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services."
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-12 right-6 md:right-8 bg-black text-white p-4 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 flex items-center z-50 group border border-white/10"

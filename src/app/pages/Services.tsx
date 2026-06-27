@@ -9,7 +9,7 @@ export default function Services() {
       icon: Layers,
       title: "Printing Press Services in Abu Dhabi",
       description: "Printing Press Abu Dhabi – UAE. We offer professional screen printing and offset printing services in Abu Dhabi for business cards, brochures, flyers, and bulk printing requirements with sharp quality and accurate color output.",
-      image: "https://images.unsplash.com/photo-1693031630189-a39e6d70bf22?q=80&w=800",
+      image: "/images/printing_press_services_hero.jpeg",
       category: "Publishing"
     },
     {
@@ -17,7 +17,7 @@ export default function Services() {
       icon: Box,
       title: "Corporate Gifts & Promotional Items UAE",
       description: "Corporate Gifts UAE. We are a leading corporate gifts supplier in Abu Dhabi offering customized promotional gifts, branded items, and premium corporate giveaways across UAE. Ideal for branding, events, and corporate identity enhancement.",
-      image: "/images/promo.png",
+      image: "/images/corporate_gifts_hero.jpeg",
       category: "Branding"
     },
     {
@@ -25,7 +25,7 @@ export default function Services() {
       icon: Award,
       title: "Crystal Awards & Mementos Abu Dhabi",
       description: "We design and manufacture premium custom crystal awards, acrylic trophies, wooden plaques, and custom mementos in Abu Dhabi and across the UAE. Suitable for corporate recognition, academic honors, and special events with high-precision engraving.",
-      image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800",
+      image: "/images/crystal_awards_hero.jpeg",
       category: "Identity"
     },
     {
@@ -33,7 +33,7 @@ export default function Services() {
       icon: Printer,
       title: "Signage & Large Format Printing UAE",
       description: "Printing Press Abu Dhabi – UAE. We provide high-quality banner printing, sticker printing, and custom branding solutions in Abu Dhabi and across the UAE. Suitable for indoor and outdoor advertising needs with premium finishing and fast delivery. Signages Abu Dhabi – UAE. We design and manufacture outdoor and indoor signage solutions in Abu Dhabi and UAE including shop signs, 3D signs, LED signs, and branding boards with durable materials and premium finishing.",
-      image: "/images/outdoor.png",
+      image: "/images/signage_large_format_hero.jpeg",
       category: "Production"
     },
     {
@@ -41,7 +41,7 @@ export default function Services() {
       icon: ExternalLink,
       title: "Exhibition Branding Solutions UAE",
       description: "We provide high-impact exhibition branding solutions in Abu Dhabi and across the UAE, including custom exhibition stands, backdrop banners, pop-up displays, and roll-up stands for trade shows, pavilions, and events.",
-      image: "/images/indoor.png",
+      image: "/images/exhibition_branding_hero.jpeg",
       category: "Fabrication"
     },
   ];
@@ -142,7 +142,7 @@ export default function Services() {
           LET'S TALK PRODUCTION.
         </h2>
         <a 
-          href="https://wa.me/971562599155?text=Hi%203Dots%2C%20I%27d%20like%20to%20inquire%20about%20your%20services."
+          href="https://wa.me/971563139733?text=Hi%203Dots%2C%20I%27d%20like%20to%20inquire%20about%20your%20services."
           className="inline-flex items-center gap-4 bg-transparent border border-white/40 hover:border-white/60 hover:bg-white/5 text-white px-12 py-4 rounded-none text-lg font-medium transition-all"
         >
           WhatsApp Us

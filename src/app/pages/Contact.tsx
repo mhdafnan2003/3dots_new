@@ -13,7 +13,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const whatsappMessage = `Hi, I'm ${formData.name}. I'm interested in ${formData.service}. ${formData.message}`;
-    const whatsappUrl = `https://wa.me/971562599155?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/971563139733?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, "_blank");
   };
 
@@ -74,7 +74,7 @@ export default function Contact() {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89]">Office Contact</span>
                     <div className="flex flex-col gap-0.5">
                       <a href="tel:+97125175916" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Tel: +971 2 517 5916</a>
-                      <a href="tel:+971562599155" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Mob: +971 56 259 9155</a>
+                      <a href="tel:+971563139733" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Mob: +971 56 313 9733</a>
                     </div>
                   </div>
                   <div>
@@ -85,7 +85,7 @@ export default function Contact() {
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Digital Printing Enquiries</span>
                     <span className="text-xs text-gray-400 font-medium">Navaf Muhammed</span>
-                    <a href="tel:+971562599155" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 259 9155</a>
+                    <a href="tel:+97156259915" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 259 915</a>
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Offset Printing Enquiries</span>
@@ -94,7 +94,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Site Work Enquiries</span>
-                    <span className="text-xs text-gray-400 font-medium">Fayis Muhammed</span>
+                    <span className="text-xs text-gray-400 font-medium">Nufail Muhammed</span>
                     <a href="tel:+971557271002" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 55 727 1002</a>
                   </div>
                 </div>
@@ -102,9 +102,9 @@ export default function Contact() {
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">LOCATION</span>
                 <p className="text-xl md:text-2xl font-normal text-[#0A0A0A] leading-relaxed">
-                  Sheikh Zayed Bin Sultan St <br />
-                  behind Lulu Center, Al Danah <br />
-                  Abu Dhabi, UAE
+                  Salam Street, Near Russian Embassy <br />
+                  Al Danah - Zone 1 <br />
+                  Abu Dhabi City
                 </p>
               </div>
               <div className="space-y-3">

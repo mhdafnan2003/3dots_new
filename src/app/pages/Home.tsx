@@ -8,6 +8,7 @@ import { PromotionalBanner } from "../components/PromotionalBanner";
 import { CTASection } from "../components/CTASection";
 import { InstagramPanel, InstagramSection } from "../components/InstagramPanel";
 import { motion } from "motion/react";
+import { Link } from "react-router";
 
 
 const subcategoryFallbackImages: Record<string, string> = {
@@ -93,6 +94,8 @@ export default function Home() {
     "video:/uploads/reel2.mp4"
   ]);
 
+  const [digitalPrintingBanner, setDigitalPrintingBanner] = useState("/images/yellow.png");
+
   useEffect(() => {
     fetch("/api/settings")
       .then(res => {
@@ -102,6 +105,9 @@ export default function Home() {
       .then(data => {
         if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
           setInstagramReels(data.instagram_reels);
+        }
+        if (data.digital_printing_banner) {
+          setDigitalPrintingBanner(data.digital_printing_banner);
         }
       })
       .catch(() => {});
@@ -221,12 +227,23 @@ export default function Home() {
         transition={{ duration: 1 }}
       >
         {digitalPrinting.length > 0 && (
-          <ProductSection 
-            title="Digital & Printing Solutions" 
-            products={digitalPrinting} 
-            categoryKey="digital-printing"
-            bgColor="bg-white"
-          />
+          <>
+            <ProductSection 
+              title="Digital & Printing Solutions" 
+              products={digitalPrinting} 
+              categoryKey="digital-printing"
+              bgColor="bg-white"
+            />
+            <section className="relative w-full h-[200px] sm:h-[300px] md:h-[520px] bg-white overflow-hidden z-0">
+              <Link to="/products?category=digital-printing" className="block w-full h-full cursor-pointer">
+                <img
+                  src={digitalPrintingBanner}
+                  alt="Digital Printing Banner"
+                  className="w-full h-full object-cover"
+                />
+              </Link>
+            </section>
+          </>
         )}
         
         <AboutPreview />

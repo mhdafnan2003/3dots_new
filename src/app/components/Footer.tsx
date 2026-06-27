@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Phone, Smartphone, Mail, Instagram, MessageCircle, MapPin } from "lucide-react";
+import { Phone, Smartphone, Mail, Instagram, MessageCircle, MapPin, Facebook } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -28,31 +28,11 @@ export default function Footer() {
               <div className="flex items-start gap-2.5">
                 <MapPin size={15} className="shrink-0 text-[#3D7B89] mt-0.5" />
                 <span>
-                  Sheikh Zayed Bin Sultan St<br />
-                  Behind Lulu Center, Al Danah<br />
-                  Abu Dhabi, UAE
+                  Salam Street, Near Russian Embassy<br />
+                  Al Danah - Zone 1<br />
+                  Abu Dhabi City
                 </span>
               </div>
-            </div>
-            <div className="flex gap-4 justify-start w-full pt-2">
-              {[
-                { href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram", icon: Instagram },
-                { href: "https://wa.me/971562599155?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp", icon: MessageCircle }
-              ].map((item, i) => {
-                const IconComponent = item.icon;
-                return (
-                  <a 
-                    key={i} 
-                    href={item.href} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:border-white hover:text-white hover:bg-white/5 transition-all duration-300"
-                    aria-label={item.alt}
-                  >
-                    <IconComponent size={16} />
-                  </a>
-                );
-              })}
             </div>
           </div>
 
@@ -94,7 +74,7 @@ export default function Footer() {
 
           {/* Column 3: Contact Us */}
           <div className="flex flex-col">
-            <div className="bg-[#804A10] py-3.5 px-6 text-center font-bold text-xs tracking-[0.2em] uppercase text-white rounded-t-[4px]">
+            <div className="bg-[#3D7B89] py-3.5 px-6 text-center font-bold text-xs tracking-[0.2em] uppercase text-white rounded-t-[4px]">
               Contact Us
             </div>
             <div className="border-x border-b border-white/5 bg-white/[0.01] flex-1">
@@ -107,8 +87,8 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center gap-3 py-3 px-6 hover:bg-white/[0.02]">
                   <Smartphone size={14} className="text-[#3D7B89] shrink-0" />
-                  <a href="tel:+971562599155" className="hover:text-white transition-colors truncate">
-                    +971 56 259 9155
+                  <a href="tel:+971563139733" className="hover:text-white transition-colors truncate">
+                    +971 56 313 9733
                   </a>
                 </li>
                 <li className="flex items-center gap-3 py-3 px-6 hover:bg-white/[0.02]">
@@ -168,6 +148,27 @@ export default function Footer() {
           <p className="text-[10px] text-white/40 font-bold tracking-wider">
             © {currentYear} 3DOTS ADV. All Rights Reserved.
           </p>
+          <div className="flex gap-4">
+            {[
+              { href: "https://www.instagram.com/3dots_adv?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", alt: "Instagram", icon: Instagram },
+              { href: "https://wa.me/971563139733?text=Hi%203Dots%2C%20I%20would%20like%20to%20make%20an%20inquiry%20regarding%20your%20services.", alt: "WhatsApp", icon: MessageCircle },
+              { href: "https://www.facebook.com/share/18jtsojQJV/?mibextid=wwXIfr", alt: "Facebook", icon: Facebook }
+            ].map((item, i) => {
+              const IconComponent = item.icon;
+              return (
+                <a 
+                  key={i} 
+                  href={item.href} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:border-white hover:text-white hover:bg-white/5 transition-all duration-300"
+                  aria-label={item.alt}
+                >
+                  <IconComponent size={16} />
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
     </footer>

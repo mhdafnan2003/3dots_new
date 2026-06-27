@@ -1210,16 +1210,19 @@ app.get('/api/settings', async (req, res) => {
     const db = readLocalDB();
     return res.json({
       hero_bg: db.settings.hero_bg || '/images/hero-bg.png',
-      instagram_reels: db.settings.instagram_reels || defaultReels
+      instagram_reels: db.settings.instagram_reels || defaultReels,
+      digital_printing_banner: db.settings.digital_printing_banner || '/images/yellow.png'
     });
   }
 
   try {
     const bgSetting = await Settings.findOne({ key: 'hero_bg' });
     const reelsSetting = await Settings.findOne({ key: 'instagram_reels' });
+    const bannerSetting = await Settings.findOne({ key: 'digital_printing_banner' });
     res.json({
       hero_bg: bgSetting ? bgSetting.value : '/images/hero-bg.png',
-      instagram_reels: reelsSetting ? reelsSetting.value : defaultReels
+      instagram_reels: reelsSetting ? reelsSetting.value : defaultReels,
+      digital_printing_banner: bannerSetting ? bannerSetting.value : '/images/yellow.png'
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve settings' });
@@ -1227,7 +1230,7 @@ app.get('/api/settings', async (req, res) => {
 });
 
 app.put('/api/settings', async (req, res) => {
-  const { hero_bg, instagram_reels } = req.body;
+  const { hero_bg, instagram_reels, digital_printing_banner } = req.body;
 
   if (useLocalJSON) {
     const db = readLocalDB();
@@ -1237,11 +1240,15 @@ app.put('/api/settings', async (req, res) => {
     if (instagram_reels !== undefined) {
       db.settings.instagram_reels = instagram_reels;
     }
+    if (digital_printing_banner !== undefined) {
+      db.settings.digital_printing_banner = digital_printing_banner;
+    }
     writeLocalDB(db);
     return res.json({ 
       success: true, 
       hero_bg: db.settings.hero_bg || '/images/hero-bg.png',
-      instagram_reels: db.settings.instagram_reels || []
+      instagram_reels: db.settings.instagram_reels || [],
+      digital_printing_banner: db.settings.digital_printing_banner || '/images/yellow.png'
     });
   }
 
@@ -1268,6 +1275,17 @@ app.put('/api/settings', async (req, res) => {
         reelsSetting = await Settings.create({ key: 'instagram_reels', value: instagram_reels });
       }
       result.instagram_reels = reelsSetting.value;
+    }
+
+    if (digital_printing_banner !== undefined) {
+      let bannerSetting = await Settings.findOne({ key: 'digital_printing_banner' });
+      if (bannerSetting) {
+        bannerSetting.value = digital_printing_banner;
+        await bannerSetting.save();
+      } else {
+        bannerSetting = await Settings.create({ key: 'digital_printing_banner', value: digital_printing_banner });
+      }
+      result.digital_printing_banner = bannerSetting.value;
     }
 
     res.json(result);

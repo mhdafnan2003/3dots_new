@@ -11,9 +11,10 @@ interface ProductCardProps {
   category: string;
   titleLine2?: string;
   linkTo?: string;
+  onCardClick?: (e: React.MouseEvent) => void;
 }
 
-function ProductCard({ id, title, image, category, linkTo }: ProductCardProps) {
+function ProductCard({ id, title, image, category, linkTo, onCardClick }: ProductCardProps) {
   const content = (
     <motion.div
       whileHover={{ y: -8 }}
@@ -36,10 +37,10 @@ function ProductCard({ id, title, image, category, linkTo }: ProductCardProps) {
   );
 
   if (linkTo) {
-    return <Link to={linkTo} className="block cursor-pointer">{content}</Link>;
+    return <Link to={linkTo} onClick={onCardClick} className="block cursor-pointer">{content}</Link>;
   }
   if (id) {
-    return <Link to={`/products/${id}`} className="block cursor-pointer">{content}</Link>;
+    return <Link to={`/products/${id}`} onClick={onCardClick} className="block cursor-pointer">{content}</Link>;
   }
   return content;
 }
@@ -81,6 +82,46 @@ export function ProductSection({
   const viewAllHref = categoryKey ? `/products?category=${categoryKey}` : "/products";
 
   const [imageHeight, setImageHeight] = useState<number | null>(null);
+
+  // Desktop Drag to Scroll States & Handlers
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [dragged, setDragged] = useState(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setScrollLeftState(scrollRef.current.scrollLeft);
+    setDragged(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.clientX;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 5) {
+      setDragged(true);
+    }
+    scrollRef.current.style.scrollSnapType = "none";
+    scrollRef.current.scrollLeft = scrollLeftState - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (isDragging && scrollRef.current) {
+      scrollRef.current.style.scrollSnapType = "x mandatory";
+    }
+    setIsDragging(false);
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (dragged) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
   useEffect(() => {
     const updateHeight = () => {
@@ -193,7 +234,7 @@ export function ProductSection({
           {/* Floating Left Button */}
           <button
             onClick={() => scroll('left')}
-            className="absolute -left-6 lg:-left-8 z-20 w-12 h-12 rounded-full bg-[#3D7B89] hover:bg-[#347689] text-white flex items-center justify-center shadow-lg shadow-[#3D7B89]/25 transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 scale-90 group-hover/carousel:scale-100 cursor-pointer hidden md:flex border border-white/10 -translate-y-1/2"
+            className="absolute -left-6 lg:-left-8 z-20 w-12 h-12 rounded-full bg-[#3D7B89] hover:bg-[#347689] text-white flex items-center justify-center shadow-lg shadow-[#3D7B89]/25 transition-all duration-300 scale-100 hover:scale-105 cursor-pointer hidden md:flex border border-white/10 -translate-y-1/2"
             style={{ top: imageHeight ? `${imageHeight / 2}px` : '50%' }}
             aria-label="Scroll Left"
           >
@@ -203,7 +244,7 @@ export function ProductSection({
           {/* Floating Right Button */}
           <button
             onClick={() => scroll('right')}
-            className="absolute -right-6 lg:-right-8 z-20 w-12 h-12 rounded-full bg-[#3D7B89] hover:bg-[#347689] text-white flex items-center justify-center shadow-lg shadow-[#3D7B89]/25 transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 scale-90 group-hover/carousel:scale-100 cursor-pointer hidden md:flex border border-white/10 -translate-y-1/2"
+            className="absolute -right-6 lg:-right-8 z-20 w-12 h-12 rounded-full bg-[#3D7B89] hover:bg-[#347689] text-white flex items-center justify-center shadow-lg shadow-[#3D7B89]/25 transition-all duration-300 scale-100 hover:scale-105 cursor-pointer hidden md:flex border border-white/10 -translate-y-1/2"
             style={{ top: imageHeight ? `${imageHeight / 2}px` : '50%' }}
             aria-label="Scroll Right"
           >
@@ -213,7 +254,11 @@ export function ProductSection({
           {/* Slidable Carousel Container */}
           <div 
             ref={scrollRef}
-            className="flex flex-row overflow-x-auto overflow-y-hidden no-scrollbar-forced scroll-smooth gap-4 sm:gap-8 md:gap-10 pt-2 pb-4 snap-x snap-mandatory"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUpOrLeave}
+            onMouseLeave={handleMouseUpOrLeave}
+            className={`flex flex-row overflow-x-auto overflow-y-hidden no-scrollbar-forced scroll-smooth gap-4 sm:gap-8 md:gap-10 pt-2 pb-4 snap-x snap-mandatory ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'}`}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {products.map((product, index) => (
@@ -225,7 +270,7 @@ export function ProductSection({
                 transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                 className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.33rem)] lg:w-[calc(25%-1.875rem)] shrink-0 snap-start"
               >
-                <ProductCard {...product} />
+                <ProductCard {...product} onCardClick={handleCardClick} />
               </motion.div>
             ))}
           </div>
