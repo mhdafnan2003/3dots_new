@@ -69,7 +69,8 @@ export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
   });
 
   const remainingScroll = Math.max(0, totalRange - scrollAnimationRange);
-  const yOffset = useTransform(clampedProgress, [0.90, 1.0], [0, -remainingScroll]);
+  const transitionStartProgress = Math.max(0, 1 - remainingScroll / Math.max(1, scrollAnimationRange));
+  const yOffset = useTransform(clampedProgress, [transitionStartProgress, 1.0], [0, -remainingScroll]);
 
   // Map activeIndex to the exact original scroll mapping values where each character is centered:
   // Boss Baby = 0.15, Snow White = 0.40, Superman = 0.65, Spider-Man = 0.90

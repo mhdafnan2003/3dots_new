@@ -106,11 +106,11 @@ export function BrandingBanner() {
 
         {/* Row 1: Left to Right */}
         <div className="overflow-hidden w-full flex">
-          <div className="animate-marquee-ltr gap-6 flex flex-row px-3">
+          <div className="animate-marquee-ltr flex flex-row">
             {topInfiniteLogos.map((logo, idx) => (
               <div
                 key={`top-${idx}`}
-                className="w-36 h-20 sm:w-44 sm:h-24 md:w-52 md:h-28 bg-white border border-gray-100 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.01)] flex items-center justify-center p-5 sm:p-7 shrink-0 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group"
+                className="w-36 h-20 sm:w-44 sm:h-24 md:w-52 md:h-28 bg-white border border-gray-100 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.01)] flex items-center justify-center p-5 sm:p-7 shrink-0 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group mx-3"
               >
                 <img
                   src={logo.src}
@@ -124,11 +124,11 @@ export function BrandingBanner() {
 
         {/* Row 2: Right to Left */}
         <div className="overflow-hidden w-full flex">
-          <div className="animate-marquee-rtl gap-6 flex flex-row px-3">
+          <div className="animate-marquee-rtl flex flex-row">
             {bottomInfiniteLogos.map((logo, idx) => (
               <div
                 key={`bottom-${idx}`}
-                className="w-36 h-20 sm:w-44 sm:h-24 md:w-52 md:h-28 bg-white border border-gray-100 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.01)] flex items-center justify-center p-5 sm:p-7 shrink-0 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group"
+                className="w-36 h-20 sm:w-44 sm:h-24 md:w-52 md:h-28 bg-white border border-gray-100 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.01)] flex items-center justify-center p-5 sm:p-7 shrink-0 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group mx-3"
               >
                 <img
                   src={logo.src}
