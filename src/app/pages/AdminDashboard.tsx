@@ -145,6 +145,13 @@ export default function AdminDashboard() {
     }
   });
   const [instagramReels, setInstagramReels] = useState<string[]>(["", "", "", "", ""]);
+  const [digitalPrintingBanner, setDigitalPrintingBanner] = useState(() => {
+    try {
+      return localStorage.getItem("3dots_digital_printing_banner") || "/images/yellow.png";
+    } catch (e) {
+      return "/images/yellow.png";
+    }
+  });
 
   // Form States - Products
   const [prodTitle, setProdTitle] = useState("");
@@ -268,6 +275,12 @@ export default function AdminDashboard() {
         }
         if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
           setInstagramReels(data.instagram_reels);
+        }
+        if (data.digital_printing_banner) {
+          setDigitalPrintingBanner(data.digital_printing_banner);
+          try {
+            localStorage.setItem("3dots_digital_printing_banner", data.digital_printing_banner);
+          } catch (err) {}
         }
       }
     } catch (e) {
@@ -543,6 +556,38 @@ export default function AdminDashboard() {
         localStorage.setItem("3dots_hero_bg", url);
       } catch (err) {}
       toast.success("Hero background updated (Local Mode).");
+    }
+  };
+
+  // Update Digital Printing Banner
+  const handleSaveBanner = async (url: string) => {
+    if (!url) {
+      toast.error("Banner Image URL cannot be empty.");
+      return;
+    }
+
+    const toastId = toast.loading("Saving banner image...");
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ digital_printing_banner: url })
+      });
+      if (res.ok) {
+        toast.success("Digital Printing banner image updated successfully!", { id: toastId });
+        try {
+          localStorage.setItem("3dots_digital_printing_banner", url);
+        } catch (err) {}
+        fetchSettings();
+      } else {
+        toast.error("Failed to save banner to database.", { id: toastId });
+      }
+    } catch (e) {
+      setDigitalPrintingBanner(url);
+      try {
+        localStorage.setItem("3dots_digital_printing_banner", url);
+      } catch (err) {}
+      toast.success("Digital Printing banner updated locally.", { id: toastId });
     }
   };
 
@@ -1209,6 +1254,102 @@ export default function AdminDashboard() {
                       .catch(() => {
                         toast.success("Showcase videos reset locally.", { id: toastId });
                       });
+                    }}
+                    className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all cursor-pointer bg-white shadow-sm"
+                  >
+                    Reset to Default
+                  </button>
+                </div>
+              </motion.div>
+
+              {/* Digital Printing Banner Section */}
+              <motion.div
+                key="settings-banner"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="max-w-3xl bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm mt-8"
+              >
+                <div className="space-y-1">
+                  <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Digital Printing Section Banner</h3>
+                  <p className="text-[11px] text-gray-500 font-medium">Configure the wide banner image displayed directly below the Digital & Printing Solutions section on the homepage.</p>
+                </div>
+
+                {/* Preview Window */}
+                <div className="aspect-[3150/1391] relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 shadow-inner flex items-center justify-center">
+                  <img 
+                    src={digitalPrintingBanner} 
+                    alt="Digital Printing Banner Preview" 
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/yellow.png'; }}
+                  />
+                  <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                </div>
+
+                {/* Upload & Input Controls */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Local File Uploader */}
+                  <div className="space-y-2">
+                    <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Local Image Uploader</label>
+                    <div className="border border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-gray-100/70 transition-colors relative flex flex-col justify-center items-center h-[96px]">
+                      <input 
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleFileUpload(file, (url) => {
+                            setDigitalPrintingBanner(url);
+                            handleSaveBanner(url);
+                          });
+                        }}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                      <span className="text-[10px] uppercase tracking-wider text-[#3D7B89] font-bold">
+                        {uploading ? "Uploading..." : (digitalPrintingBanner.startsWith("/uploads/") ? "✓ Custom Banner Active" : "↑ Upload Image Locally")}
+                      </span>
+                      <p className="text-[8px] text-gray-400 mt-1 uppercase tracking-wider">Supports PNG, JPG, WEBP, AVIF</p>
+                    </div>
+                  </div>
+
+                  {/* Manual URL Paste */}
+                  <div className="space-y-2 flex flex-col justify-between">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-[0.2em] font-bold text-gray-500 block">Paste Image URL</label>
+                      <input 
+                        type="text"
+                        value={digitalPrintingBanner}
+                        onChange={(e) => setDigitalPrintingBanner(e.target.value)}
+                        placeholder="e.g. https://... or /images/yellow.png"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-xs font-semibold focus:outline-none focus:border-[#3D7B89] transition-colors"
+                      />
+                    </div>
+                    
+                    <p className="text-[9px] text-gray-400 uppercase tracking-widest leading-relaxed">
+                      Recommended banner dimension is 3150px x 1391px (or a widescreen 2.26:1 aspect ratio) for pixel-perfect layout alignment.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => handleSaveBanner(digitalPrintingBanner)}
+                    disabled={uploading}
+                    className="bg-[#3D7B89] hover:bg-[#347689] disabled:opacity-50 text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-[#3D7B89]/10"
+                  >
+                    {uploading ? (
+                      "Uploading..."
+                    ) : (
+                      <>
+                        <Plus size={14} />
+                        Save Banner Image
+                      </>
+                    )}
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      setDigitalPrintingBanner("/images/yellow.png");
+                      handleSaveBanner("/images/yellow.png");
                     }}
                     className="border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all cursor-pointer bg-white shadow-sm"
                   >

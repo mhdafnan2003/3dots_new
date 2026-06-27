@@ -269,7 +269,7 @@ export default function Navigation() {
               <div className="relative">
                 <div className="relative flex items-center">
                   <div
-                    className={`flex items-center rounded-none border px-3 py-1.5 overflow-hidden transition-all duration-300 w-52 ${
+                    className={`flex items-center rounded-none border px-4 py-2.5 overflow-hidden transition-all duration-300 w-72 ${
                       scrolled
                         ? "border-white/20 bg-white/10 hover:bg-white/20 text-white"
                         : (isWhiteNavbar
@@ -280,7 +280,7 @@ export default function Navigation() {
                     <img 
                       src="/images/3dotfav.png" 
                       alt="Search" 
-                      className="w-4 h-4 shrink-0 cursor-pointer object-contain"
+                      className="w-7 h-7 shrink-0 cursor-pointer object-contain"
                     />
                     <input
                       type="text"
@@ -291,7 +291,7 @@ export default function Navigation() {
                         setTimeout(() => setSearchFocused(false), 200);
                       }}
                       placeholder="Search archive..."
-                      className={`ml-2 bg-transparent border-none outline-none text-xs w-full ${scrolled ? "placeholder-white/50 text-white" : (isWhiteNavbar ? "placeholder-black/45 text-black" : "placeholder-white/45 text-white")}`}
+                      className={`ml-2.5 bg-transparent border-none outline-none text-sm w-full ${scrolled ? "placeholder-white/50 text-white" : (isWhiteNavbar ? "placeholder-black/45 text-black" : "placeholder-white/45 text-white")}`}
                     />
                   </div>
                 </div>

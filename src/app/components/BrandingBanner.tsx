@@ -19,10 +19,23 @@ const clientLogos = [
   { name: "UAE Wrestling Federation", src: "/clients_logo/uae_wrestling.png" },
   { name: "Vertex Holidays", src: "/clients_logo/vertex.png" },
   { name: "Systems Equipment", src: "/clients_logo/systems_equipment.png" },
+  { name: "Lulu Money", src: "/clients_logo/lulu money.png" },
+  { name: "Lulu Exchange", src: "/clients_logo/lulu exchange.png" },
+  { name: "Stream Holding", src: "/clients_logo/stream.png" },
+  { name: "Metric Technologies", src: "/clients_logo/metric.png" },
+  { name: "One Development", src: "/clients_logo/one.png" },
+  { name: "Abeer Optical Centre", src: "/clients_logo/abeer.png" },
+  { name: "Al Gebely Holding", src: "/clients_logo/al_gebely.png" },
+  { name: "Fly on Wheels", src: "/clients_logo/fly_on_wheels.png" },
+  { name: "KCF UAE", src: "/clients_logo/kcf.png" },
+  { name: "New City Opticals", src: "/clients_logo/new_city.png" },
+  { name: "Miki Bites", src: "/clients_logo/miki_bites.png" },
+  { name: "Empire Restaurant", src: "/clients_logo/empire.png" },
+  { name: "Le Ora", src: "/clients_logo/le_ora.png" },
 ];
 
-const topRowLogos = clientLogos.slice(0, 9);
-const bottomRowLogos = clientLogos.slice(9);
+const topRowLogos = clientLogos.slice(0, 17);
+const bottomRowLogos = clientLogos.slice(17);
 
 // Triple each array to build a seamless infinite marquee scroll buffer
 const topInfiniteLogos = [...topRowLogos, ...topRowLogos, ...topRowLogos];

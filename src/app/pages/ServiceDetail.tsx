@@ -99,7 +99,7 @@ const serviceData: Record<string, any> = {
     title: "Printing Press Services in Abu Dhabi",
     subtitle: "Precision. Volume. Consistency.",
     description: "From high-volume corporate stationery to custom-branded apparel, our printing division handles complex orders with ease. We bridge the gap between traditional craft and modern efficiency to deliver sharp, consistent results every time.",
-    heroImage: "https://images.unsplash.com/photo-1693031630189-a39e6d70bf22?q=80&w=1200",
+    heroImage: "/images/printing_press_services_hero.jpeg",
     features: [
       "Bulk offset printing for brochures & flyers",
       "Premium business cards & corporate sets",
@@ -117,7 +117,7 @@ const serviceData: Record<string, any> = {
     title: "Corporate Gifts & Promotional Items UAE",
     subtitle: "Brand Longevity.",
     description: "Stay top-of-mind with a curated selection of promotional products. From executive corporate gifts to high-volume event merchandise, we provide high-quality branding that reflects your company's excellence.",
-    heroImage: "https://images.unsplash.com/photo-1625552186152-668cd2f0b707?q=80&w=1200",
+    heroImage: "/images/corporate_gifts_hero.jpeg",
     features: [
       "Curated corporate gift sets",
       "Custom branded tech accessories",
@@ -135,7 +135,7 @@ const serviceData: Record<string, any> = {
     title: "Crystal Awards & Mementos Abu Dhabi",
     subtitle: "Excellence Recognized.",
     description: "Honor outstanding achievements with our custom crystal awards, acrylic trophies, wooden plaques, and personalized mementos. Crafted with high-precision laser engraving and sandblasting, we create premium recognition pieces for corporate events, schools, and organizations in Abu Dhabi and across the UAE.",
-    heroImage: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1200",
+    heroImage: "/images/crystal_awards_hero.jpeg",
     features: [
       "Custom-cut optical crystal and acrylic trophies",
       "High-precision laser engraving and color filling",
@@ -153,7 +153,7 @@ const serviceData: Record<string, any> = {
     title: "Signage & Large Format Printing UAE",
     subtitle: "Durable. Vibrant. Professional.",
     description: "Establish a prominent visual presence with our indoor/outdoor signage and large format printing. From 3D LED backlit signs, shop fronts, and building pylons, to high-resolution vinyl banner printing, canvas printing, and window graphics, we offer durable materials tailored to stand out in the UAE climate.",
-    heroImage: "/images/outdoor.png",
+    heroImage: "/images/signage_large_format_hero.jpeg",
     features: [
       "3D LED illuminated channel letters and lightboxes",
       "Wide-format high-resolution banner and vinyl sticker printing",
@@ -171,7 +171,7 @@ const serviceData: Record<string, any> = {
     title: "Exhibition Branding Solutions UAE",
     subtitle: "High-Impact Presence.",
     description: "Make a powerful statement at your next trade show, exhibition, or event. We design, fabricate, and install custom exhibition stands, high-resolution backdrop banners, premium pop-up displays, and durable roll-up stands that attract traffic and elevate your brand's presence across the UAE.",
-    heroImage: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=1200",
+    heroImage: "/images/exhibition_branding_hero.jpeg",
     features: [
       "Custom fabrication and modular exhibition stands",
       "High-resolution backdrop banners & pop-up displays",
@@ -279,7 +279,7 @@ export default function ServiceDetail() {
                 </div>
               </div>
               <a 
-                href={`https://wa.me/97156259915?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
+                href={`https://wa.me/971563139733?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
                 className="flex items-center justify-center gap-3 bg-white text-black py-5 rounded-none font-bold hover:bg-[#25D366] hover:text-white transition-colors"
               >
                 <MessageCircle size={20} />
@@ -332,7 +332,7 @@ export default function ServiceDetail() {
             Get a Quote
           </Link>
           <a 
-            href={`https://wa.me/97156259915?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
+            href={`https://wa.me/971563139733?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
             className="px-12 py-5 border border-white/20 rounded-none font-bold hover:bg-white/10 transition-colors flex items-center gap-2"
           >
             WhatsApp
