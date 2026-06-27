@@ -143,6 +143,8 @@ export default function Services() {
         </h2>
         <a 
           href="https://wa.me/971563139733?text=Hi%203Dots%2C%20I%27d%20like%20to%20inquire%20about%20your%20services."
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-4 bg-transparent border border-white/40 hover:border-white/60 hover:bg-white/5 text-white px-12 py-4 rounded-none text-lg font-medium transition-all"
         >
           WhatsApp Us

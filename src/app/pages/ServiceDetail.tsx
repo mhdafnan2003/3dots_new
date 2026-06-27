@@ -280,6 +280,8 @@ export default function ServiceDetail() {
               </div>
               <a 
                 href={`https://wa.me/971563139733?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 bg-white text-black py-5 rounded-none font-bold hover:bg-[#25D366] hover:text-white transition-colors"
               >
                 <MessageCircle size={20} />
@@ -333,6 +335,8 @@ export default function ServiceDetail() {
           </Link>
           <a 
             href={`https://wa.me/971563139733?text=Hi 3Dots, I'm interested in your ${service.title} services.`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-12 py-5 border border-white/20 rounded-none font-bold hover:bg-white/10 transition-colors flex items-center gap-2"
           >
             WhatsApp
