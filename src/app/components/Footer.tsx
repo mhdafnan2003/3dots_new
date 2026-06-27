@@ -87,13 +87,23 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center gap-3 py-3 px-6 hover:bg-white/[0.02]">
                   <Smartphone size={14} className="text-[#3D7B89] shrink-0" />
-                  <a href="tel:+971563139733" className="hover:text-white transition-colors truncate">
+                  <a 
+                    href="https://wa.me/971563139733" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors truncate"
+                  >
                     +971 56 313 9733
                   </a>
                 </li>
                 <li className="flex items-center gap-3 py-3 px-6 hover:bg-white/[0.02]">
                   <Smartphone size={14} className="text-[#3D7B89] shrink-0" />
-                  <a href="tel:+971563138214" className="hover:text-white transition-colors truncate">
+                  <a 
+                    href="https://wa.me/971563138214" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors truncate"
+                  >
                     +971 56 313 8214
                   </a>
                 </li>

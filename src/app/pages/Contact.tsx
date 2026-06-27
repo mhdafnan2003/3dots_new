@@ -74,28 +74,28 @@ export default function Contact() {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89]">Office Contact</span>
                     <div className="flex flex-col gap-0.5">
                       <a href="tel:+97125175916" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Tel: +971 2 517 5916</a>
-                      <a href="tel:+971563139733" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Mob: +971 56 313 9733</a>
+                      <a href="https://wa.me/971563139733" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors">Mob: +971 56 313 9733</a>
                     </div>
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Designing Enquiries</span>
                     <span className="text-xs text-gray-400 font-medium">Rajab Navunda</span>
-                    <a href="tel:+971563138214" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 313 8214</a>
+                    <a href="https://wa.me/971563138214" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 313 8214</a>
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Digital Printing Enquiries</span>
                     <span className="text-xs text-gray-400 font-medium">Navaf Muhammed</span>
-                    <a href="tel:+97156259915" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 259 915</a>
+                    <a href="https://wa.me/97156259915" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 259 915</a>
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Offset Printing Enquiries</span>
                     <span className="text-xs text-gray-400 font-medium">Shihab Anorammal</span>
-                    <a href="tel:+971564704648" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 470 4648</a>
+                    <a href="https://wa.me/971564704648" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 56 470 4648</a>
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D7B89] block">Site Work Enquiries</span>
                     <span className="text-xs text-gray-400 font-medium">Nufail Muhammed</span>
-                    <a href="tel:+971557271002" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 55 727 1002</a>
+                    <a href="https://wa.me/971557271002" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg font-normal text-[#0A0A0A] hover:text-[#3D7B89] transition-colors block">+971 55 727 1002</a>
                   </div>
                 </div>
               </div>
