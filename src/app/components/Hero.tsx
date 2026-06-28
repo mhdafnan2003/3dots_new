@@ -118,8 +118,8 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Social Icons - Bottom Left */}
-      <div className="absolute bottom-6 md:bottom-8 left-0 w-full flex justify-center md:left-12 md:w-auto md:justify-start z-20 items-center gap-4">
+      {/* Social Icons - Bottom Right */}
+      <div className="absolute bottom-6 md:bottom-8 left-0 w-full flex justify-center md:left-auto md:right-12 md:w-auto md:justify-end z-20 items-center gap-4">
         {socialIcons.map((item, index) => (
           <motion.a
             key={index}
