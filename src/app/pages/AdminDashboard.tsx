@@ -12,7 +12,8 @@ import {
   Lock,
   Edit2,
   Menu,
-  X
+  X,
+  Search
 } from "lucide-react";
 import { toast, Toaster } from "sonner";
 
@@ -136,7 +137,23 @@ export default function AdminDashboard() {
 
   // Data States
   const [products, setProducts] = useState<Product[]>([]);
+  const [productSearchQuery, setProductSearchQuery] = useState("");
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
+
+  const filteredProducts = products.filter(p => {
+    if (!productSearchQuery.trim()) return true;
+    const query = productSearchQuery.toLowerCase();
+    const matchesQuery = (text?: string) => text ? text.toLowerCase().includes(query) : false;
+    return (
+      matchesQuery(p.title) || 
+      matchesQuery(p.titleLine2) ||
+      matchesQuery(p.category) ||
+      matchesQuery(p.subcategory) ||
+      matchesQuery(p.client) ||
+      matchesQuery(p.year) ||
+      matchesQuery(p.description)
+    );
+  });
   const [heroBg, setHeroBg] = useState(() => {
     try {
       return localStorage.getItem("3dots_hero_bg") || "/images/hero-bg.png";
@@ -909,7 +926,9 @@ export default function AdminDashboard() {
                 <div className="bg-white border border-gray-200/80 rounded-3xl p-8 space-y-6 shadow-sm">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-center sm:text-left">
                     <div>
-                      <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">Active Products List ({products.length})</h3>
+                      <h3 className="font-bold text-sm uppercase tracking-[0.15em] text-gray-900">
+                        Active Products List ({productSearchQuery.trim() ? `${filteredProducts.length} of ` : ""}{products.length})
+                      </h3>
                       <p className="text-[11px] text-gray-500 mt-1">Manage offset printing, signage and promotional campaign items displayed on the live website.</p>
                     </div>
                     <button 
@@ -921,11 +940,36 @@ export default function AdminDashboard() {
                     </button>
                   </div>
 
+                  {/* Search Bar */}
+                  <div className="relative">
+                    <div className="flex items-center gap-3 border border-gray-200 px-4 py-3 rounded-2xl bg-gray-50/50 focus-within:bg-white focus-within:border-[#3D7B89] transition-all">
+                      <Search size={16} className="text-gray-400 shrink-0" />
+                      <input 
+                        type="text"
+                        value={productSearchQuery}
+                        onChange={(e) => setProductSearchQuery(e.target.value)}
+                        placeholder="Search products by title, category, subcategory, client, description..."
+                        className="bg-transparent border-none outline-none text-xs text-gray-900 placeholder-gray-400 w-full"
+                      />
+                      {productSearchQuery && (
+                        <button 
+                          onClick={() => setProductSearchQuery("")}
+                          className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                          title="Clear Search"
+                        >
+                          <X size={14} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
                     {products.length === 0 ? (
                       <div className="text-center py-20 text-gray-400 text-xs uppercase tracking-wider font-bold">No Products found in DB.</div>
+                    ) : filteredProducts.length === 0 ? (
+                      <div className="text-center py-20 text-gray-400 text-xs uppercase tracking-wider font-bold">No products match "{productSearchQuery}".</div>
                     ) : (
-                      products.map((p) => (
+                      filteredProducts.map((p) => (
                         <div 
                           key={p._id || p.id}
                           className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors gap-4"

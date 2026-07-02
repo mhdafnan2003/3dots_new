@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { Link } from "react-router";
 
@@ -41,7 +41,8 @@ export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
   const scrollAnimationRange = isMobile ? 1200 : 1800;
   const parentHeight = bannerHeight + childHeight + scrollAnimationRange;
 
-  const totalRange = parentHeight - 0.85 * viewportHeight;
+  const startFraction = 0.5 - bannerHeight / (2 * viewportHeight);
+  const totalRange = parentHeight - (1 - startFraction) * viewportHeight;
   const animationEndProgress = scrollAnimationRange / Math.max(1, totalRange);
 
   // Define rising Y offsets for the banner edge crop animation (scaled up for even larger character sizes)
@@ -49,11 +50,13 @@ export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
   const sideY = isMobile ? 160 : 220;
   const backY = isMobile ? 450 : 620;
 
+  const scrollOffset = useMemo(() => [`start ${startFraction}`, "end 1.0"], [startFraction]);
+
   // Track scroll position of the section relative to the viewport
-  // Offset ["start 0.15", "end 1.0"] pins the container during the full progression
+  // Offset pins the container during the full progression when it reaches the center
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.15", "end 1.0"]
+    offset: scrollOffset
   });
 
   // Transform scroll progress to animate carousel from 0.0 to 1.0 during scrollAnimationRange
@@ -78,7 +81,7 @@ export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
   const handleDotClick = (idx: number) => {
     if (!containerRef.current) return;
     const progressVal = indexToProgressMap[idx];
-    const targetScrollTop = containerRef.current.offsetTop - 0.15 * window.innerHeight + progressVal * scrollAnimationRange;
+    const targetScrollTop = containerRef.current.offsetTop - startFraction * window.innerHeight + progressVal * scrollAnimationRange;
     window.scrollTo({
       top: targetScrollTop,
       behavior: "smooth"
@@ -328,8 +331,11 @@ export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
     >
       {/* Sticky container that keeps the section pinned during the scroll progression */}
       <motion.div 
-        style={{ y: yOffset }}
-        className="sticky top-[15vh] h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg z-20"
+        style={{ 
+          y: yOffset,
+          top: `calc(50vh - ${bannerHeight / 2}px)`
+        }}
+        className="sticky h-[380px] md:h-[500px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#d49e31] via-[#be8624] to-[#a1701a] border-y border-white/10 shadow-lg z-20"
       >
         {/* Background Image 0: Boss Baby (Gold) */}
         <motion.div 
@@ -493,7 +499,7 @@ export function AcrylicMiniMe({ children }: { children?: React.ReactNode }) {
           ref={childRef}
           className="sticky w-full z-30"
           style={{ 
-            top: isMobile ? "calc(15vh + 380px)" : "calc(15vh + 500px)",
+            top: `calc(50vh + ${bannerHeight / 2}px)`,
             y: yOffset
           }}
         >
