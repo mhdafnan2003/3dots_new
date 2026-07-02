@@ -220,10 +220,13 @@ export function ProductSection({
           <div className="flex items-center gap-6 self-end md:self-auto">
             <Link
               to={viewAllHref}
-              className="hidden md:flex group items-center gap-2.5 bg-[#3D7B89] hover:bg-[#347689] text-white px-5 py-3 rounded-xl text-[11px] font-bold uppercase tracking-[0.15em] transition-all shadow-md shadow-[#3D7B89]/10"
+              className="hidden md:flex group items-center justify-between gap-10 bg-[#3D7B89] hover:bg-[#347689] text-white px-7 py-4 rounded-[1.5rem] transition-all shadow-md shadow-[#3D7B89]/10 hover:scale-[1.02]"
             >
-              VIEW ALL {firstWord}
-              <ArrowRight size={14} className="text-white group-hover:translate-x-1 transition-transform" />
+              <div className="flex flex-col text-left leading-[1.2] text-[11px] font-bold uppercase tracking-[0.15em] select-none">
+                <span>VIEW ALL</span>
+                <span className="text-white/90">{firstWord}</span>
+              </div>
+              <ArrowRight size={18} className="text-white group-hover:translate-x-1.5 transition-transform shrink-0" strokeWidth={2} />
             </Link>
           </div>
         </motion.div>
@@ -280,10 +283,13 @@ export function ProductSection({
         <div className="mt-12 md:hidden flex justify-center w-full">
           <Link
             to={viewAllHref}
-            className="group flex items-center justify-center gap-2.5 bg-[#3D7B89] hover:bg-[#347689] text-white px-6 py-4 w-full text-[11px] font-bold uppercase tracking-[0.15em] transition-all text-center rounded-xl shadow-md shadow-[#3D7B89]/10"
+            className="group flex items-center justify-between gap-4 bg-[#3D7B89] hover:bg-[#347689] text-white px-7 py-4 w-full rounded-[1.5rem] transition-all shadow-md shadow-[#3D7B89]/10"
           >
-            VIEW ALL {firstWord}
-            <ArrowRight size={14} className="text-white group-hover:translate-x-1 transition-transform" />
+            <div className="flex flex-col text-left leading-[1.2] text-[11px] font-bold uppercase tracking-[0.15em]">
+              <span>VIEW ALL</span>
+              <span className="text-white/90">{firstWord}</span>
+            </div>
+            <ArrowRight size={18} className="text-white group-hover:translate-x-1 transition-transform shrink-0" strokeWidth={2} />
           </Link>
         </div>
       </div>
