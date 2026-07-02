@@ -76,7 +76,8 @@ export function Hero() {
             />
           )
         )}
-        <div className="absolute inset-0 w-full h-full bg-black/60"></div>
+        {/* Blackish gradient overlay at the bottom to enhance readability of text and buttons */}
+        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
       </div>
 
       {/* Hero Content */}

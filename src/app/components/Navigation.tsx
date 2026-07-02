@@ -180,7 +180,7 @@ export default function Navigation() {
     ? "bg-[#3D7B89] backdrop-blur-xl border-b border-white/10 py-2.5 shadow-md"
     : (isWhiteNavbar
       ? "bg-white/95 border-b border-black/5 py-4"
-      : "bg-transparent py-4");
+      : "bg-black/20 backdrop-blur-md border-b border-white/5 py-4");
 
   const logoSrc = scrolled ? "/images/3Dot.png" : (isWhiteNavbar ? "/images/3Dotfooter.png" : "/images/3Dot.png");
   const logoHeightClass = scrolled ? "h-6 md:h-10" : (isWhiteNavbar ? "h-5 md:h-8" : "h-6 md:h-10");
