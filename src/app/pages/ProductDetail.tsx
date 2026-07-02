@@ -36,49 +36,17 @@ export default function ProductDetail() {
             
             const specsList = [];
             if (found.specs && found.specs.length > 0) {
-              specsList.push(...found.specs);
+              specsList.push(...found.specs.filter((spec: any) => spec.label?.trim() || spec.value?.trim()));
             } else if (found.specMaterial || found.specFinishing || found.specProduction || found.specFacility) {
               if (found.specMaterial) specsList.push({ label: "Material", value: found.specMaterial });
               if (found.specFinishing) specsList.push({ label: "Finishing", value: found.specFinishing });
               if (found.specProduction) specsList.push({ label: "Production", value: found.specProduction });
               if (found.specFacility) specsList.push({ label: "Facility", value: found.specFacility });
-            } else {
-              specsList.push(...(found.category === 'signage' ? [
-                { label: "Material", value: "Grade 304 Stainless Steel + Acrylic" },
-                { label: "Finishing", value: "Satin Powdercoat + Laser CNC Cut" },
-                { label: "Illumination", value: "IP67 Samsung LED High-CRI" },
-                { label: "Facility", value: "3Dots Dubai Production Studio" }
-              ] : found.category === 'printing' ? [
-                { label: "Material", value: "400gsm Premium Matte Cardboard" },
-                { label: "Finishing", value: "Spot UV + Gold Embossed Stamp" },
-                { label: "Production", value: "Heidelberg Speedmaster XL 5-Color" },
-                { label: "Facility", value: "3Dots High-Speed Print Hub" }
-              ] : [
-                { label: "Category", value: "Bespoke Branding & Identity" },
-                { label: "Material", value: "Eco-friendly Organic Cotton & Paper" },
-                { label: "Finishing", value: "Debossed Logo Seal" },
-                { label: "Facility", value: "3Dots Premium Gift Crafting" }
-              ]));
             }
 
             const featuresList = (found.features && found.features.length > 0) 
-              ? found.features.filter(Boolean)
-              : (found.category === 'signage' ? [
-                  "IP67 Dust & Weatherproof Electronics",
-                  "Premium Grade CNC Laser Cuts",
-                  "Low energy LED illumination",
-                  "Rust-resistant framing guarantee"
-                ] : found.category === 'printing' ? [
-                  "Vegetable-based organic ink prints",
-                  "Heavy-duty debossing stamp alignment",
-                  "Matte-lamination water resistance",
-                  "Certified biodegradable cardboards"
-                ] : [
-                  "Handcrafted luxury structural builds",
-                  "High quality screen imprint fidelity",
-                  "Custom tailor-fit dimensions",
-                  "Eco-friendly materials priority"
-                ]);
+              ? found.features.filter((f: any) => typeof f === 'string' && f.trim())
+              : [];
 
             const richProduct = {
               name: found.title || found.name,
@@ -274,37 +242,41 @@ export default function ProductDetail() {
               </div>
 
               {/* Technical Specifications */}
-              <div className="bg-[#F9F9F9] p-6 lg:p-8 rounded-[2rem] shadow-sm">
-                <span className="mb-4 block text-[11px] font-medium uppercase tracking-[0.2em] text-[#0A0A0A]" style={{
-                  fontFamily: '"Neue Regrade", sans-serif'
-                }}>TECHNICAL SPECS</span>
-                <div className="space-y-3">
-                  {product.specs.map((spec: any, i: number) => (
-                    <div key={i} className="flex justify-between items-center border-b border-black/5 pb-2">
-                      <span className="text-[9px] font-medium uppercase text-black/35" style={{
+              {product.specs && product.specs.length > 0 && (
+                <div className="bg-[#F9F9F9] p-6 lg:p-8 rounded-[2rem] shadow-sm">
+                  <span className="mb-4 block text-[11px] font-medium uppercase tracking-[0.2em] text-[#0A0A0A]" style={{
+                    fontFamily: '"Neue Regrade", sans-serif'
+                  }}>TECHNICAL SPECS</span>
+                  <div className="space-y-3">
+                    {product.specs.map((spec: any, i: number) => (
+                      <div key={i} className="flex justify-between items-center border-b border-black/5 pb-2">
+                        <span className="text-[9px] font-medium uppercase text-black/35" style={{
+                          fontFamily: '"Neue Regrade", sans-serif'
+                        }}>
+                          {spec.label}
+                        </span>
+                        <span className="text-[11px] font-semibold text-[#0A0A0A]">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Features List */}
+              {product.features && product.features.length > 0 && (
+                <div className="grid grid-cols-2 gap-y-3 gap-x-4">
+                  {product.features.map((feature: string, i: number) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <Sparkles size={11} className="text-[#3D7B89] shrink-0" />
+                      <span className="text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]" style={{
                         fontFamily: '"Neue Regrade", sans-serif'
                       }}>
-                        {spec.label}
+                        {feature}
                       </span>
-                      <span className="text-[11px] font-semibold text-[#0A0A0A]">{spec.value}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* Features List */}
-              <div className="grid grid-cols-2 gap-y-3 gap-x-4">
-                {product.features.map((feature: string, i: number) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <Sparkles size={11} className="text-[#3D7B89] shrink-0" />
-                    <span className="text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]" style={{
-                      fontFamily: '"Neue Regrade", sans-serif'
-                    }}>
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              )}
 
               {/* CTA Actions */}
               <div className="flex items-center gap-4 pt-2">
