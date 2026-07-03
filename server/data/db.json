@@ -383,9 +383,9 @@
       "_id": "prod_9",
       "title": "Edge-Lit Acrylic Logo Panel",
       "titleLine2": "Laser Cut & Engraved LED",
-      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534765/3dotsadv_products/ov3aueqct46wza4ia4mw.jpg",
+      "image": "/images/led_acrylic_signs_fallback.png",
       "images": [
-        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534765/3dotsadv_products/ov3aueqct46wza4ia4mw.jpg"
+        "/images/led_acrylic_signs_fallback.png"
       ],
       "category": "signage",
       "subcategory": "LED Acrylic Signs",
@@ -421,9 +421,9 @@
       "_id": "prod_10",
       "title": "Premium Retail Acrylic Podiums",
       "titleLine2": "Diamond Polished Finish",
-      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534766/3dotsadv_products/ga9zfxnmpspgdo3fxg1i.jpg",
+      "image": "/images/acrylic_stands_fallback.png",
       "images": [
-        "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534766/3dotsadv_products/ga9zfxnmpspgdo3fxg1i.jpg"
+        "/images/acrylic_stands_fallback.png"
       ],
       "category": "signage",
       "subcategory": "Acrylic Display Stands",
@@ -457,39 +457,40 @@
     },
     {
       "_id": "prod_11",
-      "title": "Engraved Wooden Corporate Award",
-      "titleLine2": "Laser Burn & Brass Accent",
-      "image": "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534918/3dotsadv_products/xaipjmax215ovi63g5de.jpg",
+      "title": "Bespoke Crystal & Acrylic Trophies",
+      "titleLine2": "Premium Hand-Polished Awards",
+      "image": "/images/crystal_awards_mementos.jpg",
       "images": [
+        "/images/crystal_awards_mementos.jpg",
         "https://res.cloudinary.com/dqpmbjsgv/image/upload/v1779534918/3dotsadv_products/xaipjmax215ovi63g5de.jpg"
       ],
       "category": "signage",
       "subcategory": "Trophy & Award Works",
       "year": "2026",
-      "client": "Gulf Business Awards",
-      "description": "Luxury solid walnut base paired with custom cut brass plaque, showcasing precision micro-engraving and smooth oil finishing.",
-      "specMaterial": "American Walnut Wood & Satin Gold Brass Shield",
-      "specFinishing": "Organic Wax Oil Rubbing & Laser Metal Etching",
-      "specProduction": "Laser Marking & Artisan Wood Working",
-      "specFacility": "3Dots Gift Refinery",
+      "client": "VIP Corporate Recognition UAE",
+      "description": "A luxury collection of custom-crafted recognition awards, combining high-grade optical crystal, cast acrylic, and solid wood/metal bases. Features precision laser etching, flame-polished edges, and bespoke geometric shapes (including stars, flames, hexagons, and globes) designed for corporate excellence.",
+      "specMaterial": "Optical Crystal, Cast Acrylic, Solid Walnut Wood & Brass",
+      "specFinishing": "Diamond Buffing, Flame Polishing & Precision Laser Marking",
+      "specProduction": "Laser Etching & Rotary Diamond Engraving",
+      "specFacility": "3Dots Signage Labs",
       "specs": [
+        {
+          "label": "Material",
+          "value": "Optical Crystal & Premium Acrylic"
+        },
         {
           "label": "Wood Base",
           "value": "Solid Aged American Walnut"
         },
         {
-          "label": "Metal Shield",
-          "value": "0.8mm Brushed Brass Plate"
-        },
-        {
           "label": "Detailing",
-          "value": "Ultra-Fine 1000 DPI Laser Mark"
+          "value": "Laser Engraving & Color Fill"
         }
       ],
       "features": [
-        "Heavy solid wood base with beautiful natural graining",
-        "High-contrast permanent laser marking",
-        "Individually hand-sanded and polished for a custom premium touch"
+        "Stunning array of geometries including stars, flames, hexagons, and globes",
+        "Brilliant light refraction and flawless edge transparency",
+        "Includes individual luxury presentation gift boxes"
       ],
       "createdAt": "2026-05-23T10:11:00.000Z"
     },

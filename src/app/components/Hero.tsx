@@ -17,7 +17,9 @@ const isVideoUrl = (url: string) => {
 };
 
 export function Hero() {
-  const [heroBg, setHeroBg] = useState<string | null>(null);
+  const [heroBg, setHeroBg] = useState<string | null>(() => {
+    return (window as any).__initialSettings?.hero_bg || null;
+  });
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -28,19 +30,37 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/settings")
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.hero_bg) {
-          setHeroBg(data.hero_bg);
-        } else {
-          setHeroBg("/images/hero-bg.png");
-        }
-      })
-      .catch(err => {
-        console.warn("Failed to fetch custom hero background from DB, using fallback", err);
+    const loadSettings = () => {
+      const settings = (window as any).__initialSettings;
+      if (settings && settings.hero_bg) {
+        setHeroBg(settings.hero_bg);
+      } else {
         setHeroBg("/images/hero-bg.png");
-      });
+      }
+    };
+
+    if ((window as any).__initialSettings) {
+      loadSettings();
+    } else {
+      const handleData = () => {
+        loadSettings();
+      };
+      window.addEventListener("initialDataLoaded", handleData);
+      
+      // Fallback direct fetch if not loaded by preloader
+      fetch("/api/settings")
+        .then(res => res.json())
+        .then(data => {
+          (window as any).__initialSettings = data;
+          loadSettings();
+        })
+        .catch(err => {
+          console.warn("Failed to fetch custom hero background from DB, using fallback", err);
+          setHeroBg("/images/hero-bg.png");
+        });
+
+      return () => window.removeEventListener("initialDataLoaded", handleData);
+    }
   }, []);
 
   const socialIcons: { src: string; href: string; alt: string; icon?: any }[] = [
@@ -63,6 +83,20 @@ export function Hero() {
               muted
               playsInline
               preload="auto"
+              onLoadedData={() => {
+                window.dispatchEvent(new CustomEvent("heroMediaReady"));
+              }}
+              onCanPlay={() => {
+                window.dispatchEvent(new CustomEvent("heroMediaReady"));
+              }}
+              onCanPlayThrough={() => {
+                window.dispatchEvent(new CustomEvent("heroMediaReady"));
+              }}
+              onError={() => {
+                console.error("Hero video failed to load, falling back to image.");
+                setHeroBg("/images/hero-bg.png");
+                window.dispatchEvent(new CustomEvent("heroMediaReady"));
+              }}
               className="w-full h-full object-cover animate-fade-in"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -70,9 +104,15 @@ export function Hero() {
             <img
               src={heroBg}
               alt="Printing Press"
+              onLoad={() => {
+                window.dispatchEvent(new CustomEvent("heroMediaReady"));
+              }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/images/hero-bg.png';
+                window.dispatchEvent(new CustomEvent("heroMediaReady"));
+              }}
               className="w-full h-full object-cover animate-fade-in"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              onError={(e) => { (e.target as HTMLImageElement).src = '/images/hero-bg.png'; }}
             />
           )
         )}
