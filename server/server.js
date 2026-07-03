@@ -283,9 +283,9 @@ const defaultJSONDb = {
     {
       _id: "prod_9",
       title: "Edge-Lit Acrylic Logo Panel",
-      titleLine2: "Laser Cut & Engraved LED",
-      image: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800",
-      images: ["https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800"],
+      titleLine2: "Dual-Tone LED Edge Glow",
+      image: "/images/led_acrylic_signs_fallback.png",
+      images: ["/images/led_acrylic_signs_fallback.png"],
       category: "signage",
       subcategory: "LED Acrylic Signs",
       year: "2026",
@@ -310,8 +310,8 @@ const defaultJSONDb = {
       _id: "prod_10",
       title: "Premium Retail Acrylic Podiums",
       titleLine2: "Diamond Polished Finish",
-      image: "https://images.unsplash.com/photo-1695048168808-4bbfa1efdfa7?q=80&w=800",
-      images: ["https://images.unsplash.com/photo-1695048168808-4bbfa1efdfa7?q=80&w=800"],
+      image: "/images/acrylic_stands_fallback.png",
+      images: ["/images/acrylic_stands_fallback.png"],
       category: "signage",
       subcategory: "Acrylic Display Stands",
       year: "2026",
@@ -807,7 +807,10 @@ async function migrateSeedImagesToCloudinary() {
         if (product.image && !product.image.includes('res.cloudinary.com')) {
           console.log(`Uploading ${product.title} image to Cloudinary...`);
           try {
-            const uploadRes = await cloudinary.uploader.upload(product.image, {
+            const imagePath = product.image.startsWith('/')
+              ? path.join(__dirname, '../public', product.image)
+              : product.image;
+            const uploadRes = await cloudinary.uploader.upload(imagePath, {
               folder: '3dotsadv_products'
             });
             product.image = uploadRes.secure_url;
@@ -838,7 +841,10 @@ async function migrateSeedImagesToCloudinary() {
         if (product.image && !product.image.includes('res.cloudinary.com')) {
           console.log(`Uploading ${product.title} image to Cloudinary (MongoDB)...`);
           try {
-            const uploadRes = await cloudinary.uploader.upload(product.image, {
+            const imagePath = product.image.startsWith('/')
+              ? path.join(__dirname, '../public', product.image)
+              : product.image;
+            const uploadRes = await cloudinary.uploader.upload(imagePath, {
               folder: '3dotsadv_products'
             });
             product.image = uploadRes.secure_url;

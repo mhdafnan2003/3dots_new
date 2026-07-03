@@ -33,11 +33,11 @@ const subcategoryFallbackImages: Record<string, string> = {
   "Calendar Printing": "/images/calendar_printing_fallback.jpg",
 
   // Laser Etching & Acrylic Works
-  "Acrylic Display Stands": "/images/acrylic_stands_fallback.jpg",
+  "Acrylic Display Stands": "/images/acrylic_stands_fallback.png",
   "Name Plates": "/images/name_plates_fallback.jpg",
   "Laser Engraving": "/images/laser_engraving_fallback.jpg",
   "Laser Cutting": "/images/laser_cutting_fallback.jpg",
-  "LED Acrylic Signs": "/images/led_acrylic_signs_fallback.jpg",
+  "LED Acrylic Signs": "/images/led_acrylic_signs_fallback.png",
   "Trophy & Award Works": "/images/trophies_fallback.jpg",
   "Acrylic Boxes": "/images/acrylic_boxes_fallback.jpg",
   "Acrylic Sandwich Display": "/images/acrylic_sandwich_display_fallback.jpg",
@@ -125,125 +125,148 @@ export default function Home() {
   const [digitalPrintingBanner, setDigitalPrintingBanner] = useState("/images/yellow.png");
 
   useEffect(() => {
-    fetch("/api/settings")
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error();
-      })
-      .then(data => {
-        if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
-          setInstagramReels(data.instagram_reels);
-        }
-        if (data.digital_printing_banner) {
-          setDigitalPrintingBanner(data.digital_printing_banner);
-        }
-      })
-      .catch(() => {});
-    fetch("/api/products")
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error();
-      })
-      .then(data => {
-        if (Array.isArray(data)) {
-          // Precise subcategory lists to filter products into 5 distinct categories
-          const digitalPrintingList = [
-            "Business Cards", "Flyers & Brochures", "Letterheads", "Invoice Books",
-            "Menu Printing", "Sticker Printing", "Banner Printing", "Door Hanger"
-          ];
-          const screenOffsetList = [
-            "T-Shirt Printing", "ID Cards & Lanyards printing", "Envelope Printing",
-            "Packaging Printing", "Paper Bags Printing", "Notepads Printing", "NCR Forms Printing", "Calendar Printing"
-          ];
-          const laserAcrylicList = [
-            "Acrylic Display Stands", "Trophy & Award Works", "Name Plates",
-            "Laser Engraving", "Laser Cutting", "Acrylic Boxes", "LED Acrylic Signs",
-            "Acrylic Sandwich Display"
-          ];
-          const outdoorIndoorList = [
-            "3D Sign Boards", "Backlit Signage",
-            "Wayfinding Signs", "Reception Signage", "Wall Graphics", "Window Frosting",
-            "Safety Sign Boards", "Vehicle Branding"
-          ];
-          const corporateGiftsList = [
-            "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "Caps Printing",
-            "Keychains", "USB Gift Items", "Promotional Giveaways", "Customized Diaries & Planners"
-          ];
+    const parseSettings = (data: any) => {
+      if (data.instagram_reels && Array.isArray(data.instagram_reels)) {
+        setInstagramReels(data.instagram_reels);
+      }
+      if (data.digital_printing_banner) {
+        setDigitalPrintingBanner(data.digital_printing_banner);
+      }
+    };
 
-          // Helper to get image for subcategory: either force fallback or use first product image
-          const getSubImage = (subName: string, category: string, defaultFallbackUrl: string) => {
-            if (forceFallbackSubcategories.has(subName)) {
-              return subcategoryFallbackImages[subName] || defaultFallbackUrl;
-            }
-            const dbCategory = (category === "Digital & Printing" || category === "Screen & Offset") ? "printing" :
-                               (category === "Laser & Acrylic" || category === "Outdoor & Indoor") ? "signage" : "branding";
-            const prod = data.find(p => p.category === dbCategory && p.subcategory === subName && p.image);
-            return prod ? prod.image : (subcategoryFallbackImages[subName] || defaultFallbackUrl);
+    const parseProducts = (data: any[]) => {
+      if (Array.isArray(data)) {
+        // Precise subcategory lists to filter products into 5 distinct categories
+        const digitalPrintingList = [
+          "Business Cards", "Flyers & Brochures", "Letterheads", "Invoice Books",
+          "Menu Printing", "Sticker Printing", "Banner Printing", "Door Hanger"
+        ];
+        const screenOffsetList = [
+          "T-Shirt Printing", "ID Cards & Lanyards printing", "Envelope Printing",
+          "Packaging Printing", "Paper Bags Printing", "Notepads Printing", "NCR Forms Printing", "Calendar Printing"
+        ];
+        const laserAcrylicList = [
+          "Acrylic Display Stands", "Trophy & Award Works", "Name Plates",
+          "Laser Engraving", "Laser Cutting", "Acrylic Boxes", "LED Acrylic Signs",
+          "Acrylic Sandwich Display"
+        ];
+        const outdoorIndoorList = [
+          "3D Sign Boards", "Backlit Signage",
+          "Wayfinding Signs", "Reception Signage", "Wall Graphics", "Window Frosting",
+          "Safety Sign Boards", "Vehicle Branding"
+        ];
+        const corporateGiftsList = [
+          "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "Caps Printing",
+          "Keychains", "USB Gift Items", "Promotional Giveaways", "Customized Diaries & Planners"
+        ];
+
+        // Helper to get image for subcategory: either force fallback or use first product image
+        const getSubImage = (subName: string, category: string, defaultFallbackUrl: string) => {
+          if (forceFallbackSubcategories.has(subName)) {
+            return subcategoryFallbackImages[subName] || defaultFallbackUrl;
+          }
+          const dbCategory = (category === "Digital & Printing" || category === "Screen & Offset") ? "printing" :
+                             (category === "Laser & Acrylic" || category === "Outdoor & Indoor") ? "signage" : "branding";
+          const prod = data.find(p => p.category === dbCategory && p.subcategory === subName && p.image);
+          return prod ? prod.image : (subcategoryFallbackImages[subName] || defaultFallbackUrl);
+        };
+
+        // 1. Digital & Printing Solutions
+        const digitalPrintingFiltered = digitalPrintingList.map(subName => {
+          const img = getSubImage(subName, "Digital & Printing", "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=800");
+          return {
+            title: subName,
+            category: "Digital & Printing",
+            image: img,
+            linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
           };
+        });
 
-          // 1. Digital & Printing Solutions
-          const digitalPrintingFiltered = digitalPrintingList.map(subName => {
-            const img = getSubImage(subName, "Digital & Printing", "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=800");
-            return {
-              title: subName,
-              category: "Digital & Printing",
-              image: img,
-              linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
-            };
-          });
+        // 2. Screen & Offset Printing
+        const screenOffsetFiltered = screenOffsetList.map(subName => {
+          const img = getSubImage(subName, "Screen & Offset", "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800");
+          return {
+            title: subName,
+            category: "Screen & Offset",
+            image: img,
+            linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
+          };
+        });
 
-          // 2. Screen & Offset Printing
-          const screenOffsetFiltered = screenOffsetList.map(subName => {
-            const img = getSubImage(subName, "Screen & Offset", "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800");
-            return {
-              title: subName,
-              category: "Screen & Offset",
-              image: img,
-              linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
-            };
-          });
+        // 3. Laser Etching & Acrylic Works
+        const laserAcrylicFiltered = laserAcrylicList.map(subName => {
+          const img = getSubImage(subName, "Laser & Acrylic", "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800");
+          return {
+            title: subName,
+            category: "Laser & Acrylic",
+            image: img,
+            linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
+          };
+        });
 
-          // 3. Laser Etching & Acrylic Works
-          const laserAcrylicFiltered = laserAcrylicList.map(subName => {
-            const img = getSubImage(subName, "Laser & Acrylic", "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800");
-            return {
-              title: subName,
-              category: "Laser & Acrylic",
-              image: img,
-              linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
-            };
-          });
+        // 4. Customized Corporate Gifts
+        const corporateGiftsFiltered = corporateGiftsList.map(subName => {
+          const img = getSubImage(subName, "Corporate Gifts", "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=800");
+          return {
+            title: subName,
+            category: "Corporate Gifts",
+            image: img,
+            linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
+          };
+        });
 
-          // 4. Customized Corporate Gifts
-          const corporateGiftsFiltered = corporateGiftsList.map(subName => {
-            const img = getSubImage(subName, "Corporate Gifts", "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=800");
-            return {
-              title: subName,
-              category: "Corporate Gifts",
-              image: img,
-              linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
-            };
-          });
+        // 5. Outdoor & Indoor Signages
+        const outdoorIndoorFiltered = outdoorIndoorList.map(subName => {
+          const img = getSubImage(subName, "Outdoor & Indoor", "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800");
+          return {
+            title: subName,
+            category: "Outdoor & Indoor",
+            image: img,
+            linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
+          };
+        });
 
-          // 5. Outdoor & Indoor Signages
-          const outdoorIndoorFiltered = outdoorIndoorList.map(subName => {
-            const img = getSubImage(subName, "Outdoor & Indoor", "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800");
-            return {
-              title: subName,
-              category: "Outdoor & Indoor",
-              image: img,
-              linkTo: `/products?subcategory=${encodeURIComponent(subName)}`
-            };
-          });
+        setDigitalPrinting(digitalPrintingFiltered);
+        setScreenOffset(screenOffsetFiltered);
+        setLaserAcrylic(laserAcrylicFiltered);
+        setCorporateGifts(corporateGiftsFiltered);
+        setOutdoorIndoor(outdoorIndoorFiltered);
+      }
+    };
 
-          setDigitalPrinting(digitalPrintingFiltered);
-          setScreenOffset(screenOffsetFiltered);
-          setLaserAcrylic(laserAcrylicFiltered);
-          setCorporateGifts(corporateGiftsFiltered);
-          setOutdoorIndoor(outdoorIndoorFiltered);
-        }
-      })
-      .catch(err => console.warn("Failed to fetch products for Home page", err));
+    const settings = (window as any).__initialSettings;
+    const products = (window as any).__initialProducts;
+
+    if (settings && products) {
+      parseSettings(settings);
+      parseProducts(products);
+    } else {
+      const handleData = () => {
+        const s = (window as any).__initialSettings;
+        const p = (window as any).__initialProducts;
+        if (s) parseSettings(s);
+        if (p) parseProducts(p);
+      };
+      window.addEventListener("initialDataLoaded", handleData);
+
+      // Trigger fallback fetches if window settings or products are missing
+      if (!settings) {
+        fetch("/api/settings")
+          .then(res => (res.ok ? res.json() : Promise.reject()))
+          .then(data => parseSettings(data))
+          .catch(() => {});
+      }
+      if (!products) {
+        fetch("/api/products")
+          .then(res => (res.ok ? res.json() : Promise.reject()))
+          .then(data => parseProducts(data))
+          .catch(() => {});
+      }
+
+      return () => {
+        window.removeEventListener("initialDataLoaded", handleData);
+      };
+    }
   }, []);
 
   return (

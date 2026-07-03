@@ -11,10 +11,37 @@ export default function Root() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 1. Fetch settings and products in parallel, store on window
+    const fetchSettings = fetch("/api/settings")
+      .then(res => (res.ok ? res.json() : Promise.reject()))
+      .then(data => {
+        (window as any).__initialSettings = data;
+      })
+      .catch(() => {
+        (window as any).__initialSettings = {};
+      });
+
+    const fetchProducts = fetch("/api/products")
+      .then(res => (res.ok ? res.json() : Promise.reject()))
+      .then(data => {
+        (window as any).__initialProducts = data;
+      })
+      .catch(() => {
+        (window as any).__initialProducts = [];
+      });
+
+    // 2. Keep the preloader delay exactly 4 seconds (no change)
     const timer = setTimeout(() => {
       setLoading(false);
     }, 4000);
-    return () => clearTimeout(timer);
+
+    Promise.all([fetchSettings, fetchProducts]).then(() => {
+      window.dispatchEvent(new CustomEvent("initialDataLoaded"));
+    });
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
