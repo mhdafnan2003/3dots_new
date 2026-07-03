@@ -22,23 +22,25 @@ export default function Products() {
 
   const digitalPrintingList = [
     "Business Cards", "Flyers & Brochures", "Letterheads", "Invoice Books",
-    "Menu Printing", "Sticker Printing", "Poster Printing", "Catalogue Printing"
+    "Menu Printing", "Sticker Printing", "Banner Printing", "Door Hanger"
   ];
   const screenOffsetList = [
-    "T-Shirt Printing", "Fabric Printing", "PVC Card Printing", "Envelope Printing",
-    "Magazine Printing", "Packaging Printing", "Multi-Color Offset Printing", "Bulk Printing Services"
+    "T-Shirt Printing", "ID Cards & Lanyards printing", "Envelope Printing",
+    "Packaging Printing", "Paper Bags Printing", "Notepads Printing", "NCR Forms Printing", "Calendar Printing"
   ];
   const laserAcrylicList = [
-    "Acrylic Sign Boards", "Acrylic Display Stands", "Name Plates", "Laser Cutting",
-    "Laser Engraving", "Acrylic Boxes", "LED Acrylic Signs", "Trophy & Award Works"
+    "Acrylic Display Stands", "Trophy & Award Works", "Name Plates",
+    "Laser Engraving", "Laser Cutting", "Acrylic Boxes", "LED Acrylic Signs",
+    "Acrylic Sandwich Display"
   ];
   const outdoorIndoorList = [
-    "Flex Banners", "Roll-Up Stands", "3D Sign Boards", "Backlit Signage",
-    "Wayfinding Signs", "Vehicle Branding", "Wall Graphics", "Window Frosting"
+    "3D Sign Boards", "Backlit Signage",
+    "Wayfinding Signs", "Reception Signage", "Wall Graphics", "Window Frosting",
+    "Safety Sign Boards", "Vehicle Branding"
   ];
   const corporateGiftsList = [
-    "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "ID Cards & Lanyards",
-    "Keychains", "Caps Printing", "USB Gift Items", "Promotional Giveaways"
+    "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "Caps Printing",
+    "Keychains", "USB Gift Items", "Promotional Giveaways", "Customized Diaries & Planners"
   ];
 
   useEffect(() => {

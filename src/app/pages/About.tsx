@@ -128,15 +128,15 @@ const team = [
   },
   {
     name: "Fayis Muhammed",
-    role: "Graphic Designer",
+    role: "Site Supervisor",
     imgId: "/images/fayis.jpeg",
-    bio: "A creative designer specializing in print and digital artwork. Fayis transforms ideas into visually engaging designs, delivering innovative concepts that help brands stand out and communicate effectively.",
+    bio: "Responsible for managing on-site installations and project coordination. Fayis ensures that every signage, branding, and advertising project is completed safely, efficiently, and to the highest professional standards.",
   },
   {
     name: "Nufail Muhammed",
-    role: "Site Supervisor",
+    role: "Graphics Designer",
     imgId: "/images/nufail.jpeg",
-    bio: "Responsible for managing on-site installations and project coordination. Nufail ensures that every signage, branding, and advertising project is completed safely, efficiently, and to the highest professional standards.",
+    bio: "A creative designer specializing in print and digital artwork. Nufail transforms ideas into visually engaging designs, delivering innovative concepts that help brands stand out and communicate effectively.",
   },
   {
     name: "Kavya Vinod K",

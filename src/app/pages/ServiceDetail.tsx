@@ -118,6 +118,7 @@ const serviceData: Record<string, any> = {
     subtitle: "Brand Longevity.",
     description: "Stay top-of-mind with a curated selection of promotional products. From executive corporate gifts to high-volume event merchandise, we provide high-quality branding that reflects your company's excellence.",
     heroImage: "/images/corporate_gifts_hero.jpeg",
+    mobileHeroImage: "/images/corporate_gifts_hero_mobile.png",
     features: [
       "Curated corporate gift sets",
       "Custom branded tech accessories",
@@ -208,7 +209,12 @@ export default function ServiceDetail() {
         <ImageWithFallback 
           src={service.heroImage}
           alt={service.title}
-          className="w-full h-full object-cover"
+          className="hidden md:block w-full h-full object-cover"
+        />
+        <ImageWithFallback 
+          src={service.mobileHeroImage || service.heroImage}
+          alt={service.title}
+          className="block md:hidden w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-end p-6 md:p-24">
           <motion.div 

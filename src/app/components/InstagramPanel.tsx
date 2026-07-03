@@ -383,14 +383,9 @@ export function InstagramSection({ instagramReels, onOpenDrawer }: InstagramSect
 
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
             <a
-              href="#contact"
-              onClick={(e) => {
-                const el = document.getElementById("contact");
-                if (el) {
-                  e.preventDefault();
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              href="https://wa.me/971563139733?text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-[#3D7B89] hover:bg-[#347689] text-white px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-[0.15em] transition-all hover:scale-105 shadow-md shadow-[#3D7B89]/10"
             >
               Get a Free Quote

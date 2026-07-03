@@ -213,12 +213,6 @@ export default function ProductDetail() {
                     >
                       {product.category}
                     </span>
-                    <span 
-                      className="text-[9px] font-medium uppercase tracking-wider text-[#0A0A0A]"
-                      style={{ fontFamily: '"Neue Regrade", sans-serif' }}
-                    >
-                      CLIENT: {product.client}
-                    </span>
                   </div>
                 </div>
               </div>

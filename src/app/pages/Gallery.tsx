@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ZoomIn, ArrowRight } from "lucide-react";
+import { useSearchParams } from "react-router";
 import * as Dialog from "@radix-ui/react-dialog";
 
 type Category = "All" | "Digital & Printing" | "Screen & Offset" | "Laser & Acrylic" | "Outdoor & Indoor" | "Corporate Gifts";
@@ -90,9 +91,23 @@ const items: GalleryItem[] = [
 const categories: Category[] = ["All", "Digital & Printing", "Screen & Offset", "Laser & Acrylic", "Outdoor & Indoor", "Corporate Gifts"];
 
 export default function Gallery() {
+  const [searchParams] = useSearchParams();
+  const itemTitleParam = searchParams.get("title");
   const [active, setActive] = useState<Category>("All");
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+
+  // Auto-open selected item if title param matches
+  useEffect(() => {
+    if (itemTitleParam && galleryItems.length > 0) {
+      const found = galleryItems.find(
+        (item) => item.title.toLowerCase() === itemTitleParam.toLowerCase()
+      );
+      if (found) {
+        setSelected(found);
+      }
+    }
+  }, [itemTitleParam, galleryItems]);
 
   // Inline zoom states & refs for the lightbox
   const [isZoomed, setIsZoomed] = useState(false);
@@ -226,7 +241,6 @@ export default function Gallery() {
                       <h3 className="text-white font-medium text-lg leading-tight mb-1">
                         {item.title}
                       </h3>
-                      <p className="text-white/60 text-xs">{item.client}</p>
                     </div>
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <ZoomIn size={18} className="text-white/80" />
@@ -283,10 +297,9 @@ export default function Gallery() {
                     <p className="text-[9px] uppercase tracking-[0.4em] text-white/40 mb-4 font-bold">
                       {selected.category} — {selected.year}
                     </p>
-                    <h2 className="text-2xl font-medium text-white leading-tight mb-4">
+                    <h2 className="text-2xl font-medium text-white leading-tight mb-8">
                       {selected.title}
                     </h2>
-                    <p className="text-white/45 text-sm mb-8">Client: {selected.client}</p>
                     <a
                       href="https://wa.me/971563139733?text=Hi%2C%20I%27m%20interested%20in%20a%20similar%20project"
                       target="_blank"

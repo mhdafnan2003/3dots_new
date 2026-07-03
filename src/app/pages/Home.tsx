@@ -15,68 +15,96 @@ const subcategoryFallbackImages: Record<string, string> = {
   // Digital & Printing Solutions
   "Business Cards": "/images/business_card_fallback.jpg",
   "Flyers & Brochures": "/images/flyers_brochures_fallback.jpg",
-  "Letterheads": "/images/letterheads_fallback.png",
+  "Letterheads": "/images/letterheads_fallback.jpg",
   "Invoice Books": "/images/invoice_books_fallback.jpg",
   "Menu Printing": "/images/menu_printing_fallback.jpg",
   "Sticker Printing": "/images/sticker_printing_fallback.jpg",
-  "Poster Printing": "/images/poster_printing_fallback.jpg",
-  "Catalogue Printing": "/images/catalogue_printing_fallback.jpg",
+  "Banner Printing": "/images/banner_printing_fallback.jpg",
+  "Door Hanger": "/images/door_hanger_fallback.jpg",
 
   // Screen & Offset Printing
   "T-Shirt Printing": "/images/tshirt_printing_fallback.jpg",
-  "Fabric Printing": "/images/fabric_printing_fallback.jpg",
-  "PVC Card Printing": "/images/pvc_card_printing_fallback.png",
+  "ID Cards & Lanyards printing": "/images/id_lanyards_printing_fallback.jpg",
   "Envelope Printing": "/images/envelope_printing_fallback.jpg",
-  "Magazine Printing": "/images/magazine_printing_fallback.jpg",
   "Packaging Printing": "/images/packaging_printing_fallback.jpg",
-  "Multi-Color Offset Printing": "/images/multicolor_offset_fallback.jpg",
-  "Bulk Printing Services": "/images/bulk_printing_fallback.jpg",
+  "Paper Bags Printing": "/images/paper_bags_printing_fallback.jpg",
+  "Notepads Printing": "/images/notepads_printing_fallback.jpg",
+  "NCR Forms Printing": "/images/ncr_forms_printing_fallback.jpg",
+  "Calendar Printing": "/images/calendar_printing_fallback.jpg",
 
   // Laser Etching & Acrylic Works
-  "Acrylic Sign Boards": "/images/acrylic_signboard_fallback.jpg",
   "Acrylic Display Stands": "/images/acrylic_stands_fallback.jpg",
   "Name Plates": "/images/name_plates_fallback.jpg",
-  "Laser Cutting": "/images/laser_cutting_fallback.jpg",
   "Laser Engraving": "/images/laser_engraving_fallback.jpg",
-  "Acrylic Boxes": "/images/acrylic_boxes_fallback.jpg",
+  "Laser Cutting": "/images/laser_cutting_fallback.jpg",
   "LED Acrylic Signs": "/images/led_acrylic_signs_fallback.jpg",
   "Trophy & Award Works": "/images/trophies_fallback.jpg",
+  "Acrylic Boxes": "/images/acrylic_boxes_fallback.jpg",
+  "Acrylic Sandwich Display": "/images/acrylic_sandwich_display_fallback.jpg",
 
   // Outdoor & Indoor Signages
-  "Flex Banners": "/images/flex_banners_fallback.jpg",
-  "Roll-Up Stands": "/images/rollup_stands_fallback.jpg",
   "3D Sign Boards": "/images/3d_signboards_fallback.jpg",
   "Backlit Signage": "/images/backlit_signage_fallback.jpg",
   "Wayfinding Signs": "/images/wayfinding_fallback.jpg",
-  "Vehicle Branding": "/images/vehicle_branding_fallback.jpg",
+  "Reception Signage": "/images/reception_signage_fallback.jpg",
   "Wall Graphics": "/images/wall_graphics_fallback.jpg",
   "Window Frosting": "/images/window_frosting_fallback.jpg",
+  "Safety Sign Boards": "/images/safety_signboards_fallback.jpg",
+  "Vehicle Branding": "/images/vehicle_branding_fallback.jpg",
 
   // Customized Corporate Gifts
   "Customized Mugs": "/images/custom_mugs_fallback.jpg",
   "Pen Printing": "/images/pen_printing_fallback.jpg",
   "Corporate Gift Sets": "/images/corporate_gift_sets_fallback.jpg",
-  "ID Cards & Lanyards": "/images/id_lanyards_fallback.jpg",
   "Keychains": "/images/keychains_fallback.jpg",
-  "Caps Printing": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=800",
+  "Caps Printing": "/images/caps_printing_fallback.jpg",
   "USB Gift Items": "/images/usb_gift_items_fallback.jpg",
-  "Promotional Giveaways": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=800"
+  "Promotional Giveaways": "/images/promotional_giveaways_fallback.jpg",
+  "Customized Diaries & Planners": "/images/custom_diaries_fallback.jpg"
 };
 
 const forceFallbackSubcategories = new Set([
   "Business Cards",
+  "Banner Printing",
+  "Door Hanger",
+  "Envelope Printing",
+  "Flyers & Brochures",
+  "Invoice Books",
+  "Letterheads",
   "Menu Printing",
   "Sticker Printing",
-  "Magazine Printing",
+  "Packaging Printing",
+  "Laser Cutting",
   "Acrylic Boxes",
   "LED Acrylic Signs",
-  "Flex Banners",
-  "Roll-Up Stands",
   "3D Sign Boards",
   "Wayfinding Signs",
   "Customized Mugs",
   "USB Gift Items",
-  "T-Shirt Printing"
+  "T-Shirt Printing",
+  "ID Cards & Lanyards printing",
+  "Paper Bags Printing",
+  "Notepads Printing",
+  "NCR Forms Printing",
+  "Calendar Printing",
+  "Acrylic Display Stands",
+  "Trophy & Award Works",
+  "Name Plates",
+  "Laser Engraving",
+  "Acrylic Sandwich Display",
+  "Backlit Signage",
+  "Reception Signage",
+  "Wall Graphics",
+  "Window Frosting",
+  "Safety Sign Boards",
+  "Vehicle Branding",
+  "Pen Printing",
+  "Corporate Gift Sets",
+  "Caps Printing",
+  "Keychains",
+  "USB Gift Items",
+  "Promotional Giveaways",
+  "Customized Diaries & Planners"
 ]);
 
 export default function Home() {
@@ -121,23 +149,25 @@ export default function Home() {
           // Precise subcategory lists to filter products into 5 distinct categories
           const digitalPrintingList = [
             "Business Cards", "Flyers & Brochures", "Letterheads", "Invoice Books",
-            "Menu Printing", "Sticker Printing", "Poster Printing", "Catalogue Printing"
+            "Menu Printing", "Sticker Printing", "Banner Printing", "Door Hanger"
           ];
           const screenOffsetList = [
-            "T-Shirt Printing", "Fabric Printing", "PVC Card Printing", "Envelope Printing",
-            "Magazine Printing", "Packaging Printing", "Multi-Color Offset Printing", "Bulk Printing Services"
+            "T-Shirt Printing", "ID Cards & Lanyards printing", "Envelope Printing",
+            "Packaging Printing", "Paper Bags Printing", "Notepads Printing", "NCR Forms Printing", "Calendar Printing"
           ];
           const laserAcrylicList = [
-            "Acrylic Sign Boards", "Acrylic Display Stands", "Name Plates", "Laser Cutting",
-            "Laser Engraving", "Acrylic Boxes", "LED Acrylic Signs", "Trophy & Award Works"
+            "Acrylic Display Stands", "Trophy & Award Works", "Name Plates",
+            "Laser Engraving", "Laser Cutting", "Acrylic Boxes", "LED Acrylic Signs",
+            "Acrylic Sandwich Display"
           ];
           const outdoorIndoorList = [
-            "Flex Banners", "Roll-Up Stands", "3D Sign Boards", "Backlit Signage",
-            "Wayfinding Signs", "Vehicle Branding", "Wall Graphics", "Window Frosting"
+            "3D Sign Boards", "Backlit Signage",
+            "Wayfinding Signs", "Reception Signage", "Wall Graphics", "Window Frosting",
+            "Safety Sign Boards", "Vehicle Branding"
           ];
           const corporateGiftsList = [
-            "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "ID Cards & Lanyards",
-            "Keychains", "Caps Printing", "USB Gift Items", "Promotional Giveaways"
+            "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "Caps Printing",
+            "Keychains", "USB Gift Items", "Promotional Giveaways", "Customized Diaries & Planners"
           ];
 
           // Helper to get image for subcategory: either force fallback or use first product image
@@ -234,15 +264,15 @@ export default function Home() {
               categoryKey="digital-printing"
               bgColor="bg-white"
             />
-            <section className="relative w-full h-[200px] sm:h-[300px] md:h-[520px] bg-white overflow-hidden z-0">
+            <section className="relative w-full h-auto bg-white overflow-hidden z-0">
               <Link to="/products?category=digital-printing" className="block w-full h-full cursor-pointer">
                 <img
                   src={digitalPrintingBanner}
                   alt="Digital Printing Banner"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto"
                 />
               </Link>
-            </section>
+             </section>
           </>
         )}
         
