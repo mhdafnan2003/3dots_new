@@ -110,8 +110,9 @@ export default function Contact() {
               <div className="space-y-3">
                 <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 block">HOURS</span>
                 <p className="text-xl md:text-2xl font-normal text-[#0A0A0A] leading-relaxed">
-                  Monday to Sunday <br />
+                  Monday to Saturday <br />
                   <span className="text-xs text-gray-400 block mt-1">9:30am to 9:30pm</span>
+                  <span className="text-xs text-gray-400 block mt-1">Sunday Leave</span>
                 </p>
               </div>
             </div>

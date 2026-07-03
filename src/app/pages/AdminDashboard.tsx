@@ -44,47 +44,47 @@ const SUB_CATEGORIES_MAPPING = {
       "Invoice Books",
       "Menu Printing",
       "Sticker Printing",
-      "Poster Printing",
-      "Catalogue Printing"
+      "Banner Printing",
+      "Door Hanger"
     ]
   },
   "Screen & Offset Printing": {
     mainCategory: "printing",
     subs: [
       "T-Shirt Printing",
-      "Fabric Printing",
-      "PVC Card Printing",
+      "ID Cards & Lanyards printing",
       "Envelope Printing",
-      "Magazine Printing",
       "Packaging Printing",
-      "Multi-Color Offset Printing",
-      "Bulk Printing Services"
+      "Paper Bags Printing",
+      "Notepads Printing",
+      "NCR Forms Printing",
+      "Calendar Printing"
     ]
   },
   "Laser Etching & Acrylic Works": {
     mainCategory: "signage",
     subs: [
-      "Acrylic Sign Boards",
       "Acrylic Display Stands",
+      "Trophy & Award Works",
       "Name Plates",
-      "Laser Cutting",
       "Laser Engraving",
+      "Laser Cutting",
       "Acrylic Boxes",
       "LED Acrylic Signs",
-      "Trophy & Award Works"
+      "Acrylic Sandwich Display"
     ]
   },
   "Outdoor & Indoor Signages": {
     mainCategory: "signage",
     subs: [
-      "Flex Banners",
-      "Roll-Up Stands",
       "3D Sign Boards",
       "Backlit Signage",
       "Wayfinding Signs",
-      "Vehicle Branding",
+      "Reception Signage",
       "Wall Graphics",
-      "Window Frosting"
+      "Window Frosting",
+      "Safety Sign Boards",
+      "Vehicle Branding"
     ]
   },
   "Customized Corporate Gifts": {
@@ -93,11 +93,11 @@ const SUB_CATEGORIES_MAPPING = {
       "Customized Mugs",
       "Pen Printing",
       "Corporate Gift Sets",
-      "ID Cards & Lanyards",
-      "Keychains",
       "Caps Printing",
+      "Keychains",
       "USB Gift Items",
-      "Promotional Giveaways"
+      "Promotional Giveaways",
+      "Customized Diaries & Planners"
     ]
   }
 };

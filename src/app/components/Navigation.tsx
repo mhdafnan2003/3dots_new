@@ -15,6 +15,7 @@ export default function Navigation() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [allProducts, setAllProducts] = useState<any[]>([]);
+  const [allPortfolio, setAllPortfolio] = useState<any[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,44 +64,46 @@ export default function Navigation() {
       name: "Digital & Printing",
       subcategories: [
         "Business Cards", "Flyers & Brochures", "Letterheads", "Invoice Books",
-        "Menu Printing", "Sticker Printing", "Poster Printing", "Catalogue Printing"
+        "Menu Printing", "Sticker Printing", "Banner Printing", "Door Hanger"
       ]
     },
     {
       id: "screen-offset",
       name: "Screen & Offset",
       subcategories: [
-        "T-Shirt Printing", "Fabric Printing", "PVC Card Printing", "Envelope Printing",
-        "Magazine Printing", "Packaging Printing", "Multi-Color Offset Printing", "Bulk Printing Services"
+        "T-Shirt Printing", "ID Cards & Lanyards printing", "Envelope Printing",
+        "Packaging Printing", "Paper Bags Printing", "Notepads Printing", "NCR Forms Printing", "Calendar Printing"
       ]
     },
     {
       id: "laser-acrylic",
       name: "Laser & Acrylic",
       subcategories: [
-        "Acrylic Sign Boards", "Acrylic Display Stands", "Name Plates", "Laser Cutting",
-        "Laser Engraving", "Acrylic Boxes", "LED Acrylic Signs", "Trophy & Award Works"
+        "Acrylic Display Stands", "Trophy & Award Works", "Name Plates",
+        "Laser Engraving", "Laser Cutting", "Acrylic Boxes", "LED Acrylic Signs",
+        "Acrylic Sandwich Display"
       ]
     },
     {
       id: "outdoor-indoor",
       name: "Outdoor & Indoor",
       subcategories: [
-        "Flex Banners", "Roll-Up Stands", "3D Sign Boards", "Backlit Signage",
-        "Wayfinding Signs", "Vehicle Branding", "Wall Graphics", "Window Frosting"
+        "3D Sign Boards", "Backlit Signage",
+        "Wayfinding Signs", "Reception Signage", "Wall Graphics", "Window Frosting",
+        "Safety Sign Boards", "Vehicle Branding"
       ]
     },
     {
       id: "corporate-gifts",
       name: "Corporate Gifts",
       subcategories: [
-        "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "ID Cards & Lanyards",
-        "Keychains", "Caps Printing", "USB Gift Items", "Promotional Giveaways"
+        "Customized Mugs", "Pen Printing", "Corporate Gift Sets", "Caps Printing",
+        "Keychains", "USB Gift Items", "Promotional Giveaways", "Customized Diaries & Planners"
       ]
     }
   ];
 
-  // Fetch products for search on mount
+  // Fetch products and portfolio for search on mount
   useEffect(() => {
     fetch("/api/products")
       .then(res => {
@@ -115,6 +118,20 @@ export default function Navigation() {
       .catch(err => {
         console.warn("Failed to fetch products for search bar", err);
       });
+
+    fetch("/api/portfolio")
+      .then(res => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setAllPortfolio(data);
+        }
+      })
+      .catch(err => {
+        console.warn("Failed to fetch portfolio for search bar", err);
+      });
   }, []);
 
   // Update search results on query change
@@ -126,9 +143,11 @@ export default function Navigation() {
 
     const query = searchQuery.toLowerCase();
     
-    // Helper to check if any word in the text starts with the query
+    // Helper to check if any word in the text starts with the query, or if the phrase is included
     const matchesQuery = (text: string) => {
-      const words = text.toLowerCase().split(/[\s&,\-\/\(\)]+/);
+      const lowerText = text.toLowerCase();
+      if (lowerText.includes(query)) return true;
+      const words = lowerText.split(/[\s&,\-\/\(\)]+/);
       return words.some(word => word.startsWith(query));
     };
 
@@ -166,12 +185,34 @@ export default function Navigation() {
         id: prod._id || prod.id
       }));
 
-    setSearchResults([
+    // 4. Match Portfolio
+    const matchedPortfolio = allPortfolio
+      .filter(item => item.title && matchesQuery(item.title))
+      .map(item => ({
+        type: "portfolio" as const,
+        name: item.title,
+        id: item._id || item.id
+      }));
+
+    const combined = [
       ...matchedCategories,
       ...matchedSubcategories,
-      ...matchedProducts
-    ].slice(0, 8));
-  }, [searchQuery, allProducts]);
+      ...matchedProducts,
+      ...matchedPortfolio
+    ];
+
+    const unique = [];
+    const seen = new Set();
+    for (const item of combined) {
+      const key = `${item.type}-${item.name.toLowerCase()}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(item);
+      }
+    }
+
+    setSearchResults(unique.slice(0, 8));
+  }, [searchQuery, allProducts, allPortfolio]);
 
   const isWhiteNavbar = location.pathname.startsWith("/products") || location.pathname === "/gallery";
 
@@ -324,6 +365,8 @@ export default function Navigation() {
                             path = `/products?category=${res.id}`;
                           } else if (res.type === "subcategory") {
                             path = `/products?subcategory=${encodeURIComponent(res.name)}`;
+                          } else if (res.type === "portfolio") {
+                            path = `/gallery?title=${encodeURIComponent(res.name)}`;
                           }
 
                           return (

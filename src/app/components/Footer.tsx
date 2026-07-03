@@ -74,7 +74,7 @@ export default function Footer() {
 
           {/* Column 3: Contact Us */}
           <div className="flex flex-col">
-            <div className="bg-[#3D7B89] py-3.5 px-6 text-center font-bold text-xs tracking-[0.2em] uppercase text-white rounded-t-[4px]">
+            <div className="bg-[#E4B31F] py-3.5 px-6 text-center font-bold text-xs tracking-[0.2em] uppercase text-black rounded-t-[4px]">
               Contact Us
             </div>
             <div className="border-x border-b border-white/5 bg-white/[0.01] flex-1">
@@ -136,11 +136,11 @@ export default function Footer() {
                 </li>
                 <li className="py-3.5 px-6 hover:bg-white/[0.02]">
                   <span className="block text-white/80 font-bold uppercase tracking-wider text-[9px] mb-1">Working Days</span>
-                  Monday to Sunday
+                  Monday to Saturday
                 </li>
                 <li className="py-3.5 px-6 hover:bg-white/[0.02]">
                   <span className="block text-white/80 font-bold uppercase tracking-wider text-[9px] mb-1">Status</span>
-                  Open 7 Days a Week
+                  Sunday Leave
                 </li>
                 <li className="py-3.5 px-6 text-center">
                   <Link to="/contact" className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.1em] text-[#3D7B89] hover:underline">
