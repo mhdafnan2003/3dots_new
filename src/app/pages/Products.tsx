@@ -83,11 +83,22 @@ export default function Products() {
         setSelectedCategory("outdoor-indoor");
       } else if (corporateGiftsList.includes(subcategoryParam)) {
         setSelectedCategory("corporate-gifts");
+      } else {
+        const prod = allProducts.find(p => p.subcategory === subcategoryParam);
+        if (prod) {
+          if (prod.category === "printing") {
+            setSelectedCategory("digital-printing");
+          } else if (prod.category === "signage") {
+            setSelectedCategory("laser-acrylic");
+          } else if (prod.category === "branding") {
+            setSelectedCategory("corporate-gifts");
+          }
+        }
       }
     } else if (categoryParam) {
       setSelectedCategory(categoryParam);
     }
-  }, [subcategoryParam, categoryParam]);
+  }, [subcategoryParam, categoryParam, allProducts]);
 
   const filteredProducts = allProducts.filter((product) => {
     if (subcategoryParam && product.subcategory !== subcategoryParam) {
@@ -95,19 +106,19 @@ export default function Products() {
     }
     if (selectedCategory === "all") return true;
     if (selectedCategory === "digital-printing") {
-      return product.category === "printing" && digitalPrintingList.includes(product.subcategory);
+      return product.category === "printing" && (digitalPrintingList.includes(product.subcategory) || !screenOffsetList.includes(product.subcategory));
     }
     if (selectedCategory === "screen-offset") {
       return product.category === "printing" && screenOffsetList.includes(product.subcategory);
     }
     if (selectedCategory === "laser-acrylic") {
-      return product.category === "signage" && laserAcrylicList.includes(product.subcategory);
+      return product.category === "signage" && (laserAcrylicList.includes(product.subcategory) || !outdoorIndoorList.includes(product.subcategory));
     }
     if (selectedCategory === "outdoor-indoor") {
       return product.category === "signage" && outdoorIndoorList.includes(product.subcategory);
     }
     if (selectedCategory === "corporate-gifts") {
-      return product.category === "branding" && corporateGiftsList.includes(product.subcategory);
+      return product.category === "branding";
     }
     return false;
   });
@@ -180,6 +191,7 @@ export default function Products() {
               <Link
                 key={product.id}
                 to={`/products/${product.id}`}
+                state={{ fromCategory: selectedCategory, fromSubcategory: subcategoryParam }}
                 className="group cursor-pointer block"
               >
                 <motion.div

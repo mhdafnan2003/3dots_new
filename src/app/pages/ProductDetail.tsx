@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router";
+import { useParams, Link, useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, MessageCircle, Share2, Sparkles, X } from "lucide-react";
@@ -8,6 +8,18 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const location = useLocation();
+
+  const fromCategory = location.state?.fromCategory;
+  const fromSubcategory = location.state?.fromSubcategory;
+
+  let backUrl = "/products";
+  if (fromSubcategory) {
+    backUrl = `/products?subcategory=${encodeURIComponent(fromSubcategory)}`;
+  } else if (fromCategory && fromCategory !== "all") {
+    backUrl = `/products?category=${fromCategory}`;
+  }
+
   const [product, setProduct] = useState<any>(null);
   const [activeImage, setActiveImage] = useState("");
   const [loading, setLoading] = useState(true);
@@ -132,7 +144,7 @@ export default function ProductDetail() {
       {/* Dynamic Header Back Button */}
       <div className="fixed top-24 left-6 md:left-12 z-50 flex gap-4">
         <Link 
-          to="/products"
+          to={backUrl}
           className="w-12 h-12 rounded-full bg-white/80 backdrop-blur-md shadow-xl border border-black/5 flex items-center justify-center hover:scale-110 transition-transform"
           aria-label="Back to Products"
         >
