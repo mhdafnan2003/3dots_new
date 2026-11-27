@@ -93,6 +93,24 @@ export default function ProductDetail() {
       });
   }, [id]);
 
+  const handleShare = () => {
+    const productUrl = window.location.href;
+
+    const shareLines = [
+      `*3Dots Advertising*`,
+      ``,
+      `*Product:* ${product?.name || ""}`,
+      ...(product?.category ? [`*Category:* ${product.category}`] : []),
+      ``,
+      `*Product Link:*`,
+      productUrl,
+    ];
+
+    const shareMessage = shareLines.join("\n");
+    const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
+    window.open(whatsappShareUrl, "_blank", "noopener,noreferrer");
+  };
+
   const handleQuoteSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const baseMessage = `Hi 3Dots, I would like to request a quote for:
@@ -294,7 +312,13 @@ export default function ProductDetail() {
                   <MessageCircle size={16} strokeWidth={1.5} />
                   Request Quote
                 </button>
-                <button className="w-12 h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all group shadow-sm shrink-0">
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  aria-label="Share product on WhatsApp"
+                  title="Share on WhatsApp"
+                  className="w-12 h-12 rounded-full border border-black/10 bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all group shadow-sm shrink-0 cursor-pointer"
+                >
                   <Share2 size={16} strokeWidth={1.5} className="text-[#0A0A0A] group-hover:text-white group-hover:scale-110 transition-all" />
                 </button>
               </div>

@@ -10,6 +10,17 @@
       "destination": "/api/index.js"
     },
     {
+      "source": "/products/:id",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(WhatsApp|facebookexternalhit|Facebot|Meta-ExternalFetcher|Meta-ExternalAgent|Twitterbot|LinkedInBot|TelegramBot|Slackbot|Discordbot|Pinterest|Embedly|Applebot).*"
+        }
+      ],
+      "destination": "/api/index.js?ogProduct=:id"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
