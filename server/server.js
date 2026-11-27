@@ -46,7 +46,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection middleware for APIs
 app.use(async (req, res, next) => {
-  if (req.path.startsWith('/api')) {
+  if (req.path.startsWith('/api') || req.query.ogProduct) {
     try {
       await connectDB();
       next();
@@ -57,6 +57,99 @@ app.use(async (req, res, next) => {
   } else {
     next();
   }
+});
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+async function serveProductOgHtml(req, res, productId) {
+  const proto = req.headers['x-forwarded-proto'] || req.protocol || 'https';
+  const host = req.headers['x-forwarded-host'] || req.get('host');
+  const origin = `${proto}://${host}`;
+  const productUrl = `${origin}/products/${encodeURIComponent(productId)}`;
+
+  let title = '3Dots Advertising | Product Showcase';
+  let description = '3Dots Advertising is a full-service printing press and branding company in Abu Dhabi offering corporate gifts, signage, large format printing, and promotional solutions across UAE.';
+  let rawImage = '/images/3Dotfooter.png';
+
+  try {
+    let found = null;
+    if (useLocalJSON) {
+      const db = readLocalDB();
+      found = db.products.find((p) => String(p._id || p.id) === String(productId));
+    } else if (mongoose.Types.ObjectId.isValid(productId)) {
+      found = await Product.findById(productId).lean();
+    }
+
+    if (found) {
+      const categoryLabel = found.subcategory || found.category || '';
+      title = categoryLabel ? `${found.title} — ${categoryLabel} | 3Dots` : `${found.title} | 3Dots`;
+      if (found.description && found.description.trim()) {
+        description = found.description.trim();
+      }
+      rawImage = found.image || (Array.isArray(found.images) && found.images[0]) || rawImage;
+    }
+  } catch (err) {
+    console.error('OG product lookup failed:', err.message);
+  }
+
+  let absoluteImage = /^https?:\/\//i.test(rawImage)
+    ? rawImage
+    : `${origin}${rawImage.startsWith('/') ? '' : '/'}${rawImage}`;
+
+  // Ensure Cloudinary images are lightweight JPEG/under WhatsApp's preview size limit
+  if (absoluteImage.includes('res.cloudinary.com') && absoluteImage.includes('/image/upload/')) {
+    absoluteImage = absoluteImage.replace(
+      '/image/upload/',
+      '/image/upload/w_1200,c_limit,q_auto,f_jpg/'
+    );
+  }
+
+  const safeTitle = escapeHtml(title);
+  const safeDescription = escapeHtml(description);
+  const safeImage = escapeHtml(absoluteImage);
+  const safeUrl = escapeHtml(productUrl);
+
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  return res.send(`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>${safeTitle}</title>
+    <meta name="description" content="${safeDescription}" />
+    <meta property="og:type" content="product" />
+    <meta property="og:site_name" content="3Dots Advertising" />
+    <meta property="og:title" content="${safeTitle}" />
+    <meta property="og:description" content="${safeDescription}" />
+    <meta property="og:image" content="${safeImage}" />
+    <meta property="og:image:secure_url" content="${safeImage}" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:url" content="${safeUrl}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${safeTitle}" />
+    <meta name="twitter:description" content="${safeDescription}" />
+    <meta name="twitter:image" content="${safeImage}" />
+    <meta http-equiv="refresh" content="0;url=${safeUrl}" />
+  </head>
+  <body></body>
+</html>`);
+}
+
+app.use((req, res, next) => {
+  if (req.query.ogProduct) {
+    return serveProductOgHtml(req, res, String(req.query.ogProduct));
+  }
+  next();
+});
+
+app.get('/api/og/product/:id', (req, res) => {
+  return serveProductOgHtml(req, res, req.params.id);
 });
 
 // ================= LOCAL JSON DATABASE ENGINE (FAIL-SAFE FALLBACK) =================

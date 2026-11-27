@@ -45,6 +45,19 @@ export default defineConfig({
         target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false,
+      },
+      '/products/': {
+        target: 'http://localhost:5000',
+        changeOrigin: false,
+        secure: false,
+        bypass(req) {
+          const ua = req.headers['user-agent'] || '';
+          const isCrawler = /WhatsApp|facebookexternalhit|Facebot|Meta-ExternalFetcher|Meta-ExternalAgent|Twitterbot|LinkedInBot|TelegramBot|Slackbot|Discordbot|Pinterest|Embedly|Applebot/i.test(ua);
+          if (!isCrawler) {
+            return req.url;
+          }
+        },
+        rewrite: (p) => p.replace(/^\/products\//, '/api/og/product/'),
       }
     }
   },
